@@ -1,0 +1,123 @@
+#peace_logo {
+  color: red;
+}
+#ico-bt1,
+#ico-bt2,
+#ico-bt4,
+#ico-bt5 {
+  color: rgb(47, 5, 82);
+}
+#ico-bt3{
+  position: relative;
+  bottom: 15px ;
+  color: rgb(47, 5, 82);
+}
+#rowbot{
+  position: relative;
+  top: 30px;
+}
+#separate{
+  position: relative;
+  bottom: 9px;
+  height: 1px;
+  width: 100%;
+  background-color: rgb(151, 151, 151);
+}
+#margin{
+  height: 100px;
+}
+
+/* from copy */
+
+:root{
+  --white: #ffffff;
+  --midcolor: #910A67;
+  --dark1: #720455;
+  --dark2: #3C0753;
+  --darkest:#030637; 
+}
+
+#indexbody {
+  width: 100%;
+  height: 100%;
+  /* background-image: url("https://www.bhmpics.com/downloads/android-wallpaper-gif/8.r0cwpwi.gif"); */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+/* h1 { */
+  /* color: black; */
+  /* font-size: 60px; */
+/* } */
+#mt {
+  margin-top: 70px;
+}
+#spacer {
+  height: 50px;
+}
+#spacer2 {
+  height: 100px;
+}
+
+
+#background {
+  background-color:white;
+  height: auto;
+  color: #030637;
+}#c {
+ color: #030637;
+}
+#form_login{
+  color: black;
+}
+#login_button{
+  background-color: #030637;
+  color: aliceblue;
+}
+/* intro.html */
+#indexbody2{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+ /* background-color: rgb(240, 240, 240); */
+  background-image: url("https://www.bhmpics.com/downloads/android-wallpaper-gif/8.r0cwpwi.gif");
+}
+#spacer3{
+  height: 1000px;
+}
+/* register */
+#register_h1{
+  color: black;
+  font-size: 35px;
+}
+#cat{
+  margin-top: 300px;
+}
+#userspacer{
+  height: 64px;
+}
+#t2{
+  background-color: #f3ffd4;
+  height: 150px;
+}
+#t3{
+  background-color: #fff4d4;
+  height: 150px;
+}
+#t4{
+  background-color: #d4eaff;
+  height:80px;
+}
+#t5{
+  background-color: #ffd4d4;
+  height: 80px;
+}

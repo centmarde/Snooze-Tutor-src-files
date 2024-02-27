@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>tres marias</title>
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <script type="module"
+    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+  <script nomodule
+    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/auth/index.js"></script>
+  <link rel="stylesheet" href="./scss/loader.scss">
+  <meta name="theme-color" content="#31d53d" />
+</head>
+
+
+<body id="indexbody2">
+  <div class="container">
+
+  <div id="preloader">
+    <div class="wrapper">
+        <div class="box-wrap">
+            <div class="box one"></div>
+            <div class="box two"></div>
+            <div class="box three"></div>
+            <div class="box four"></div>
+            <div class="box five"></div>
+            <div class="box six"></div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <div class="text-center"><img id="cat" src="./assets/imgs/kitty-cat.gif" alt="cat" width="200px" height="200px">
+<p>just scroll down! <br> Our front-end is on vacation <style> p{color:white;}</style> </p></div>
+<div id="spacer3"></div>
+
+  
+  <!-- modal shower -->
+  <div id="modal_show" class="text-center">
+    <div id="button_intro" class="d-grid gap-2 mx-4" data-bs-toggle="modal" data-bs-target="#form_modal" href="#">
+      <button class="btn btn-light shadow" type="submit">Signup</button>
+    </div>
+  </div>
+
+
+  <!-- Modal Btn and Form -->
+  <!-- Modal -->
+  <div class="modal fade" id="form_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div id="b" class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+        <!-- Item Form -->
+        <form id="form_register">
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <!-- Item Name Field -->
+            <div class="row mb-3">
+              <div class="col-sm-12">
+
+                <div class="d-flex justify-content-center"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/-Insert_image_here-.svg/320px--Insert_image_here-.svg.png?20220802103107"
+                    alt="image" width="200px" height="200px">
+                </div>
+                <div>
+                  <h3>Before you join.</h3>
+                  <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus inventore voluptates quam,
+                    pariatur quo recusandae deserunt tempore rerum veritatis esse dicta non excepturi maiores itaque
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <h5>please agree!</h5>
+                  <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore est omnis vitae modi ea,
+                    impedit necessitatibus quasi amet error nesciunt architecto illum reiciendis assumenda voluptatum
+                    ipsam a maxime deserunt odio.</span>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                I agree
+              </button>
+            </div>
+          </div>
+        </form>
+        <!-- End Slides Form -->
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+  <div class="row">
+    <div id="p_intro" class="col mt-3 mb-5 d-flex justify-content-center ">
+      <p>already have an account?</p><button onclick="window.location.href='/login.html';" class="btn btn-primary ms-4"
+        type="button">SignIn</button>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    var loader = document.getElementById("preloader");
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    })
+  </script>
+
+</body>
+
+</html>

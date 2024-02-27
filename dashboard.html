@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Awesome Capacitor App</title>
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <script type="module"
+        src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+    <script nomodule
+        src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./scss/loader.scss">
+    <meta name="theme-color" content="#31d53d" />
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="wrapper">
+            <div class="box-wrap">
+                <div class="box one"></div>
+                <div class="box two"></div>
+                <div class="box three"></div>
+                <div class="box four"></div>
+                <div class="box five"></div>
+                <div class="box six"></div>
+            </div>
+        </div>
+    </div>
+
+<!-- navbar -->
+    <nav id="navbar" class="navbar bg-body-tertiary justify-content-top sticky-top">
+        <!-- replaced justify-content-center with flex-top if you want floating navbar -->
+        <div class="container-fluid">
+          <div id="tittle">
+            <a id="head1" class="navbar-brand" href="index.html">Dashboard</a>
+    
+            <a class="mx-2" id="b" href="">OurTeam</a>
+            <a id="b" href="home.html">home</a>
+          </div>
+    
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header shadow">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Dashboard</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="./home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="items.html">Show Items Database</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="dashboard.html">Show User Information Database</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="items.html">Items</a>
+                </li>
+    
+              </ul>
+              <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+              <li class="nav-item  d-grid gap-2 me-2 mt-4"> <!-- logout button-->
+                <a class="nav-link" id="btn_logout">
+                  <button class="btn btn-primary w-100">Logout</button>
+                </a>
+              </li>
+    
+              <div class="text-center mt-5">
+                <pre>Clean code always looks like it was<br> written by someone who cares.<br><cite>— Robert C. Martin</cite></pre>
+                <pre>This project was made possible <br> by these programmers; <br> thank you to these individuals.<br><cite>-Me, Myself and I</cite></pre>
+              </div>
+    
+    
+            </div>
+    
+            <div class="text-center">
+              <p>contact us: </p>
+              <div class="row mb-5">
+                <div>
+    
+                  <a class="fa fa-facebook fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                    href="https://web.facebook.com/centmarde.campado"></a>
+                  <a class="fa fa-twitter fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                    href="https://twitter.com/?lang=en"></a>
+                  <a class="fa fa-instagram fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                    href="https://www.instagram.com/"></a>
+                  <a class="fa fa-linkedin fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                    href="https://www.linkedin.com/login"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    
+
+      <!-- modal -->
+      <div class="modal fade" id="form_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title fs-5" id="c">
+                  User Information
+                </h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <!-- Item Form -->
+              <form id="form_item">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <!-- Item Name Field -->
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
+                      <input class="form-control" type="text" name="firstname" id="firstname" placeholder="firstname"
+                        required />
+                    </div>
+                  </div>
+
+                  <!-- Price Field -->
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
+                      <input class="form-control" type="text" name="password" id="password" 
+                        placeholder="Price" required />
+                    </div>
+                  </div>
+
+                  <!-- Description Field -->
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
+                      <textarea class="form-control" name="Role" id="Role" placeholder="role"
+                        required></textarea>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                  <button id="modal_close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                  <button class="btn btn-primary w-25 d-flex align-items-center justify-content-center" type="submit">
+                    <!--  onclick="window.location.href='./items.html'" -->
+                    Submit
+                  </button>
+                </div>
+              </form>
+              <!-- End Slides Form -->
+            </div>
+          </div>
+          <!-- Button trigger modal -->
+          <button id="modal_show" type="button" data-bs-toggle="modal"
+          data-bs-target="#form_modal">
+        </button>
+        <!-- End Button trigger modal  -->
+        </div>
+        <!-- End Modal -->
+
+        <div class="justify-content-center text-center my-2">
+            <h1>User Information</h1>
+          </div>
+          
+        
+          <!-- dashboard dynamic body -->
+          <div id="get_data"></div>
+          <!-- end of dashboard dynamic body -->
+        
+        
+          <div class="m-3">
+            <div class="alert alert-success d-none" role="alert">
+        
+            </div>
+            <div class="alert alert-danger d-none" role="alert">
+        
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
+            })
+        </script>
+        <script type="module" src="./js/main.js"></script>
+        <script type="module" src="./js/auth/dashboard.js"></script>
+    
+</body>
+
+</html>

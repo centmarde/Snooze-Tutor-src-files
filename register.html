@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Awesome Capacitor App</title>
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <script type="module"
+    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+  <script nomodule
+    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/auth/register.js" ></script>
+  <link rel="stylesheet" href="./scss/loader.scss">
+
+  
+  <meta name="theme-color" content="#31d53d" />
+</head>
+<body id="indexbody">
+
+  <div id="preloader">
+    <div class="wrapper">
+        <div class="box-wrap">
+            <div class="box one"></div>
+            <div class="box two"></div>
+            <div class="box three"></div>
+            <div class="box four"></div>
+            <div class="box five"></div>
+            <div class="box six"></div>
+        </div>
+    </div>
+  </div>
+
+  <nav class="navbar fixed-top bg-body-tertiary shadow">
+    <div class="container-fluid">
+      <a class="ms-2" href="index.html"><i><i class="fa fa-long-arrow-left fa-2x" aria-hidden="true"></i></i></a>
+    </div>
+  </nav>
+
+  <div id="spacer2"></div>
+
+    <div>
+        <h1 id="register_h1" class="d-flex justify-content-center mt-1">Sign-up</h1>
+      </div>
+    
+      <div class="alert alert-success d-none" role="alert">
+    
+      </div>
+      <div class="alert alert-danger d-none" role="alert">
+    
+      </div>
+      <!-- register -->
+    
+      <form id="form_register" class="container">
+        <div class="form-group">
+          <label for="firstname">Firstname</label>
+          <input name="firstname" type="text" class="form-control" id="firstname" placeholder="*John Doe" required>
+        </div>
+    
+        <div class="form-group mt-2">
+          <label for="lastname">Lastname</label>
+          <input name="lastname" type="text" class="form-control" id="lastname" placeholder="*Smith" required>
+        </div>
+    
+        <div class="form-group mt-2">
+          <label for="mobile_no">Mobile No.</label>
+          <input name="mobile_no" type="number" class="form-control" id="mobile_no" placeholder="Mobile No." required>
+        </div>
+    
+        <div id class="form-group mt-2">
+          <label for="email">Email-address</label>
+          <input name="email" type="email" class="form-control" id="email" placeholder="Enter email" autocomplete="email"
+            required>
+        </div>
+    
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+    
+        <div class="form-group mt-2">
+          <label for="password_confirm">Password Confirmation</label>
+          <input name="password_confirm" type="password" class="form-control" id="password_confirm"
+            placeholder="Password-confirmation" required>
+        </div>
+    
+        <div class="text-center justify-content-center my-2">
+          
+
+        </div>
+
+        
+        <div class="form-check form-switch my-3 text-center">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">I agree to Title's <a href="">Terms and conditions</a></label>
+        </div>
+        
+    
+        <div class="row">
+          <div class="d-grid gap-2 my-2">
+            <button type="submit" class="btn btn-primary">sign up</button>
+          </div>
+        </div>
+      </form>
+      <div class="text-center">
+        <p>have a problem? <a href="#">contact us</a></p>
+      </div>
+
+
+
+
+
+      <script>
+        var loader = document.getElementById("preloader");
+        window.addEventListener("load", function () {
+          loader.style.display = "none";
+        })
+      </script>
+</body>
+</html>
