@@ -10,12 +10,6 @@ form_register.onclick = async (e) => {
 
     window.location.href = '/register.html';
 
-    // Modal Close
-    document.getElementById("modal_close").click();
-
-    // Reset Form
-    form_register.reset();
-
     // Enable Submit Button
     document.querySelector("#form_register button[type='submit']").disabled = false;
     document.querySelector(

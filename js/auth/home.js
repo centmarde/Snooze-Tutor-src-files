@@ -6,6 +6,7 @@ const userId = localStorage.getItem("user_id");
 
 const btn_logout = document.getElementById("btn_logout");
 btn_logout.onclick = doLogout;   
+
 //function initialize for navbar dynamic name
 getDatas();
 
@@ -23,4 +24,25 @@ async function getDatas() {
     // Assuming you have a container in your HTML with an id, for example, "userContainer"
     document.getElementById("userContainer").innerHTML = container;
 }
+
+form_modal.onsubmit = async (e) => {
+    e.preventDefault();
+    document.querySelector("#form_modal button").disabled = true;
+    document.querySelector(
+        "#form_modal button" //logout button script
+    ).innerHTML = `<span>Loading...</span>`;
+
+
+    // Modal Close
+    document.getElementById("modal_close").click();
+
+    // Reset Form
+    form_item.reset();
+
+    // Enable Submit Button
+    document.querySelector("#form_item button[type='submit']").disabled = false;
+    document.querySelector(
+        "#form_modal button[type='submit']"
+    ).innerHTML = `Submit`;
+};
 

@@ -40,17 +40,21 @@ form_item.onsubmit = async (e) => {
 
   /* update */
   if (for_update_id == "") {
+   
     const { data, error } = await supabase
       .from("user_information")
       .insert([
         {
-          /*  item_name: formData.get("item_name"),
-                    price: formData.get("price"),
-                    description: formData.get("description"), */
-          image_path: image_data == null ? null : image_data.path,
+           username: formData.get("username"),
+                    about: formData.get("about"),
+                    likes: formData.get("likes"),
+                    dislikes: formData.get("dislikes"),
+          image_path: image_data === null ? null : image_data.path,
         },
       ])
       .select();
+    
+      
     if (error) {
       errorNotification("Something wrong happened. Cannot add item.", 15);
       console.log(error);
@@ -63,16 +67,19 @@ form_item.onsubmit = async (e) => {
 
   // for update
   else {
+   
     const { data, error } = await supabase
       .from("user_information")
       .update({
-        /* item_name: formData.get("item_name"),
-                price: formData.get("price"),
-                description: formData.get("description"), */
-        image_path: image_data == null ? null : image_data.path,
+        username: formData.get("username"),
+                    about: formData.get("about"),
+                    likes: formData.get("likes"),
+                    dislikes: formData.get("dislikes"),
+          image_path: image_data == null ? null : image_data.path,
       })
       .eq("id", for_update_id)
       .select();
+    
     if (error == null) {
       successNotification("Item Successfully Added!", 15);
 
@@ -98,6 +105,25 @@ form_item.onsubmit = async (e) => {
   ).innerHTML = `Submit`;
 };
 
+form_modal_about.onsubmit = async (e) => {
+  e.preventDefault();
+  document.querySelector("#form_modal_about button").disabled = true;
+  document.querySelector(
+    "#form_modal_about button" //logout button script
+  ).innerHTML = `<span>Loading...</span>`;
+
+  // Modal Close
+  document.getElementById("modal_close").click();
+
+  // Reset Form
+  form_item.reset();
+
+  // Enable Submit Button
+  document.querySelector("#form_item button[type='submit']").disabled = false;
+  document.querySelector(
+    "#form_modal_about button[type='submit']"
+  ).innerHTML = `Submit`;
+};
 async function getDatas() {
   try {
     // Fetch user information
@@ -120,6 +146,7 @@ async function getDatas() {
     let container = "";
     let UniversalContainer = "";
     let lastsignInContainer = "";
+    let sideContainer = "";
 
     user_information.forEach((user_info) => {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
@@ -165,39 +192,47 @@ async function getDatas() {
           </div>
           <div id="t2" class="row">
             <div class="col">
-              <p>karma points</p>
-              <p>Responsiveness data not yet available</p>
+            <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Listings</a>
+            </li>
+            <li class="nav-item" data-bs-toggle="modal" data-bs-target="#form_modal_about" >
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+             
             </div>
           </div>
           <div id="t3" class="row">
-            <div class="col">
-              <p>badges</p>
-              <p>badges pictures</p>
-            </div>
+            
           </div>
-          <div id="t4" class="row">
-            <p>listings offered</p>
-            <div class="col"><p>last 30 days</p></div>
-            <div class="col"><p>all time</p></div>
-          </div>
-          <div id="t5" class="row">
-            <div class="col"><p>listings</p></div>
-            <div class="col"><p>messages</p></div>
-          </div>`;
+        `;
+      sideContainer += `<div data-id="${
+        user_info.image_path
+      }"><img class="block my-2 border border-dark border-2" src="${
+        itemsImageUrl + user_info.image_path
+      }" width="100%" height="100%"></div><div class="row"><div class="col"><div class="mt-2">
+      Username: ${user_info.username}</div> <div class="mt-2">
+      About: ${user_info.about}</div></div></div>
+<div class="row"><div class="col"><div class="mt-2">
+Likes: ${user_info.likes}</div><div class="mt-2">
+Dislikes: ${user_info.dislikes}</div></div></div>`;
     });
 
     /* ge lahi kay para makuha ang last sign-in */
     sign_ins.forEach((sign_in) => {
-      lastsignInContainer += `<p class="mt-2">Last Sign In:<br> ${sign_in.created_at
+      lastsignInContainer += `<p class="mt-2">Last Sign In:<br> ${sign_in.last_sign_in_at
         .replace(/T/g, " ")
-        .replace(/\..+/g, "")}</p>`;
+        .replace(/\..+/g, "")}`;
     });
 
     // Assuming you have a container in your HTML with an id, for example, "userContainer"
     // initialize ug container
     document.getElementById("userContainer").innerHTML = container;
     document.getElementById("alldata").innerHTML = UniversalContainer;
-    document.getElementById("lastsignInContainer").innerHTML = lastsignInContainer;
+    document.getElementById("lastsignInContainer").innerHTML =
+      lastsignInContainer;
+    document.getElementById("sidedata").innerHTML = sideContainer;
     document.querySelectorAll("#btn_edit").forEach((element) => {
       element.addEventListener("click", editAction);
     });

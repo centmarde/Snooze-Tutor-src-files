@@ -101,7 +101,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    Edit Information
+                    Edit Information 
                   </h1>
                   <button
                     type="button"
@@ -114,6 +114,7 @@
                 <form id="form_item">
                   <!-- Modal Body -->
                   <div class="modal-body">
+                    <span>must fill up all form</span>
                     <!-- Username Field -->
                     <div class="row mb-3">
                       <div class="col-sm-12">
@@ -123,6 +124,7 @@
                           name="username"
                           id="Username"
                           placeholder="username"
+                          required
                         />
                       </div>
                     </div>
@@ -132,9 +134,10 @@
                       <div class="col-sm-12">
                         <textarea
                           class="form-control"
-                          name="description"
-                          id="description"
+                          name="about"
+                          id="about"
                           placeholder="Tell us about your self"
+                          required
                           
                         ></textarea>
                       </div>
@@ -148,6 +151,7 @@
                           name="dislikes"
                           id="dislikes"
                           placeholder="Dislikes"
+                          required
                           
                         ></textarea>
                       </div>
@@ -161,6 +165,7 @@
                           name="likes"
                           id="likes"
                           placeholder="Interest/Likes"
+                          required
                         
                         ></textarea>
                       </div>
@@ -175,6 +180,7 @@
                           type="file"
                           name="image_path"
                           accept="image/*"
+                          required
                         />
                         <span class="ms-1 text-secondary" >Change Profile</span>
                       </div>
@@ -206,8 +212,92 @@
         </div>
       </div>
       </div>
-      
       <!-- end of modal -->
+
+ <!-- Item Form 2 modal-->
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Modal Btn and Form -->
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="form_modal_about"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Information
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- Item Form -->
+            <form id="form_item_about">
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <!-- Username Field -->
+                <div class="row mb-3">
+                 
+
+                  <!-- Item Form -->
+    <div class="container" id="sidedata"></div>
+
+                  
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+              </div>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                <button
+                  id="modal_close"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                
+              </div>
+            </form>
+            <!-- End Slides Form -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- end of modal -->
+
+
+
+
+
+
+
+
 
       <br />
       <div class="m-3">
@@ -220,11 +310,6 @@
       <div class="alert alert-success d-none" role="alert"></div>
       <div class="alert alert-danger d-none" role="alert"></div>
 
-      
-      
- 
-
-   
 
 
     <script>
