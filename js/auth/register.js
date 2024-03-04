@@ -34,7 +34,7 @@ form_register.onsubmit = async (e) => {
 
             //getting the info
             const { data, error } = await supabase
-                .from('user_information')
+                .from('profiles')
                 .insert([
                     {
                         firstname: formData.get("firstname"), lastname: formData.get("lastname"), mobile_no: formData.get("mobile_no"),

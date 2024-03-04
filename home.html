@@ -1,305 +1,385 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tres Marias</title>
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Tres Marias</title>
-  <meta name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/auth/home.js"></script>
+    <link rel="stylesheet" href="./scss/loader.scss" />
 
-  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="module" src="./js/main.js"></script>
-  <script type="module" src="./js/auth/home.js"></script>
-  <link rel="stylesheet" href="./scss/loader.scss">
+    <meta name="theme-color" content="#31d53d" />
+  </head>
 
-  <meta name="theme-color" content="#31d53d" />
-</head>
-
-<body>
-
-  <div id="preloader">
-    <div class="wrapper">
-      <div class="box-wrap">
-        <div class="box one"></div>
-        <div class="box two"></div>
-        <div class="box three"></div>
-        <div class="box four"></div>
-        <div class="box five"></div>
-        <div class="box six"></div>
+  <body id="home_index">
+    <div id="preloader">
+      <div class="wrapper">
+        <div class="box-wrap">
+          <div class="box one"></div>
+          <div class="box two"></div>
+          <div class="box three"></div>
+          <div class="box four"></div>
+          <div class="box five"></div>
+          <div class="box six"></div>
+        </div>
       </div>
     </div>
-  </div>
 
+    <!-- nav heading -->
+    <nav class="navbar bg-body-tertiary fixed-top shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand col" href="#">
+          <h5 class="fw-bold mt-2">SNOOZE Tutor</h5>
+        </a>
 
-  <!-- nav heading -->
-  <nav class="navbar bg-body-tertiary fixed-top shadow">
-    <div class="container-fluid">
-      <a class="navbar-brand col" href="#">
-        <p class="fw-bold mt-2">STUDENT savior</p>
-      </a>
-
-      <!-- logo -->
-      <div> <a id="peace_logo"
-          class="fa fa-hand-peace-o fa-2x mx-3 link-offset-2 link-underline link-underline-opacity-0"
-          href="https://www.linkedin.com/login"></a>
-      </div>
-
-      <!-- button side -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header shadow">
-
-          <!-- dynamic userprofile -->
-          <div class="d-flex pagination">
-            <h4 id="userContainer"></h4>
-          </div>
-
-
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <!-- logo -->
+        <div>
+          <a
+            id="peace_logo"
+            class="fa fa-hand-peace-o fa-2x mx-3 link-offset-2 link-underline link-underline-opacity-0"
+            href="https://www.linkedin.com/login"
+          ></a>
         </div>
 
-        <!-- off canvas body -->
-
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="./home.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="./userProfile.html">My Account</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-
-          <li class="nav-item  d-grid gap-2 me-2 mt-4"> <!-- logout button-->
-            <a class="nav-link" id="btn_logout">
-              <button class="btn btn-primary w-100">Logout</button>
-            </a>
-          </li>
-
-        </div>
-        <div class="text-center mt-5">
-          <pre>Clean code always looks like it was<br> written by someone who cares.<br><cite>— Robert C. Martin</cite></pre>
-        </div>
-
-        <div class="text-center">
-          <p>contact us: </p>
-          <div class="row 5 my-2">
-            <div>
-
-              <a class="fa fa-facebook fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
-                href="https://web.facebook.com/centmarde.campado"></a>
-              <a class="fa fa-twitter fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
-                href="https://twitter.com/?lang=en"></a>
-              <a class="fa fa-instagram fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
-                href="https://www.instagram.com/"></a>
-              <a class="fa fa-linkedin fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
-                href="https://www.linkedin.com/login"></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end off canvas body -->
-      <!-- nav bottom -->
-
-      <nav class="navbar fixed-bottom bg-body-tertiary">
-        <div id="separate" class="opacity-50"></div>
-        <div id="cont-bot" class="container-fluid d-flex justify-content-center">
-          <div id="rowbot" class="row">
-            <div class="col"><a id="ico-bt1" target="_blank"
-                class="fa fa-bar-chart fa-2x  link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                href="https://www.linkedin.com/login"></a>
-              <p>Team</p>
-            </div>
-            <div class="col"> <a id="ico-bt2" target="_blank"
-                class="fa fa-globe fa-2x  link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                aria-hidden="true" href="https://twitter.com/?lang=en"></a>
-              <p>Explore</p>
-            </div>
-            <div class="col"><a id="ico-bt3" target="_blank" data-bs-toggle="modal" data-bs-target="#form_modal"
-                class="fa fa-plus-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"></a>
-              <p id="ico-bt3">Create</p>
-            </div>
-            <div class="col"><a id="ico-bt4" target="_blank"
-                class="fa fa-search fa-2x  link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                href="https://www.instagram.com/"></a>
-              <p>Search</p>
-            </div>
-            <div class="col"><a id="ico-bt5" 
-                class="fa fa-user fa-2x  link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                href="./userProfile.html"></a>
-              <p>Profile</p>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <!-- nav bottom end -->
-
-    </div>
-    <div class="row">
-      <div class="col d-flex ms-2">
-        <p class="mx-2">My-list</p>
-        <p class="ms-3">Home</p>
-      </div>
-    </div>
-  </nav>
-  <!--top nav end -->
-  <div id="margin"></div>
-
-
-   <!-- Item Form -->
-   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <!-- Modal Btn and Form -->
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="form_modal"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
+        <!-- button side -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
         >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Insert to your list.
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header shadow">
+            <!-- dynamic userprofile -->
+            <div class="d-flex pagination">
+              <h4 id="userContainer"></h4>
+            </div>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- off canvas body -->
+
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="./home.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./userProfile.html">My Account</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+
+            <li class="nav-item d-grid gap-2 me-2 mt-4">
+              <!-- logout button-->
+              <a class="nav-link" id="btn_logout">
+                <button class="btn btn-primary w-100">Logout</button>
+              </a>
+            </li>
+          </div>
+          <div class="text-center mt-5">
+            <pre>Clean code always looks like it was<br> written by someone who cares.<br><cite>— Robert C. Martin</cite></pre>
+          </div>
+
+          <div class="text-center">
+            <p>contact us:</p>
+            <div class="row 5 my-2">
+              <div>
+                <a
+                  class="fa fa-facebook fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                  href="https://web.facebook.com/centmarde.campado"
+                ></a>
+                <a
+                  class="fa fa-twitter fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                  href="https://twitter.com/?lang=en"
+                ></a>
+                <a
+                  class="fa fa-instagram fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                  href="https://www.instagram.com/"
+                ></a>
+                <a
+                  class="fa fa-linkedin fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
+                  href="https://www.linkedin.com/login"
+                ></a>
               </div>
-              <!-- Item Form -->
-              <form id="form_item">
-                <!-- Modal Body -->
-                <div class="modal-body">
-                  <!-- Username Field -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <input
-                        class="form-control"
-                        type="text"
-                        name="tittle"
-                        id="tittle"
-                        placeholder="tittle"
-                      />
-                    </div>
-                  </div>
+            </div>
+          </div>
+        </div>
+        <!-- end off canvas body -->
+        <!-- nav bottom -->
 
-                  <!-- Dislikes -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <textarea
-                        class="form-control"
-                        name="question"
-                        id="question"
-                        placeholder="What's youre Question?"
-                        
-                      ></textarea>
-                    </div>
-                  </div>
+        <nav class="navbar fixed-bottom bg-body-tertiary">
+          <div id="separate" class="opacity-50"></div>
+          <div
+            id="cont-bot"
+            class="container-fluid d-flex justify-content-center"
+          >
+            <div id="rowbot" class="row">
+              <div class="col">
+                <a
+                  id="ico-bt1"
+                  target="_blank"
+                  class="fa fa-bar-chart fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  href="https://www.linkedin.com/login"
+                ></a>
+                <p>Team</p>
+              </div>
+              <div class="col">
+                <a
+                  id="ico-bt2"
+                  target="_blank"
+                  class="fa fa-globe fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  aria-hidden="true"
+                  href="https://twitter.com/?lang=en"
+                ></a>
+                <p>Explore</p>
+              </div>
+              <div class="col">
+                <a
+                  id="ico-bt3"
+                  target="_blank"
+                  data-bs-toggle="modal"
+                  data-bs-target="#form_modal"
+                  class="fa fa-plus-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                ></a>
+                <p id="ico-bt3">Create</p>
+              </div>
+              <div class="col">
+                <a
+                  id="ico-bt4"
+                  target="_blank"
+                  class="fa fa-search fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  href="https://www.instagram.com/"
+                ></a>
+                <p>Search</p>
+              </div>
+              <div class="col">
+                <a
+                  id="ico-bt5"
+                  class="fa fa-user fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  href="./userProfile.html"
+                ></a>
+                <p>Profile</p>
+              </div>
+            </div>
+          </div>
+        </nav>
 
-                  <!-- likes -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <textarea
-                        class="form-control"
-                        name="answer"
-                        id="answer"
-                        placeholder="input the answer in here"
-                      
-                      ></textarea>
-                    </div>
-                  </div>
-                  
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
+        <!-- nav bottom end -->
+      </div>
+      <div class="row">
+        <div class="col d-flex ms-2">
+          <p class="mx-2">My-list</p>
+          <p class="ms-3">Home</p>
+        </div>
+      </div>
+    </nav>
+    <!--top nav end -->
+    <div id="margin"></div>
+
+    <!-- Item Form -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Modal Btn and Form -->
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="form_modal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                   Insert your Question:
+                  </h1>
                   <button
-                    id="modal_close"
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn-close"
                     data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
-                    type="submit"
-                  >
-                    <!--  onclick="window.location.href='./items.html'" -->
-                    Submit
-                  </button>
+                    aria-label="Close"
+                  ></button>
                 </div>
-              </form>
-              <!-- End Slides Form -->
+                <!-- Item Form -->
+                <form id="form_item">
+                  <!-- Modal Body -->
+                  <div class="modal-body">
+                    <!-- Username Field -->
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="tittle"
+                          id="tittle"
+                          placeholder="tittle"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Dislikes -->
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <textarea
+                          class="form-control"
+                          name="question"
+                          id="question"
+                          placeholder="What's youre Question?"
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <!-- likes -->
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <textarea
+                          class="form-control"
+                          name="answer"
+                          id="answer"
+                          placeholder="input the answer in here"
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Modal Footer -->
+                  <div class="modal-footer">
+                    <button
+                      id="modal_close"
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                      type="submit"
+                    >
+                      <!--  onclick="window.location.href='./items.html'" -->
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <!-- End Slides Form -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    
+
     <!-- end of modal -->
 
-  <!--start of alert pop ups notifications -->
+    <!--start of alert pop ups notifications -->
 
-  <div class="m-3">
-    <div class="alert alert-success d-none" role="alert">
-
+    <div class="m-3">
+      <div class="alert alert-success d-none" role="alert"></div>
+      <div class="alert alert-danger d-none" role="alert"></div>
     </div>
-    <div class="alert alert-danger d-none" role="alert">
+    <br />
+    <br />
 
+    <!-- end of alert pop ups -->
+
+    <!-- start of contents -->
+    <div class="container">
+      <div id="indexContainer">
+      </div>
     </div>
-  </div>
+   <!--  end of contents -->
 
-  <!-- end of alert pop ups -->
+   <!-- modal for answer -->
 
-
-  <script>
-    var loader = document.getElementById("preloader");
-    window.addEventListener("load", function () {
-      loader.style.display = "none";
-    })
-  </script>
-<script type="module"
-src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
-<script nomodule
-src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
-
-
-</body>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+      var loader = document.getElementById("preloader");
+      window.addEventListener("load", function () {
+        loader.style.display = "none";
+      });
+    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
+    ></script>
+  </body>
 </html>

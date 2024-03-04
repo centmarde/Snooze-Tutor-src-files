@@ -164,19 +164,19 @@ const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
 
   // Supabase show by id
-  let { data: user_information, error } = await supabase
-    .from("user_information")
+  let { data: profiles, error } = await supabase
+    .from("profiles")
     .select("*")
     .eq("id", id);
 
   if (error == null) {
     // Store id to a variable; id will be utilized for update
-    for_update_id = user_information[0].id;
+    for_update_id = profiles[0].id;
 
     // Assign values to the form
-    document.getElementById("firstname").value = user_information[0].firstname;
-    document.getElementById("password").value = user_information[0].password;
-    document.getElementById("Role").value = user_information[0].Role;
+    document.getElementById("firstname").value = profiles[0].firstname;
+    document.getElementById("password").value = profiles[0].password;
+    document.getElementById("Role").value = profiles[0].Role;
 
     // Change Button Text using textContent; either innerHTML or textContent is fine here
     document.querySelector("#form_item button[type='submit']").textContent =

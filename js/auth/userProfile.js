@@ -40,21 +40,19 @@ form_item.onsubmit = async (e) => {
 
   /* update */
   if (for_update_id == "") {
-   
     const { data, error } = await supabase
-      .from("user_information")
+      .from("profiles")
       .insert([
         {
-           username: formData.get("username"),
-                    about: formData.get("about"),
-                    likes: formData.get("likes"),
-                    dislikes: formData.get("dislikes"),
+          username: formData.get("username"),
+          about: formData.get("about"),
+          likes: formData.get("likes"),
+          dislikes: formData.get("dislikes"),
           image_path: image_data === null ? null : image_data.path,
         },
       ])
       .select();
-    
-      
+
     if (error) {
       errorNotification("Something wrong happened. Cannot add item.", 15);
       console.log(error);
@@ -67,19 +65,18 @@ form_item.onsubmit = async (e) => {
 
   // for update
   else {
-   
     const { data, error } = await supabase
-      .from("user_information")
+      .from("profiles")
       .update({
         username: formData.get("username"),
-                    about: formData.get("about"),
-                    likes: formData.get("likes"),
-                    dislikes: formData.get("dislikes"),
-          image_path: image_data == null ? null : image_data.path,
+        about: formData.get("about"),
+        likes: formData.get("likes"),
+        dislikes: formData.get("dislikes"),
+        image_path: image_data == null ? null : image_data.path,
       })
       .eq("id", for_update_id)
       .select();
-    
+
     if (error == null) {
       successNotification("Item Successfully Added!", 15);
 
@@ -127,8 +124,8 @@ form_modal_about.onsubmit = async (e) => {
 async function getDatas() {
   try {
     // Fetch user information
-    let { data: user_information, error: userError } = await supabase
-      .from("user_information")
+    let { data: profiles, error: userError } = await supabase
+      .from("profiles")
       .select("*")
       .eq("id", userId);
 
@@ -148,7 +145,7 @@ async function getDatas() {
     let lastsignInContainer = "";
     let sideContainer = "";
 
-    user_information.forEach((user_info) => {
+    profiles.forEach((user_info) => {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
       container += `<h4 class="mt-2" data-id="${user_info.firstname}">${user_info.firstname}'s  profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
@@ -207,16 +204,23 @@ async function getDatas() {
             
           </div>
         `;
-      sideContainer += `<div data-id="${
-        user_info.image_path
-      }"><img class="block my-2 border border-dark border-2" src="${
+        
+      sideContainer += `<div data-id="${user_info.image_path}">
+      <img class="block my-2 border border-dark border-2" src="${
         itemsImageUrl + user_info.image_path
-      }" width="100%" height="100%"></div><div class="row"><div class="col"><div class="mt-2">
-      Username: ${user_info.username}</div> <div class="mt-2">
-      About: ${user_info.about}</div></div></div>
-<div class="row"><div class="col"><div class="mt-2">
-Likes: ${user_info.likes}</div><div class="mt-2">
-Dislikes: ${user_info.dislikes}</div></div></div>`;
+      }" width="100%" height="100%"></div>
+      <div class="row">
+      <div class="col">
+      <div class="mt-2">Username: ${user_info.username}</div>
+     <div class="mt-2">About: ${user_info.about}</div>
+     </div>
+     </div>
+      <div class="row">
+      <div class="col">
+      <div class="mt-2">Likes: ${user_info.likes}</div>
+      <div class="mt-2">Dislikes: ${user_info.dislikes}</div>
+      </div>
+      </div>`;
     });
 
     /* ge lahi kay para makuha ang last sign-in */
@@ -250,18 +254,20 @@ const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
 
   // Supabase show by id
-  let { data: user_information, error } = await supabase
-    .from("user_information")
+  let { data: profiles, error } = await supabase
+    .from("profiles")
     .select("*")
     .eq("id", userId);
 
   if (error == null) {
     // Store id to a variable; id will be utilize for update
-    for_update_id = user_information[0].id;
+    for_update_id = profiles[0].id;
 
     // Assign values to the form
-    /*  document.getElementById("price").value = items[0].price;
-        document.getElementById("description").value = items[0].description; */
+    document.getElementById("username").value = profiles[0].username;
+    document.getElementById("likes").value = profiles[0].likes;
+    document.getElementById("dislikes").value = profiles[0].dislikes;
+    document.getElementById("about").value = profiles[0].about;
 
     // Change Button Text using textContent; either innerHTML or textContent is fine here
   } else {

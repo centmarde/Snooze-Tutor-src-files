@@ -100,5 +100,5 @@ forgot_pass.onsubmit = async (e) => {
 
     // Enable Submit Button
     document.querySelector("#forgot_pass button[type='submit']").disabled = false;
-    document.querySelector("#forgot_pass button[type='submit']").innerHTML = `Submit`;
+    document.querySelector("#forgot_pass button[type='submit']").innerHTML = `Loading..`;
 };
