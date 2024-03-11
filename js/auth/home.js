@@ -104,7 +104,6 @@ async function getQuestions() {
     //CHILLI SPICY COM-SCI LORDS BABY!
   
   let questionContainer = "";
-  let answerContainer = "";
   
   questions.forEach((data, index) => {
     const imagepath = data.profiles.image_path;

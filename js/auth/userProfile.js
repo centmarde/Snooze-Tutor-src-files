@@ -129,17 +129,24 @@ async function getDatas() {
       .select("*")
       .eq("id", userId);
 
+      let { data: questions, error } = await supabase
+      .from("questions")
+      .select("*,profiles(*)")
+      .eq("user_id", userId);
+
     // Fetch sign-ins
     let { data: sign_ins, error: signInError } = await supabase
       .from("profiles")
       .select("*")
       .eq("id", userId);
+    
 
     if (userError || signInError) {
       throw new Error(userError || signInError);
     }
 
     //ge declare ug empty para makahimo ug dynamic nga output
+    let questionContainer = "";
     let container = "";
     let UniversalContainer = "";
     let lastsignInContainer = "";
@@ -201,7 +208,12 @@ async function getDatas() {
             </div>
           </div>
           <div id="t3" class="row">
-            
+            <div class="col">
+            <div class="container">
+             <div id="indexContainer">
+             </div>
+            </div>
+            </div>
           </div>
         `;
         
@@ -230,8 +242,54 @@ async function getDatas() {
         .replace(/\..+/g, "")}`;
     });
 
+    questions.forEach((data, index) => {
+      const imagepath = data.profiles.image_path;
+      const username = data.profiles.username;
+      const likes = data.profiles.likes;
+  
+      questionContainer += ` <div class="col d-flex justify-content-center mb-3 mt-5">
+      <div class="card justify-content-center" style="width: 18rem" data-id="${data.id} >
+        <div class="card" style="width: 18rem">
+          <div class="card-body">
+            <h4 class="card-title">${data.tittle}</h4>
+            <p class="card-text">
+            ${data.question_text}
+            </p>
+            <div id="textContainer${index}" class="d-grid gap-2">
+                <i>${data.answer_text}</i>
+            </div>
+            
+            <div class = "row mt-4">
+            <div class = "col-6 d-grid gap-2 ">
+            <button type="button"  class="btn btn-dark" data-bs-toggle="modal"
+            data-bs-target="#form_modal_questions" id="btn_edit_questions" data-id="${data.id
+            }">Edit</button>
+            </div>
+            <div class = "col-6 d-grid gap-2">
+            <button type="button"  class="btn btn-danger" id="btn_deleteQuestions" data-id="${data.id
+            }">delete</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+           `;
+  });
+
     // Assuming you have a container in your HTML with an id, for example, "userContainer"
     // initialize ug container
+    document.body.addEventListener('click', function (event) {
+      if (event.target.id === 'btn_deleteQuestions') {
+        deleteQuestion(event);
+      }
+    });
+    
+    
+  /* edit funtion calling */
+  document.querySelectorAll("#btn_edit_questions").forEach((element) => {
+      element.addEventListener("click", editAction_question);
+  });
     document.getElementById("userContainer").innerHTML = container;
     document.getElementById("alldata").innerHTML = UniversalContainer;
     document.getElementById("lastsignInContainer").innerHTML =
@@ -240,11 +298,96 @@ async function getDatas() {
     document.querySelectorAll("#btn_edit").forEach((element) => {
       element.addEventListener("click", editAction);
     });
+    document.getElementById("indexContainer").innerHTML = questionContainer;
+    
   } catch (error) {
     console.error("Error fetching data:", error);
     // Handle error, show error notification, etc.
   }
+  
 }
+
+
+//edit questions
+form_modal_questions.onsubmit = async (e) => {
+  e.preventDefault();
+  // Disable Button
+document.querySelector("#form_item button[type='submit']").disabled = true;
+document.querySelector("#form_item button[type='submit']").innerHTML = `
+                  <span>Loading...</span>`;
+
+
+  const formData = new FormData(form_modal_questions);
+
+  /* update */
+  if (for_update_id_questions == '') {
+      const { data, error } = await supabase
+          .from("questions")
+          .insert([
+              {
+                  tittle: formData.get("tittle"),
+                 question_text: formData.get("question_text"),
+                 answer_text: formData.get("answer"),
+              }
+              ,])
+          .select();
+      if (error) {
+          errorNotification("Something wrong happened. Cannot add item.", 15);
+          console.log(error);
+      }
+      else {
+
+          successNotification("Item Successfully Added!", 15);
+          window.location.reload();
+          // Reload Datas
+          getDatas();
+
+      }
+  }
+
+  // for update
+  else {
+      const { data, error } = await supabase
+          .from("questions")
+          .update({
+            tittle: formData.get("tittle"),
+            question_text: formData.get("question_text"),
+            answer_text: formData.get("answer"),
+          })
+          .eq("id", for_update_id_questions)
+          .select();
+      if (error == null) {
+          successNotification("Item Successfully Added!", 15);
+
+          // Reset storage id
+          for_update_id_questions = "";
+          /* reload datas */
+          getDatas();
+      }
+      else {
+
+          errorNotification("Something wrong happened. Cannot add item.", 15);
+          console.log(error);
+      }
+  }
+  // Modal Close
+  document.getElementById("modal_close").click();
+
+  // Reset Form
+  form_item.reset();
+
+  // Enable Submit Button
+  document.querySelector("#form_item button[type='submit']").disabled = false;
+  document.querySelector(
+      "#form_item button[type='submit']"
+  ).innerHTML = `Submit`;
+}
+//end of edit questions
+
+
+
+
+
 
 // Storage of Id of chosen data to update
 let for_update_id = "";
@@ -275,3 +418,64 @@ const editAction = async (e) => {
     console.log(error);
   }
 };
+// Delete Functionality
+const deleteQuestion = async (e) => {
+  const id = e.target.getAttribute("data-id");
+
+  const isConfirmed = window.confirm("Are you sure you want to delete question?");
+
+  // Check if the user has confirmed the deletion
+  if (!isConfirmed) {
+    return; // Abort the operation if the user cancels
+  }
+
+  try {
+    const { error } = await supabase.from('questions').delete().eq('id', id);
+    successNotification("Item Successfully Deleted!", 15);
+    window.location.reload();
+  } catch (error) {
+    errorNotification("Something wrong happened. Cannot delete item.", 15);
+    console.error(error);
+  }
+}
+
+
+
+
+
+let for_update_id_questions = " ";
+
+const editAction_question = async (e) => {
+  const id = e.target.getAttribute("data-id");
+
+  // Supabase show by id
+  let { data: questions, error } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("id", userId);
+
+  if (error == null) {
+    // Store id to a variable; id will be utilize for update
+    for_update_id_questions = questions[0].id;
+
+    // Assign values to the form
+    document.getElementById("tittle").value = questions[0].tittle;
+    document.getElementById("question_text").value = questions[0].question_text;
+    document.getElementById("answers").value = questions[0].answer_text;
+    
+
+    // Change Button Text using textContent; either innerHTML or textContent is fine here
+  } else {
+    errorNotification("Something wrong happened. Cannot show item.", 15);
+    console.log(error);
+  }
+
+  document.getElementById("modal_show").click();
+};
+
+
+
+
+
+
+

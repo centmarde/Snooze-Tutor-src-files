@@ -82,7 +82,7 @@
       </div>
 
     </div>
-       <!-- Item Form -->
+       <!-- Item Form edit info -->
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -127,7 +127,50 @@
                          
                         />
                       </div>
+                      <div class="col-sm-12 mt-3">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="firstname"
+                          id="firstname"
+                          placeholder="firstname"
+                         
+                        />
+                      </div>
+
+                      <div class="col-sm-12 mt-3">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="lastname"
+                          id="lastname"
+                          placeholder="lastname"
+                         
+                        />
+                      </div>
+
+                      <div class="col-sm-12 mt-3">
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="mobile_no"
+                          id="mobile_no"
+                          placeholder="Mobile Number"
+                         
+                        />
+                      </div>
                     </div>
+
+                    <div class="m-3">
+                      <div class="alert alert-success d-none" role="alert"></div>
+                      <div class="alert alert-danger d-none" role="alert"></div>
+                    </div>
+                    <!--alert bar-->
+              
+                    <!-- Notifications -->
+                    <div class="alert alert-success d-none" role="alert"></div>
+                    <div class="alert alert-danger d-none" role="alert"></div>
+              
 
                     <!-- about Field -->
                     <div class="row mb-3">
@@ -214,7 +257,7 @@
       </div>
       <!-- end of modal -->
 
- <!-- Item Form 2 modal-->
+ <!-- Item Form about modal-->
  <div class="container">
   <div class="row">
     <div class="col-sm-12">
@@ -251,7 +294,8 @@
                  
 
                   <!-- Item Form -->
-    <div class="container" id="sidedata"></div>
+    <div class="container" id="sidedata">
+    </div>
 
 
 
@@ -279,8 +323,111 @@
   </div>
   <!-- end of modal -->
 
+ <!--  modal for questions  editing-->
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Modal Btn and Form -->
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="form_modal_questions"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+               Questions Edit
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- Item Form -->
+            <form id="form_modal_questions">
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <span>must fill up all form</span>
+               
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="tittle"
+                      id="tittle"
+                      placeholder="title"
+                    
+                     
+                    />
+                  </div>
+                </div>
 
+                
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <textarea
+                      class="form-control"
+                      name="question_text"
+                      id="question_text"
+                      placeholder="question_text"
+                     
+                     
+                      
+                    ></textarea>
+                  </div>
+                </div>
 
+               
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <textarea
+                      class="form-control"
+                      name="answer"
+                      id="answer"
+                      placeholder="put your answer here"
+                    
+                     
+                    ></textarea>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                <button
+                  id="modal_close"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                  type="submit"
+                >
+                  <!--  onclick="window.location.href='./items.html'" -->
+                  Submit
+                </button>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- end of modal editing -->
 
 
 
@@ -288,16 +435,7 @@
 
 
       <br />
-      <div class="m-3">
-        <div class="alert alert-success d-none" role="alert"></div>
-        <div class="alert alert-danger d-none" role="alert"></div>
-      </div>
-      <!--alert bar-->
-
-      <!-- Notifications -->
-      <div class="alert alert-success d-none" role="alert"></div>
-      <div class="alert alert-danger d-none" role="alert"></div>
-
+     
 
 
     <script>
