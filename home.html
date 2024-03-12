@@ -182,26 +182,23 @@
               <div class="col">
                 <a
                   id="ico-bt1"
-                  target="_blank"
-                  class="fa fa-bar-chart fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                  href="https://www.linkedin.com/login"
+                  class="fa fa-refresh fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  href="./home.html"
                 ></a>
-                <p>Team</p>
+                <p>Reload</p>
               </div>
               <div class="col">
                 <a
                   id="ico-bt2"
-                  target="_blank"
                   class="fa fa-globe fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                   aria-hidden="true"
-                  href="https://twitter.com/?lang=en"
+                  href=""
                 ></a>
                 <p>Explore</p>
               </div>
               <div class="col">
                 <a
                   id="ico-bt3"
-                  target="_blank"
                   data-bs-toggle="modal"
                   data-bs-target="#form_modal"
                   class="fa fa-plus-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
@@ -210,10 +207,10 @@
               </div>
               <div class="col">
                 <a
+                  data-bs-toggle="modal" data-bs-target="#form_modal_search"
                   id="ico-bt4"
-                  target="_blank"
                   class="fa fa-search fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
-                  href="https://www.instagram.com/"
+                  href=""
                 ></a>
                 <p>Search</p>
               </div>
@@ -341,6 +338,31 @@
     </div>
 
     <!-- end of modal -->
+
+    <!-- modal for search -->
+
+<form id="form_search">
+<div class="modal fade" id="form_modal_search" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="container">
+          <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Input tittle or descreption." aria-label="Search">
+      </div>
+      <div class="modal-footer">
+        <button id="modal_close_search" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+    <!-- end of modal search -->
 
     <!--start of alert pop ups notifications -->
 

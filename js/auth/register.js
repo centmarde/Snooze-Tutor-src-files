@@ -2,6 +2,7 @@ import { supabase, successNotification, errorNotification} from "../main";
 
 const form_register = document.getElementById("form_register");
 
+
 form_register.onsubmit = async (e) => {
     e.preventDefault();
 
@@ -37,8 +38,8 @@ form_register.onsubmit = async (e) => {
                 .from('profiles')
                 .insert([
                     {
-                        password: formData.get("password"), username: formData.get("username"),id:user_id
-                    },
+                        password: formData.get("password"), username: formData.get("username"),id:user_id, email: formData.get("email")
+                    }
                 ])
                 .select()
 

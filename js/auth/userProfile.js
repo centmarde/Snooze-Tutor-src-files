@@ -8,6 +8,8 @@ import {
 const itemsImageUrl =
   "https://plsyfklzwmasyypcuwei.supabase.co/storage/v1/object/public/profilePic/";
 const userId = localStorage.getItem("user_id");
+const form_modal_questions = document.getElementById("form_modal_questions");
+
 getDatas();
 
 form_item.onsubmit = async (e) => {
@@ -47,6 +49,9 @@ form_item.onsubmit = async (e) => {
           username: formData.get("username"),
           about: formData.get("about"),
           likes: formData.get("likes"),
+          firstname: formData.get("firstname"),
+        lastname: formData.get("lastname"),
+        mobile_no: formData.get("mobile_no"),
           dislikes: formData.get("dislikes"),
           image_path: image_data === null ? null : image_data.path,
         },
@@ -71,6 +76,9 @@ form_item.onsubmit = async (e) => {
         username: formData.get("username"),
         about: formData.get("about"),
         likes: formData.get("likes"),
+        firstname: formData.get("firstname"),
+        lastname: formData.get("lastname"),
+        mobile_no: formData.get("mobile_no"),
         dislikes: formData.get("dislikes"),
         image_path: image_data == null ? null : image_data.path,
       })
@@ -154,7 +162,7 @@ async function getDatas() {
 
     profiles.forEach((user_info) => {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
-      container += `<h4 class="mt-2" data-id="${user_info.firstname}">${user_info.firstname}'s  profile</h4>`;
+      container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
       UniversalContainer += `<div class="row my-4 p-2">
             <div id="t1" class="col-6 col-lg-6 col-md-6 col-sm-6">
@@ -224,6 +232,9 @@ async function getDatas() {
       <div class="row">
       <div class="col">
       <div class="mt-2">Username: ${user_info.username}</div>
+     <div class="mt-2">FirstName: ${user_info.firstname}</div>
+     <div class="mt-2">LastName: ${user_info.lastname}</div>
+     <div class="mt-2">Mobile Number: ${user_info.mobile_no}</div>
      <div class="mt-2">About: ${user_info.about}</div>
      </div>
      </div>
@@ -243,9 +254,6 @@ async function getDatas() {
     });
 
     questions.forEach((data, index) => {
-      const imagepath = data.profiles.image_path;
-      const username = data.profiles.username;
-      const likes = data.profiles.likes;
   
       questionContainer += ` <div class="col d-flex justify-content-center mb-3 mt-5">
       <div class="card justify-content-center" style="width: 18rem" data-id="${data.id} >
@@ -285,10 +293,11 @@ async function getDatas() {
       }
     });
     
-    
   /* edit funtion calling */
-  document.querySelectorAll("#btn_edit_questions").forEach((element) => {
-      element.addEventListener("click", editAction_question);
+  document.body.addEventListener('click',function(event) {
+    if (event.target.id === 'btn_edit_questions') {
+      editAction_question(event);
+    }
   });
     document.getElementById("userContainer").innerHTML = container;
     document.getElementById("alldata").innerHTML = UniversalContainer;
@@ -307,92 +316,10 @@ async function getDatas() {
   
 }
 
-
-//edit questions
-form_modal_questions.onsubmit = async (e) => {
-  e.preventDefault();
-  // Disable Button
-document.querySelector("#form_item button[type='submit']").disabled = true;
-document.querySelector("#form_item button[type='submit']").innerHTML = `
-                  <span>Loading...</span>`;
-
-
-  const formData = new FormData(form_modal_questions);
-
-  /* update */
-  if (for_update_id_questions == '') {
-      const { data, error } = await supabase
-          .from("questions")
-          .insert([
-              {
-                  tittle: formData.get("tittle"),
-                 question_text: formData.get("question_text"),
-                 answer_text: formData.get("answer"),
-              }
-              ,])
-          .select();
-      if (error) {
-          errorNotification("Something wrong happened. Cannot add item.", 15);
-          console.log(error);
-      }
-      else {
-
-          successNotification("Item Successfully Added!", 15);
-          window.location.reload();
-          // Reload Datas
-          getDatas();
-
-      }
-  }
-
-  // for update
-  else {
-      const { data, error } = await supabase
-          .from("questions")
-          .update({
-            tittle: formData.get("tittle"),
-            question_text: formData.get("question_text"),
-            answer_text: formData.get("answer"),
-          })
-          .eq("id", for_update_id_questions)
-          .select();
-      if (error == null) {
-          successNotification("Item Successfully Added!", 15);
-
-          // Reset storage id
-          for_update_id_questions = "";
-          /* reload datas */
-          getDatas();
-      }
-      else {
-
-          errorNotification("Something wrong happened. Cannot add item.", 15);
-          console.log(error);
-      }
-  }
-  // Modal Close
-  document.getElementById("modal_close").click();
-
-  // Reset Form
-  form_item.reset();
-
-  // Enable Submit Button
-  document.querySelector("#form_item button[type='submit']").disabled = false;
-  document.querySelector(
-      "#form_item button[type='submit']"
-  ).innerHTML = `Submit`;
-}
-//end of edit questions
-
-
-
-
-
-
 // Storage of Id of chosen data to update
 let for_update_id = "";
 
-// Edit Functionality; but show first
+// Edit Functionality; but show first for about info edit
 const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
 
@@ -408,6 +335,9 @@ const editAction = async (e) => {
 
     // Assign values to the form
     document.getElementById("username").value = profiles[0].username;
+    document.getElementById("firstname").value = profiles[0].firstname;
+    document.getElementById("lastname").value = profiles[0].lastname;
+    document.getElementById("mobile_no").value = profiles[0].mobile_no;
     document.getElementById("likes").value = profiles[0].likes;
     document.getElementById("dislikes").value = profiles[0].dislikes;
     document.getElementById("about").value = profiles[0].about;
@@ -439,39 +369,126 @@ const deleteQuestion = async (e) => {
   }
 }
 
-
-
-
-
-let for_update_id_questions = " ";
+let update_questions = "";
 
 const editAction_question = async (e) => {
   const id = e.target.getAttribute("data-id");
+
+  // Set loading state to true
+  setLoading(true);
 
   // Supabase show by id
   let { data: questions, error } = await supabase
     .from("questions")
     .select("*")
-    .eq("id", userId);
+    .eq("id", id);
+
+  // Set loading state to false after fetching data
+  setLoading(false);
 
   if (error == null) {
-    // Store id to a variable; id will be utilize for update
-    for_update_id_questions = questions[0].id;
+    // Store id to a variable; id will be utilized for update
+    update_questions = questions[0].id;
 
     // Assign values to the form
     document.getElementById("tittle").value = questions[0].tittle;
     document.getElementById("question_text").value = questions[0].question_text;
-    document.getElementById("answers").value = questions[0].answer_text;
-    
+    document.getElementById("answer_text").value = questions[0].answer_text;
 
     // Change Button Text using textContent; either innerHTML or textContent is fine here
   } else {
     errorNotification("Something wrong happened. Cannot show item.", 15);
     console.log(error);
   }
-
-  document.getElementById("modal_show").click();
 };
+
+// Function to set loading state
+const setLoading = (isLoading) => {
+  const loader = document.getElementById("preloader"); // Replace "loader" with the actual ID of your loading screen element
+  if (isLoading) {
+    loader.style.display = "block"; // Show loading screen
+  } else {
+    loader.style.display = "none"; // Hide loading screen
+  }
+};
+
+
+//edit questions
+form_modal_questions_edit.onsubmit = async (e) => {
+  
+  e.preventDefault();
+  // Disable Button
+document.querySelector("#form_modal_questions button[type='submit']").disabled = true;
+document.querySelector("#form_modal_questions button[type='submit']").innerHTML = `
+                  <span>Loading...</span>`;
+
+
+  const formData = new FormData(form_modal_questions_edit);
+
+  /* update */
+  if (update_questions == '') {
+      const { data, error } = await supabase
+          .from("questions")
+          .insert([
+              {
+                  tittle: formData.get("tittle"),
+                 question_text: formData.get("question_text"),
+                 answer_text: formData.get("answer_text"),
+              },
+              ])
+          .select();
+      if (error) {
+          errorNotification("Something wrong happened. Cannot add Question", 15);
+          console.log(error);
+      }
+      else {
+
+          successNotification("Question Successfully Added!", 15);
+        
+          getDatas();
+
+      }
+  }
+
+  // for update
+  else {
+      const { data, error } = await supabase
+          .from("questions")
+          .update({
+            tittle: formData.get("tittle"),
+            question_text: formData.get("question_text"),
+            answer_text: formData.get("answer_text"),
+          })
+          .eq("id", update_questions)
+          .select();
+      if (error == null) {
+          successNotification("Item Successfully Added!", 15);
+
+          // Reset storage id
+          update_questions = "";
+          /* reload datas */
+          getDatas();
+          window.location.reload();
+      }
+      else {
+
+          errorNotification("Something wrong happened. Cannot add item.", 15);
+          console.log(error);
+      }
+  }
+  // Modal Close
+  document.getElementById("modal_close").click();
+
+  // Reset Form
+  form_modal_questions_edit.reset();
+
+  // Enable Submit Button
+  document.querySelector("#form_modal_questions button[type='submit']").disabled = false;
+  document.querySelector(
+      "#form_modal_questions button[type='submit']"
+  ).innerHTML = `Submit`;
+}
+//end of edit questions
 
 
 

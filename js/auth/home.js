@@ -12,6 +12,7 @@ const itemsImageUrl =
 const userId = localStorage.getItem("user_id");
 const form_item = document.getElementById("form_item");
 const btn_logout = document.getElementById("btn_logout");
+const form_search = document.getElementById('form_search');
 
 
 btn_logout.onclick = doLogout;
@@ -37,6 +38,16 @@ async function getDatas() {
 }
 let for_update_id = "";
 //setquestions
+
+
+form_search.onsubmit = async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(form_search);
+  getQuestions(formData.get("keyword"))
+  document.getElementById("modal_close_search").click();
+  form_search.reset();
+}
 
 form_item.onsubmit = async (e) => {
   e.preventDefault();
@@ -95,11 +106,16 @@ form_item.onsubmit = async (e) => {
 
 
 //get questions
-async function getQuestions() {
+async function getQuestions(keyword = "") {
   let { data: questions, error } = await supabase
     .from("questions")
     .select("*,profiles(*)")
-
+    .or(
+      "question_text.ilike.%" + keyword + "%",
+      "tittle.ilike.%" + keyword + "%",
+      "username.ilike.%" + keyword + "%"
+  );
+ 
     questions.sort(() => Math.random() - 0.5);
     //CHILLI SPICY COM-SCI LORDS BABY!
   
@@ -156,9 +172,6 @@ for (let i = 0; i < questions.length; i++) {
     };
 }}
 
-
-
-
 form_modal.onsubmit = async (e) => {
   e.preventDefault();
   document.querySelector("#form_modal button").disabled = true;
@@ -178,3 +191,6 @@ form_modal.onsubmit = async (e) => {
     "#form_modal button[type='submit']"
   ).innerHTML = `Submit`;
 };
+
+
+

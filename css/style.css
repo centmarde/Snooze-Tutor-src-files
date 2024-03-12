@@ -89,7 +89,10 @@
   background-position: center;
   background-repeat: no-repeat;
  /* background-color: rgb(240, 240, 240); */
-  background-image: url("https://www.bhmpics.com/downloads/android-wallpaper-gif/8.r0cwpwi.gif");
+  /* background-image: url("https://www.bhmpics.com/downloads/android-wallpaper-gif/8.r0cwpwi.gif"); */
+  background: linear-gradient(#2b1055, #7597de);
+  min-height: 100vh;
+
 }
 #spacer3{
   height: 1000px;

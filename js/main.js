@@ -11,6 +11,7 @@ import { setRouter } from './router/router'; //router para dile mo gawas if naka
 setRouter();
 
 
+
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://plsyfklzwmasyypcuwei.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsc3lma2x6d21hc3l5cGN1d2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc5MDMxMzAsImV4cCI6MjAyMzQ3OTEzMH0.YTmmu_q2bXhccWjUpiGQ-mXaa_eHNA5bxluCJ7cBjbM');
 
@@ -78,7 +79,7 @@ async function doLogout() {
       return null; // Handle the error as needed
     }
   }
-
+ 
   
 
 export {supabase,successNotification,errorNotification,doLogout,countUsers};
