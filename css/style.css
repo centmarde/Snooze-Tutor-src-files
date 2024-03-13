@@ -1,11 +1,30 @@
 #peace_logo {
-  color: rgb(238, 0, 91);
+  color: rgb(253, 0, 97);
 }
+
+.style-script-regular {
+  font-family: "Style Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.raleway-uniquifier {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight:400;
+  font-style: normal;
+}
+
 #ico-bt1,
 #ico-bt2,
 #ico-bt4,
 #ico-bt5 {
-  color: rgb(47, 5, 82);
+  color:#2b1055;
 }
 #ico-bt3{
   position: relative;
@@ -34,7 +53,7 @@
   --midcolor: #910A67;
   --dark1: #720455;
   --dark2: #3C0753;
-  --darkest:#030637; 
+  --darkest:#2b1055; 
 }
 
 #indexbody {
@@ -51,10 +70,11 @@
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
-/* h1 { */
-  /* color: black; */
-  /* font-size: 60px; */
-/* } */
+#Loginh1 {
+  color: #2b1055;
+  font-size: 100px;
+  font-family:"Style Script", cursive;
+}
 #mt {
   margin-top: 70px;
 }
@@ -65,19 +85,18 @@
   height: 100px;
 }
 
-
 #background {
   background-color:white;
   height: auto;
   color: #030637;
 }#c {
- color: #030637;
+ color: #2b1055;
 }
 #form_login{
-  color: black;
+  color: #2b1055;
 }
 #login_button{
-  background-color: #030637;
+  background-color: #2b1055;
   color: aliceblue;
 }
 /* intro.html */
@@ -94,9 +113,9 @@
   min-height: 100vh;
 
 }
-#spacer3{
-  height: 1000px;
-}
+/* #spacer3{ */
+  /* height: 1000px; */
+/* } */
 /* register */
 #register_h1{
   color: black;
@@ -117,5 +136,96 @@
   background-position: center;
   background-repeat: no-repeat;
  /* background-color: rgb(240, 240, 240); */
-  background-image: url("https://c4.wallpaperflare.com/wallpaper/707/220/899/gradient-blue-pink-abstract-art-wallpaper-preview.jpg");
+  background-image: url("../assets/imgs/wallpaper2.jpg");
+}
+
+/* start of parralax */
+section
+{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#backArrow{
+  color: #2b1055;
+}
+
+section img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+section img#moon
+{
+    mix-blend-mode: screen;
+}
+section img#mountains_behind
+{
+  z-index: 9;
+}
+section img#last
+{
+  z-index: 1;
+}
+section img#mountains_front
+{
+  z-index: 10;
+}
+section img#firstLayer
+{
+  z-index: 11;
+}
+
+section::before
+{
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, #1c0522, transparent);
+    z-index: 1000;
+}
+
+#texth2{
+  position: absolute;
+  right: 25px;
+  color: #fff;
+  white-space: nowrap;
+  font-size: 50px;
+  z-index: 9;
+  font-family: "Raleway", sans-serif;
+}
+#sec{
+  position: relative;
+    padding: 20px;
+    background: #1c0522;
+    color: white;
+}
+#welcome{
+  font-family: "Style Script", cursive;
+  font-size: 45px;
+}
+.hiddenAnimate {
+  opacity: 0;
+  transition: all 1s;
+}
+.showAnimate{
+  opacity: 1;
+}
+@media(prefers-reduced-motion){
+  .hiddenAnimate {
+    transition: none;
+  }
 }

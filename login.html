@@ -21,6 +21,17 @@
   <script type="module" src="./js/main.js"></script>
   <script type="module" src="./js/auth/login.js"></script>
   <link rel="stylesheet" href="./scss/loader.scss">
+
+   <!-- fonts -->
+
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap"
+     rel="stylesheet"
+   />
+
+   <!-- fonts end -->
   
   <meta name="theme-color" content="#31d53d" />
 </head>
@@ -42,13 +53,13 @@
 
   <nav class="navbar fixed-top bg-body-tertiary shadow">
     <div class="container-fluid">
-      <a class="ms-2" href="index.html"><i><i class="fa fa-long-arrow-left fa-2x" aria-hidden="true"></i></i></a>
+      <a id="backArrow" class="ms-2" href="index.html"><i><i class="fa fa-long-arrow-left fa-2x" aria-hidden="true"></i></i></a>
     </div>
   </nav>
 
   <div id="spacer2" ></div>
-    <div>
-        <h1 id="h1" class="text-center mt-5">Log-in</h1>
+    <div id="Loginh1">
+        <div  class="text-center mt-1">Log-in</div>
       </div>
 
       <div class="m-3">
@@ -71,14 +82,14 @@
         <form id="form_login">
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required autocomplete="new-email" >
-            <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</div>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required autocomplete="email" >
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
           </div>
     
     
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input  type="password" class="form-control" name="password" id="password" required autocomplete="new-password" >
+            <input  type="password" class="form-control" name="password" id="password" required autocomplete="password" >
           </div>
     
     
@@ -150,6 +161,6 @@
                 loader.style.display = "none";
               })
             </script>
-
+  
 </body>
 </html>

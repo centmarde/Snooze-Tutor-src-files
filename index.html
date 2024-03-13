@@ -1,134 +1,235 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Snooze Tutor</title>
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>tres marias</title>
-  <meta name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
+    <script
+      type="module"
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
+    ></script>
 
-  <script type="module"
-    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
-  <script nomodule
-    src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+    <!-- fonts -->
 
-  <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
-  <link rel="manifest" href="./manifest.json" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="module" src="./js/main.js"></script>
-  <script type="module" src="./js/auth/index.js"></script>
-  <link rel="stylesheet" href="./scss/loader.scss">
-  <meta name="theme-color" content="#31d53d" />
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap"
+      rel="stylesheet"
+    />
 
+    <!-- fonts end -->
 
-<body id="indexbody2">
-  <div class="container">
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/auth/index.js"></script>
+    <link rel="stylesheet" href="./scss/loader.scss" />
+    <meta name="theme-color" content="#31d53d" />
+  </head>
 
-  <div id="preloader">
-    <div class="wrapper">
-        <div class="box-wrap">
+  <body id="indexbody2">
+    <!-- parallax -->
+    <section>
+      <img src="./assets/imgs/last.png" id="last" />
+      <img src="./assets/imgs/stars.png" id="stars" />
+      <img src="./assets/imgs/moon.png" id="moon" />
+      <img src="./assets/imgs/mid_layer.png" id="mountains_behind" />
+      <div id="texth2" class="text-light">Snooze Tutor</div>
+      <img id="mountains_front" src="./assets/imgs/front_layer.png" />
+      <img src="./assets/imgs/first_layer.png" id="firstLayer" />
+    </section>
+    <div id="sec">
+      <!-- parallax end -->
+      <br />
+      <br />
+      <br />
+      <br />
+      <div class="hiddenAnimate">
+        <h1 id="welcome" class="text-light text-center">Welcome Aboard</h1>
+      </div>
+      <br />
+      <br />
+
+      <div class="text-center">
+        <p class="hiddenAnimate"> If your life motto is
+          <i>"Why be interesting when you can be adequately dull?"</i>
+          well, this app is the yawn-worthy answer you never knew you didn't need.
+          Imagine a world where curiosity is met with the enthusiasm of a snail
+          on a coffee break. That's exactly what "Snooze Tutor" brings to the
+          table
+        </p>
+
+        <p class="hiddenAnimate">or should we say, to the nap-inducing lecture hall? It's the Q&A app
+        that takes mundane to a whole new level, making you question why you're
+        questioning anything in the first place.</p>
+
+        <p class="hiddenAnimate">
+          With an interface so basic, it makes a stick figure look like a
+          Renaissance masterpiece, "Snooze Tutor" guides you through the
+          labyrinth of questions that might just be more boring than watching
+          paint dry. But fear not, dear user, for in this realm of intellectual
+          mediocrity, you'll find answers that are as enlightening as a
+          flashlight in broad daylight.
+        </p>
+
+        <p class="hiddenAnimate">
+          So, whether you're seeking the secrets of the universe or just killing
+          time while waiting for your microwave dinner, join the unimpressive
+          revolution with "Snooze Tutor"
+        </p>
+
+        <p class="hiddenAnimate">
+          where questions get the answers they probably don't deserve, and your
+          curiosity is met with a resounding "meh." Welcome to the epitome of
+          unremarkable knowledge!
+        </p>
+      </div>
+      <br />
+      <br />
+      <br />
+      <!-- modal shower -->
+      
+      <div id="modal_show" class="text-center">
+        <!-- copy this modal trigger to your other HTML -->
+        <div class="hiddenAnimate">
+        <div
+          id="button_intro"
+          class="d-grid gap-2 mx-1"
+          data-bs-toggle="modal"
+          data-bs-target="#form_modal"
+          href="#"
+        >
+          <button class="btn btn-light shadow" type="submit">Signup</button>
+        </div>
+      </div>
+      </div>
+      <div></div>
+
+      <div id="preloader">
+        <div class="wrapper">
+          <div class="box-wrap">
             <div class="box one"></div>
             <div class="box two"></div>
             <div class="box three"></div>
             <div class="box four"></div>
             <div class="box five"></div>
             <div class="box six"></div>
+          </div>
         </div>
-    </div>
-  </div>
+      </div>
 
+      <!-- Modal Btn and Form -->
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="form_modal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div id="b" class="modal-header">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
 
-
-  <div class="text-center"><img id="cat" src="./assets/imgs/kitty-cat.gif" alt="cat" width="200px" height="200px" data-aos="zoom-in">
-<p>just scroll down! <br> Our front-end is on vacation <style> p{color:white;}</style> </p></div>
-<div id="spacer3"></div>
-
-  
-  <!-- modal shower -->
-  <div id="modal_show" class="text-center">            <!-- copy this modal trigger to your other HTML -->
-    <div id="button_intro" class="d-grid gap-2 mx-4" data-bs-toggle="modal" data-bs-target="#form_modal" href="#">
-      <button class="btn btn-light shadow" type="submit">Signup</button>
-    </div>
-  </div>
-
-
-  <!-- Modal Btn and Form -->
-  <!-- Modal -->
-  <div class="modal fade" id="form_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div id="b" class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-
-        <!-- Item Form -->
-        <form id="form_register">
-          <!-- Modal Body -->
-          <div class="modal-body">
-            <!-- Item Name Field -->
-            <div class="row mb-3">
-              <div class="col-sm-12">
-
-                <div class="d-flex justify-content-center"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/-Insert_image_here-.svg/320px--Insert_image_here-.svg.png?20220802103107"
-                    alt="image" width="200px" height="200px">
+            <!-- Item Form -->
+            <form id="form_register" class="text-dark">
+              <!-- Modal Body -->
+              <div class="modal-body">
+                <!-- Item Name Field -->
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <div class="d-flex justify-content-center">
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/-Insert_image_here-.svg/320px--Insert_image_here-.svg.png?20220802103107"
+                        alt="image"
+                        width="200px"
+                        height="200px"
+                      />
+                    </div>
+                    <div>
+                    
+                      <h3 >Before you join.</h3>
+                      <span
+                        >Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Natus inventore voluptates quam, pariatur quo
+                        recusandae deserunt tempore rerum veritatis esse dicta
+                        non excepturi maiores itaque
+                      </span>
+                    </div>
+                    <div class="mt-2">
+                      <h5>please agree!</h5>
+                      <span
+                        >Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Inventore est omnis vitae modi ea, impedit
+                        necessitatibus quasi amet error nesciunt architecto
+                        illum reiciendis assumenda voluptatum ipsam a maxime
+                        deserunt odio.</span
+                      >
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3>Before you join.</h3>
-                  <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus inventore voluptates quam,
-                    pariatur quo recusandae deserunt tempore rerum veritatis esse dicta non excepturi maiores itaque
-                  </span>
-                </div>
-                <div class="mt-2">
-                  <h5>please agree!</h5>
-                  <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore est omnis vitae modi ea,
-                    impedit necessitatibus quasi amet error nesciunt architecto illum reiciendis assumenda voluptatum
-                    ipsam a maxime deserunt odio.</span>
-                </div>
-
-
-
               </div>
-            </div>
-          </div>
 
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">
-                I agree
-              </button>
-            </div>
+              <!-- Modal Footer -->
+              <div class="modal-footer">
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">I agree</button>
+                </div>
+              </div>
+            </form>
+            <!-- End Slides Form -->
           </div>
-        </form>
-        <!-- End Slides Form -->
+        </div>
+      </div>
+      <!-- End Modal -->
+
+      <div class="hiddenAnimate">
+      <div class="row">
+        <div id="p_intro" class="col mt-3 mb-5 d-flex justify-content-center">
+          <p>already have an account?</p>
+          <button
+            onclick="window.location.href='/login.html';"
+            class="btn btn-outline-light ms-4"
+            type="button"
+          >
+            SignIn
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- End Modal -->
-
-  <div class="row">
-    <div id="p_intro" class="col mt-3 mb-5 d-flex justify-content-center ">
-      <p>already have an account?</p><button onclick="window.location.href='/login.html';" class="btn btn-primary ms-4"
-        type="button">SignIn</button>
     </div>
-  </div>
-</div>
 
-
-  <script>
-    var loader = document.getElementById("preloader");
-    window.addEventListener("load", function () {
-      loader.style.display = "none";
-    })
-  </script>
-
-</body>
-
+    <script>
+      var loader = document.getElementById("preloader");
+      window.addEventListener("load", function () {
+        loader.style.display = "none";
+      });
+    </script>
+    <script defer src="./js/auth/mover.js"></script>
+  </body>
 </html>

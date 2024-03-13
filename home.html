@@ -21,6 +21,17 @@
     <script type="module" src="./js/auth/home.js"></script>
     <link rel="stylesheet" href="./scss/loader.scss" />
 
+     <!-- fonts -->
+
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link
+       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap"
+       rel="stylesheet"
+     />
+ 
+     <!-- fonts end -->
+
     <meta name="theme-color" content="#31d53d" />
   </head>
 
@@ -42,7 +53,7 @@
     <nav class="navbar bg-body-tertiary fixed-top shadow">
       <div class="container-fluid">
         <a class="navbar-brand col" href="#">
-          <h5 class="fw-bold mt-2">SNOOZE Tutor</h5>
+          <h5 class="fw-bold mt-2" style="color: #2b1055;" >SNOOZE Tutor</h5>
         </a>
 
         <!-- logo -->
@@ -129,15 +140,15 @@
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success" type="submit">
+              <button class="btn" style="background-color: #2b1055; color: white;" type="submit">
                 Search
               </button>
             </form>
 
             <li class="nav-item d-grid gap-2 me-2 mt-4">
               <!-- logout button-->
-              <a class="nav-link" id="btn_logout">
-                <button class="btn btn-primary w-100">Logout</button>
+              <a class="nav-link" id="btn_logout" >
+                <button class="btn btn-primary w-100" style="background-color: #2b1055;">Logout</button>
               </a>
             </li>
           </div>
@@ -152,18 +163,22 @@
                 <a
                   class="fa fa-facebook fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
                   href="https://web.facebook.com/centmarde.campado"
+                  style="color:#2b1055;"
                 ></a>
                 <a
                   class="fa fa-twitter fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
                   href="https://twitter.com/?lang=en"
+                  style="color:#2b1055;"
                 ></a>
                 <a
                   class="fa fa-instagram fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
                   href="https://www.instagram.com/"
+                  style="color:#2b1055;"
                 ></a>
                 <a
                   class="fa fa-linkedin fa-2x mx-2 link-offset-2 link-underline link-underline-opacity-0"
                   href="https://www.linkedin.com/login"
+                  style="color:#2b1055;"
                 ></a>
               </div>
             </div>
@@ -190,11 +205,11 @@
               <div class="col">
                 <a
                   id="ico-bt2"
-                  class="fa fa-globe fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  class="fa fa-arrow-up fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                   aria-hidden="true"
-                  href=""
+                  href="#"
                 ></a>
-                <p>Explore</p>
+                <p>Gotop</p>
               </div>
               <div class="col">
                 <a
@@ -230,8 +245,8 @@
       </div>
       <div class="row">
         <div class="col d-flex ms-2">
-          <p class="mx-2">My-list</p>
-          <p class="ms-3">Home</p>
+          <a class="mx-2" style="text-decoration: none; color: #2b1055;" href="#" >My-list</a>
+          <a class="ms-3" style="text-decoration: none; color: #2b1055;" href="#"  >Home</a>
         </div>
       </div>
     </nav>
@@ -376,10 +391,12 @@
     <!-- end of alert pop ups -->
 
     <!-- start of contents -->
+    
     <div class="container">
       <div id="indexContainer">
       </div>
     </div>
+  
    <!--  end of contents -->
 
    <!-- modal for answer -->

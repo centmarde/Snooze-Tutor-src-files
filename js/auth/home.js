@@ -126,9 +126,9 @@ async function getQuestions(keyword = "") {
     const username = data.profiles.username;
     const likes = data.profiles.likes;
 
-    questionContainer += ` <div class="col d-flex justify-content-center mb-3">
+    questionContainer += `<div class="col d-flex justify-content-center mb-3">
     <div class="card justify-content-center" style="width: 18rem">
-      <div class="card" style="width: 18rem">
+      <div class="card" style="width: 18rem; background-color:#e3deeb;">
         <div class="card-body">
           <div class="row">
             <div class="col-4">
@@ -154,13 +154,14 @@ async function getQuestions(keyword = "") {
               <i>${data.answer_text}</i>
           </div>
           <div class="d-grid gap-2 mt-2" >
-          <button type="button" id="showButton${index}" class="btn btn-dark">Show Answer</button>
+          <button type="button" id="showButton${index}" class="btn btn-dark"  style=" background-color:#2b1055;">Show Answer</button>
           </div>
         </div>
       </div>
     </div>
   </div>`;
 });
+
 
 document.getElementById("indexContainer").innerHTML = questionContainer;
 
