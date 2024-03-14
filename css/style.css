@@ -26,6 +26,11 @@
 #ico-bt5 {
   color:#2b1055;
 }
+#ico-bt21{
+  position: relative;
+  bottom: 15px ;
+  color: rgb(47, 5, 82);
+}
 #ico-bt3{
   position: relative;
   bottom: 15px ;
@@ -118,8 +123,10 @@
 /* } */
 /* register */
 #register_h1{
-  color: black;
+  color: #2b1055;
+  font-family:"Style Script", cursive;
   font-size: 35px;
+  font-size: 80px;
 }
 #cat{
   margin-top: 300px;
@@ -229,3 +236,64 @@ section::before
     transition: none;
   }
 }
+
+/* Define keyframe animation */
+/* In Dynamic Home Cards */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px); /* Move from the right */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    transform: translateX(0); /* Move to original position */
+  }
+}
+
+/* Apply animation to the hiddenAnimate class */
+.hiddenAnimate2 {
+  opacity: 0; /* Initially hidden */
+}
+
+/* Apply animation when the show class is added */
+.show2 {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+@media(prefers-reduced-motion){
+  .hiddenAnimate2 {
+    transition: none;
+  }
+}
+
+/* new animation33333*/
+@keyframes delayedFadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Apply animation to the hiddenAnimate2 class */
+.hiddenAnimate3 {
+  opacity: 0; /* Initially hidden */
+}
+
+/* Apply animation when the show class is added */
+.show3 {
+  animation: delayedFadeIn 1s ease-in-out forwards;
+}
+
+@media(prefers-reduced-motion){
+  .hiddenAnimate3 {
+    transition: none;
+  }
+}
+
+
+

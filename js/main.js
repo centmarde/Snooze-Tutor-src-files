@@ -79,7 +79,51 @@ async function doLogout() {
       return null; // Handle the error as needed
     }
   }
- 
+
+ /* animations effects */
+  document.addEventListener("DOMContentLoaded", function() {
+    // Function to check if an element is in the viewport
+    function isInViewport(element) {
+      var rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
   
+    // Function to add show3 class to elements in viewport
+    function showInView() {
+      var elements = document.querySelectorAll('.hiddenAnimate3');
+  
+      elements.forEach(function(element) {
+        if (isInViewport(element)) {
+          element.classList.add('show3');
+        }
+      });
+    }
+  
+    // Initial check when the page loads
+    showInView();
+  
+    // Check again on scroll
+    window.addEventListener('scroll', showInView);
+  });
+
+  function showHiddenElements2() {
+    // Get all elements with the class hiddenAnimate2
+    const hiddenElements = document.querySelectorAll('.hiddenAnimate3');
+    
+    // Loop through each hidden element
+    hiddenElements.forEach(element => {
+      // Add the delayedFadeIn class after a delay of 1000 milliseconds (1 second)
+      setTimeout(() => {
+        element.classList.add('delayedFadeIn');
+      }, 1000);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', showHiddenElements2);
+ /* animations effects */
 
 export {supabase,successNotification,errorNotification,doLogout,countUsers};

@@ -19,6 +19,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/auth/help.js"></script>
     <link rel="stylesheet" href="./scss/loader.scss" />
 
      <!-- fonts -->
@@ -35,7 +36,7 @@
     <meta name="theme-color" content="#31d53d" />
 </head>
 
-<body>
+<body id="home_index">
     <div id="preloader">
         <div class="wrapper">
             <div class="box-wrap">
@@ -204,21 +205,22 @@
             </div>
             <div class="col">
               <a
-                id="ico-bt2"
-                class="fa fa-arrow-up fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                id="ico-bt21"
+                class="fa fa-comments fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                 aria-hidden="true"
-                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#form_card"
               ></a>
-              <p>Gotop</p>
+              <p id="ico-bt3">Create</p>
             </div>
             <div class="col">
               <a
-                id="ico-bt3"
-                data-bs-toggle="modal"
-                data-bs-target="#form_modal"
-                class="fa fa-plus-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                id="ico-bt31 "
+                style="color: #2b1055;"
+                href="./home.html"
+                class="fa fa-plus-circle fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
               ></a>
-              <p id="ico-bt3">Create</p>
+              <p id="ico-bt2">Home</p>
             </div>
             <div class="col">
               <a
@@ -251,79 +253,6 @@
     </div>
   </nav>
 
-    
-
-      <!-- modal -->
-      <div class="modal fade" id="form_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h2 class="modal-title fs-5" id="c">
-                  User Information
-                </h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <!-- Item Form -->
-              <form id="form_item">
-                <!-- Modal Body -->
-                <div class="modal-body">
-                  <!-- Item Name Field -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <input class="form-control" type="text" name="firstname" id="firstname" placeholder="firstname"
-                        required />
-                    </div>
-                  </div>
-
-                  <!-- Price Field -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <input class="form-control" type="text" name="password" id="password" 
-                        placeholder="Price" required />
-                    </div>
-                  </div>
-
-                  <!-- Description Field -->
-                  <div class="row mb-3">
-                    <div class="col-sm-12">
-                      <textarea class="form-control" name="Role" id="Role" placeholder="role"
-                        required></textarea>
-                    </div>
-                  </div>
-
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                  <button id="modal_close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close
-                  </button>
-                  <button class="btn btn-primary w-25 d-flex align-items-center justify-content-center" type="submit">
-                    <!--  onclick="window.location.href='./items.html'" -->
-                    Submit
-                  </button>
-                </div>
-              </form>
-              <!-- End Slides Form -->
-            </div>
-          </div>
-          <!-- Button trigger modal -->
-          <button id="modal_show" type="button" data-bs-toggle="modal"
-          data-bs-target="#form_modal">
-        </button>
-        <!-- End Button trigger modal  -->
-        </div>
-        <!-- End Modal -->
-
-        <div class="justify-content-center text-center my-2">
-            <h1>User Information</h1>
-          </div>
-          
-        
-          <!-- dashboard dynamic body -->
-          <div id="get_data"></div>
-          <!-- end of dashboard dynamic body -->
-        
         
           <div class="m-3">
             <div class="alert alert-success d-none" role="alert">
@@ -335,19 +264,292 @@
           </div>
 
 
+          <!-- modal for search -->
+      
+      <form id="form_search">
+      <div class="modal fade" id="form_modal_search" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container">
+                <input class="form-control mr-sm-2" type="text" name="keyword" placeholder="Input tittle or descreption." aria-label="Search">
+            </div>
+            <div class="modal-footer">
+              <button id="modal_close_search" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+      
+      
+      
+          <!-- end of modal search -->
+      
+          <!--start of alert pop ups notifications -->
+      
+          <div class="m-3">
+            <div class="alert alert-success d-none" role="alert"></div>
+            <div class="alert alert-danger d-none" role="alert"></div>
+          </div>
+          <br />
+          <br />
+      
+          <!-- end of alert pop ups -->
+      
+          <!-- start of contents -->
+          
+          <div class="container">
+            <div id="indexContainer">
+            </div>
+          </div>
+        
+         <!--  end of contents -->
+      
+         <!-- modal for answer -->
+      
+          <br>
+          <br><br>
+
+          <div class="d-grid justify-content-center" >
+          <div class="row">
+            <div class="col"><div class="card" style="width: 20rem;">
+                <div id="cardImage1"></div>
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col"><div class="card" style="width: 20rem;">
+              <div id="cardImage2"></div>
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 20rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 20rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col">
+                <div class="col"><div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          
+        </div>
 
 
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-12">
+                <!-- Modal Btn and Form -->
+                <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="form_card"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabindex="-1"
+                  aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                         Insert your Question:
+                        </h1>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <!-- Item Form -->
+                      <form id="form_item">
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                          <!-- Username Field -->
 
+                          <div class="class row mb-3">
+                            <div class="col-sm-12"><input
+                                class="form-control"
+                                type="file"
+                                name="image_path"
+                                accept="image/*"
+                                required
+                              /></div>
+                              <span class="ms-2" >upload Image</span>
+                          </div>
 
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <input
+                                class="form-control"
+                                type="text"
+                                name="card_title"
+                                id="card_title"
+                                placeholder="title"
+                                required
+                              />
+                            </div>
+                          </div>
+      
+                         
+                          <div class="row mb-3">
+                            <div class="col-sm-12">
+                              <textarea
+                                class="form-control"
+                                name="card_description"
+                                id="card_description"
+                                placeholder="input description"
+                                required
+                              ></textarea>
+                            </div>
+                          </div>
 
+                          <div class="row ms-2 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  Request
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                  Challenges
+                                </label>
+                              </div>
+                          </div>
+      
+                         
 
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                          <button
+                            id="modal_close"
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button
+                            class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                            type="submit"
+                          >
+                            <!--  onclick="window.location.href='./items.html'" -->
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                      <!-- End Slides Form -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-
-
-
-
-
-
+        <br><br><br><br><br><br>
 
         <script>
             var loader = document.getElementById("preloader");
