@@ -19,7 +19,12 @@
   font-weight:400;
   font-style: normal;
 }
-
+#tryScroll{
+  color: #ffffff;
+  font-family:"Style Script", cursive;
+  font-size: 40px;
+  padding: 5px;
+}
 #ico-bt1,
 #ico-bt2,
 #ico-bt4,
@@ -207,7 +212,7 @@ section::before
 
 #texth2{
   position: absolute;
-  right: 25px;
+  right: 50px;
   color: #fff;
   white-space: nowrap;
   font-size: 50px;
@@ -294,6 +299,5 @@ section::before
     transition: none;
   }
 }
-
 
 

@@ -15,6 +15,7 @@ const btn_logout = document.getElementById("btn_logout");
 const form_search = document.getElementById('form_search');
 
 
+
 btn_logout.onclick = doLogout;
 
 //function initialize for navbar dynamic name
@@ -24,10 +25,13 @@ getQuestions();
 
 //navbar dynamic name
 async function getDatas() {
+
+  
   let { data: profiles, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId);
+   /*  alert("Start Scrolling"); */
   let container = "";
   profiles.forEach((user_info) => {
     container += `<h4 class="mt-2" data-id="${user_info.username}">Good Day! ${user_info.username}</h4>`;
@@ -38,6 +42,90 @@ async function getDatas() {
 }
 let for_update_id = "";
 //setquestions
+
+async function getterAllquestions() {
+  let { data: questions, error } = await supabase
+    .from("questions")
+    .select("count", { count: 'exact' })
+ /*    .eq("user_id", userId); */
+  
+ const count = questions[0].count;
+
+  let container = "";
+  questions.forEach((data_s) => {
+    container += `<p class="mt-2" data-id="${data_s.id}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond me-2" viewBox="0 0 16 16">
+    <path d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+  </svg>Total Questions: ${count}</p>`;
+  });
+  
+  // Assuming you have a container in your HTML with an id, for example, "userContainer"
+  document.getElementById("topContainer").innerHTML = container;
+ return count;
+}
+getterAllquestions();
+
+async function getterUserQuestions() {
+  let { data: questions, error } = await supabase
+    .from("questions")
+    .select("count", { count: 'exact' })
+    .eq("user_id", userId); 
+  
+ const count = questions[0].count;
+
+  let container = "";
+  questions.forEach((data_s) => {
+    container += `<p class="mt-2" data-id="${data_s.id}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill me-2" viewBox="0 0 16 16">
+    <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM5.495 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927"/>
+  </svg>Your Questions: ${count}</p>`;
+  });
+  
+  // Assuming you have a container in your HTML with an id, for example, "userContainer"
+  document.getElementById("topContainer2").innerHTML = container;
+ return count;
+}
+getterUserQuestions();
+
+async function updateProgressBar() {
+  const { data: questions, error } = await supabase
+    .from("questions")
+    .select("count", { count: "exact" });
+
+  if (error) {
+    console.error("Error fetching questions:", error.message);
+    return;
+  }
+
+  const totalCount = questions[0].count;
+
+  const userQuestions = await supabase
+    .from("questions")
+    .select("count", { count: "exact" })
+    .eq("user_id", userId);
+
+  if (userQuestions.error) {
+    console.error("Error fetching user questions:", userQuestions.error.message);
+    return;
+  }
+
+  const userQuestionCount = userQuestions.data[0].count;
+
+  const percentage = (userQuestionCount / totalCount) * 100;
+  const progressBar = document.querySelector(".progress-bar");
+
+  progressBar.style.width = percentage + "%";
+  progressBar.style.backgroundColor = "#2b1055";
+  progressBar.textContent = percentage.toFixed(2) + "%"; // Set the progress text
+}
+
+updateProgressBar()
+  .then(() => {
+    console.log("Progress bar updated successfully.");
+  })
+  .catch((error) => {
+    console.error("Error:", error.message);
+  });
+
 
 
 form_search.onsubmit = async (e) => {
@@ -142,8 +230,8 @@ async function getQuestions(keyword = "") {
             <div class="col-8">
               <div>
                 <p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18"  height="18" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                 </svg>
 
                 <b class ="me-1">IGN:</b> ${username}</p>
@@ -169,13 +257,16 @@ async function getQuestions(keyword = "") {
           </div>
           
               <div class="row">
+                <div class="col mt-3"><h5 >Show Profile...</h5>
+              </div>
               
                 <div class="col mt-3 d-flex justify-content-end">
-                <div class="me-3">
+                <div class="d-flex me-3" data-bs-toggle="modal"
+                data-bs-target="#modal_heart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
-               
+                <p class="ms-2">1</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
                 <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
@@ -189,6 +280,8 @@ async function getQuestions(keyword = "") {
       </div>
     </div>
   </div>`;
+  
+  
 });
 
 
@@ -268,6 +361,37 @@ document.addEventListener('DOMContentLoaded', showHiddenElements);
 
 // end of animations
 
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "btn_heart") {
+    submit_heart(event);
+  }
+});
 
+const submit_heart = async (e) => {
+  const id = e.target.getAttribute("data-id");
+  alert("Relax Sa");
+  // Set loading state to true
 
+  // Supabase show by id
+  const { data, error } = await supabase
+  .from("questions")
+  .update({ heart: supabase.increment(1) })
+  .eq("id", id)
+  .select();
 
+if (error) {
+  errorNotification("Something wrong happened. Cannot add heart.", 15);
+  console.log(error);
+} else {
+  successNotification("heart Successfully Added!", 15);
+ 
+  document.getElementById("modal_close_heart").click();
+  /* gethearts(); */
+}
+};
+
+window.onload = function() {
+  setTimeout(function() {
+    window.scrollTo(0, 2);
+  },1500); 
+}

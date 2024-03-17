@@ -21,26 +21,36 @@ form_item.onsubmit = async (e) => {
 
   const formData = new FormData(form_item);
 
-  // Supabase Image Upload
-  const image = formData.get("image_path");
-  const { data, error } = await supabase.storage
-    .from("profilePic")
-    .upload("public/" + image.name, image, {
-      cacheControl: "3600",
-      upsert: true,
-    });
-  const image_data = data;
+  // Check if image input is null
+  let image_path = formData.get("image_path");
+  let image_data = null;
+  if (!image_path) {
+    // Retrieve the last saved image path
+    // Assuming you have a variable holding the last saved image path
+    // Replace 'last_saved_image_path' with the variable holding the last saved image path
+    image_path = last_saved_image_path;
+  } else {
+    // Supabase Image Upload
+    const image = formData.get("image_path");
+    const { data, error } = await supabase.storage
+      .from("profilePic")
+      .upload("public/" + image.name, image, {
+        cacheControl: "3600",
+        upsert: true,
+      });
+    image_data = data;
 
-  // Error notification for upload
-  if (error) {
-    errorNotification(
-      "Something wrong happened. Cannot upload image, image size might be too big. You may update the item's image.",
-      15
-    );
-    console.log(error);
+    // Error notification for upload
+    if (error) {
+      errorNotification(
+        "Something wrong happened. Cannot upload image, image size might be too big. You may update the item's image.",
+        15
+      );
+      console.log(error);
+    }
   }
 
-  /* update */
+  // Insert or update data
   if (for_update_id == "") {
     const { data, error } = await supabase
       .from("profiles")
@@ -53,7 +63,7 @@ form_item.onsubmit = async (e) => {
           lastname: formData.get("lastname"),
           mobile_no: formData.get("mobile_no"),
           dislikes: formData.get("dislikes"),
-          image_path: image_data === null ? null : image_data.path,
+          image_path: image_data ? image_data.path : image_path,
         },
       ])
       .select();
@@ -66,10 +76,7 @@ form_item.onsubmit = async (e) => {
       // Reload Datas
       getDatas();
     }
-  }
-
-  // for update
-  else {
+  } else {
     const { data, error } = await supabase
       .from("profiles")
       .update({
@@ -80,7 +87,7 @@ form_item.onsubmit = async (e) => {
         lastname: formData.get("lastname"),
         mobile_no: formData.get("mobile_no"),
         dislikes: formData.get("dislikes"),
-        image_path: image_data == null ? null : image_data.path,
+        image_path: image_data ? image_data.path : image_path,
       })
       .eq("id", for_update_id)
       .select();
@@ -97,6 +104,7 @@ form_item.onsubmit = async (e) => {
       console.log(error);
     }
   }
+
   // Modal Close
   document.getElementById("modal_close").click();
 
@@ -109,6 +117,8 @@ form_item.onsubmit = async (e) => {
     "#form_item button[type='submit']"
   ).innerHTML = `Submit`;
 };
+
+
 
 form_modal_about.onsubmit = async (e) => {
   e.preventDefault();
@@ -196,8 +206,8 @@ async function getDatas() {
             </div>
             <div class="col-6 col-lg-6 col-md-6">
               <div>
-                <div><p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <div><p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg> Username: ${user_info.username}</p></div>
                 <p id="lastsignInContainer"></p>
@@ -215,8 +225,17 @@ async function getDatas() {
               <a class="nav-link active" aria-current="page" href="#">Listings</a>
             </li>
             <li class="nav-item" data-bs-toggle="modal" data-bs-target="#form_modal_about" >
-              <a class="nav-link" style="color: #2b1055; background-color: rgb(241, 234, 234);
+              <a class="nav-link" style="color: #2b1055; background-color: rgb(240, 240, 240);
             }" href="#">About</a>
+            </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #2b1055; background-color: rgb(230, 230, 230);
+            }" href="#">Sets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #2b1055; background-color: rgb(220, 220, 220);
+            }" href="#">Tasks</a>
             </li>
           </ul>
              
@@ -494,3 +513,18 @@ form_modal_questions_edit.onsubmit = async (e) => {
   ).innerHTML = `Submit`;
 };
 //end of edit questions
+
+// JavaScript code
+document.getElementById('form_item').addEventListener('submit', function(event) {
+  // Get the value of the file input
+  const fileInput = document.getElementById('imageUpload');
+  const file = fileInput.files[0];
+  
+  // Check if no file is selected or file is null
+  if (!file || file.size === 0) {
+    alert("Please select a non-empty image file.");
+    event.preventDefault();
+  }
+});
+
+
