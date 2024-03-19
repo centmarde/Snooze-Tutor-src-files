@@ -158,6 +158,11 @@ async function getDatas() {
       .select("*")
       .eq("id", userId);
 
+      let { data: rank, error: rankError } = await supabase
+      .from("rank")
+      .select("*")
+      .eq("user_id", userId);
+
     if (userError || signInError) {
       throw new Error(userError || signInError);
     }
@@ -168,8 +173,10 @@ async function getDatas() {
     let UniversalContainer = "";
     let lastsignInContainer = "";
     let sideContainer = "";
+    let rankContainer = "";
 
     profiles.forEach((user_info) => {
+     
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
       container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
@@ -211,10 +218,11 @@ async function getDatas() {
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
               </svg> Username: ${user_info.username}</p></div>
                 <p id="lastsignInContainer"></p>
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                <div class = "d-flex" > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
                 <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
                 <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
-              </svg> Rank:</p>
+              </svg> Rank: <p id="rank" class = "ms-1"> </p></div>
+              
               </div>
             </div>
           </div>
@@ -282,9 +290,13 @@ async function getDatas() {
       .replace(/\..+/g, "")}</p>`;
     });
 
+    rank.forEach((rank) => {
+      rankContainer += `${rank.rank_name}`;
+    });
+
     questions.forEach((data, index) => {
       questionContainer += ` <div class="col d-flex justify-content-center mb-3 mt-5">
-      <div class="card justify-content-center" style="width: 18rem" data-id="${data.id} >
+      <div class="card justify-content-center" style="width: 18rem" data-id="${data.id}" >
         <div class="card" style="width: 18rem">
           <div class="card-body">
             <h4 class="card-title">${data.tittle}</h4>
@@ -325,6 +337,7 @@ async function getDatas() {
         editAction_question(event);
       }
     });
+    
     document.getElementById("userContainer").innerHTML = container;
     document.getElementById("alldata").innerHTML = UniversalContainer;
     document.getElementById("lastsignInContainer").innerHTML =
@@ -334,10 +347,12 @@ async function getDatas() {
       element.addEventListener("click", editAction);
     });
     document.getElementById("indexContainer").innerHTML = questionContainer;
+    document.getElementById("rank").innerHTML = rankContainer;
   } catch (error) {
     console.error("Error fetching data:", error);
     // Handle error, show error notification, etc.
   }
+  
 }
 
 // Storage of Id of chosen data to update
@@ -346,7 +361,7 @@ let for_update_id = "";
 // Edit Functionality; but show first for about info edit
 const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
-
+ 
   // Supabase show by id
   let { data: profiles, error } = await supabase
     .from("profiles")
@@ -375,6 +390,7 @@ const editAction = async (e) => {
 // Delete Functionality
 const deleteQuestion = async (e) => {
   const id = e.target.getAttribute("data-id");
+  console.log(id);
 
   const isConfirmed = window.confirm(
     "Are you sure you want to delete question?"
@@ -399,6 +415,10 @@ let update_questions = "";
 
 const editAction_question = async (e) => {
   const id = e.target.getAttribute("data-id");
+  console.log(id);
+  console.log("Event target:", e.target);
+  console.log("Event object:", e);
+
 
   // Set loading state to true
   setLoading(true);

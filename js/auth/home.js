@@ -201,7 +201,7 @@ async function getQuestions(keyword = "") {
     .or(
       "question_text.ilike.%" + keyword + "%",
       "tittle.ilike.%" + keyword + "%",
-      "username.ilike.%" + keyword + "%"
+      /* "username.ilike.%" + keyword + "%" */
   );
  
     questions.sort(() => Math.random() - 0.5);
@@ -256,7 +256,7 @@ async function getQuestions(keyword = "") {
           <button type="button" id="showButton${index}" class="btn btn-dark"  style=" background-color:#2b1055;">Show Answer</button>
           </div>
           
-              <div class="row">
+              <div class="row" >
                 <div class="col mt-3"><h5 >Show Profile...</h5>
               </div>
               
@@ -266,7 +266,7 @@ async function getQuestions(keyword = "") {
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
-                <p class="ms-2">1</p>
+                <p class="ms-2">${data.heart}</p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
                 <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
@@ -279,10 +279,35 @@ async function getQuestions(keyword = "") {
         </div>
       </div>
     </div>
-  </div>`;
+  </div>
+  <!-- modal for hearts -->
+    
+  <div class="modal fade" id="modal_heart" tabindex="-1">
+   <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title text-center">Like this Question?</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <p>Submiting a heart helps 🥰🥰🥰🥰
+         </p>
+       </div>
+       <div class="modal-footer">
+         <button type="button" id="modal_close_heart" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">No</button>
+         <button type="submit" data-id ="${data.id}" id="btn_heart" class="btn" style="background-color: #2b1055; color: white;" >Submit 1Heart</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+  <!-- end modal for hearts -->
   
   
+  `;
+
 });
+
 
 
 document.getElementById("indexContainer").innerHTML = questionContainer;
@@ -368,26 +393,45 @@ document.body.addEventListener("click", function (event) {
 });
 
 const submit_heart = async (e) => {
-  const id = e.target.getAttribute("data-id");
-  alert("Relax Sa");
-  // Set loading state to true
+  const consid = e.target.getAttribute("data-id");
+  console.log("Data ID:", consid);
+  console.log("Event target:", e.target);
+  console.log("Event object:", e);
 
   // Supabase show by id
-  const { data, error } = await supabase
-  .from("questions")
-  .update({ heart: supabase.increment(1) })
-  .eq("id", id)
-  .select();
+  const { data: questions, error } = await supabase
+    .from('questions')
+    .select('heart')
+    .eq('id', consid)
+    .single(); // Ensure only one record is returned
 
-if (error) {
-  errorNotification("Something wrong happened. Cannot add heart.", 15);
-  console.log(error);
-} else {
-  successNotification("heart Successfully Added!", 15);
- 
+  if (error) {
+    errorNotification("Something wrong happened. Cannot add heart.", 15);
+    console.log(error);
+    return;
+  }
+
+  // Check if question is null
+  if (!questions) {
+    errorNotification("Question not found.", 15);
+    return;
+  }
+
+  const updatedHeartsCount = questions.heart + 1;
+  const { updateError } = await supabase
+    .from('questions')
+    .update({ heart: updatedHeartsCount })
+    .eq('id',consid);
+
+  if (updateError) {
+    errorNotification("Error updating heart count.", 15);
+    console.log(updateError);
+    return;
+  }
+
+  successNotification("Heart Successfully Added!", 15);
   document.getElementById("modal_close_heart").click();
-  /* gethearts(); */
-}
+  window.location.reload();
 };
 
 window.onload = function() {
@@ -395,3 +439,89 @@ window.onload = function() {
     window.scrollTo(0, 2);
   },1500); 
 }
+
+// rankbar
+async function updateRankBar() {
+  try {
+    // Fetching the percentage column from the rank table
+    const { data: rankData, error: rankError } = await supabase
+      .from("rank")
+      .select("percentage");
+
+    if (rankError) {
+      throw new Error("Error fetching rank data: " + rankError.message);
+    }
+
+    // Extracting percentage value from the fetched data
+    const percentage = rankData[0].percentage;
+
+    // Updating the progress bar
+    const progressBar = document.querySelector(".progress-bar2");
+    progressBar.style.width = percentage + "%";
+    progressBar.style.backgroundColor = "#2b1055";
+    progressBar.style.color = "white";
+    progressBar.textContent = percentage.toFixed(2) + "%"; // Set the progress text
+
+    // Check if the percentage is 100% or more
+    if (percentage >= 100) {
+      // Define the ranks progression
+      const rankProgression = {
+        "newbie": "junior",
+        "junior": "Senior",
+        "Senior": "juniorOfficer",
+        "juniorOfficer": "SeniorOfficer",
+        "SeniorOfficer": "Officer",
+        "Officer": "Master"
+      };
+      
+      // Get the current rank from the database or wherever appropriate
+      const currentRank = await getCurrentRank(); // Implement this function according to your database or application logic
+      
+      // Determine the next rank based on the current rank
+      const nextRank = rankProgression[currentRank];
+
+      // Update the rank in the database or wherever appropriate
+      await updateRank(nextRank);
+
+      // Notify the user about the rank-up
+      console.log(`Congratulations! You've ranked up to ${nextRank}.`);
+    }
+
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+
+// Call the function
+updateRankBar();
+
+
+// Call the function
+updateRankBar();
+
+// updating rank
+async function updateRank(rank_name) {
+  try {
+    // Get the current user's ID or any identifier
+    const userId = getCurrentUserId(); // Implement this function according to your authentication system
+
+    // Update the rank for the user in the database
+    const { data, error } = await supabase
+      .from("rank")
+      .update({ rank: rank_name })
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error("Error updating rank: " + error.message);
+    }
+
+    console.log("Rank updated successfully!");
+
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+// end of rank
+
+
+

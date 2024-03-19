@@ -13,6 +13,11 @@
   font-style: normal;
 }
 
+#h6{
+  font-family: "Style Script", cursive;
+  font-size: 50px;
+}
+
 .raleway-uniquifier {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
@@ -299,5 +304,7 @@ section::before
     transition: none;
   }
 }
+
+
 
 
