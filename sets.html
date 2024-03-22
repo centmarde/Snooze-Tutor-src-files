@@ -142,6 +142,7 @@
                 aria-label="Search"
               />
               <button
+               
                 class="btn"
                 style="background-color: #2b1055; color: white"
                 type="submit"
@@ -154,8 +155,9 @@
               <!-- logout button-->
               <a class="nav-link" id="btn_logout">
                 <button
-                  class="btn btn-primary w-100"
-                  style="background-color: #2b1055"
+                type="button"
+                  class="btn w-100"
+                  style="background-color: #1c0522; color: aliceblue"
                 >
                   Logout
                 </button>
@@ -165,7 +167,7 @@
           <div class="text-center mt-5">
             <pre>Clean code always looks like it was<br> written by someone who cares.<br><cite>— Robert C. Martin</cite></pre>
           </div>
-
+         
           <div class="text-center">
             <p>contact us:</p>
             <div class="row 5 my-2">
@@ -214,19 +216,20 @@
               </div>
               <div class="col">
                 <a
+                 data-bs-toggle="modal"
+                 data-bs-target="#form_modal"
                   id="ico-bt2"
-                  class="fa fa-arrow-up fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  class="fa fa-book fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                   aria-hidden="true"
-                  href="#"
                 ></a>
-                <p>GoTop</p>
+                <p>Create</p>
               </div>
               <div class="col">
                 <a
                   id="ico-bt3"
                   style="color: #2b1055"
                   href="./home.html"
-                  class="fa fa-plus-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                  class="fa fa-home fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                 ></a>
                 <p id="ico-bt3">Home</p>
               </div>
@@ -257,9 +260,9 @@
       <div class="row">
         <div class="col d-flex ms-2">
           <a class="mx-2" style="text-decoration: none; color: #2b1055" href="#"
-            >My-list</a
+            >Question Sets</a
           >
-          <a class="ms-3" style="text-decoration: none; color: #2b1055" href="#"
+          <a class="ms-3" style="text-decoration: none; color: #a7a7a7" href="./home.html"
             >Home</a
           >
         </div>
@@ -272,7 +275,7 @@
     </div>
 
     <!-- modal for search -->
-
+    
     <form id="form_search">
       <div
         class="modal fade"
@@ -316,7 +319,12 @@
       </div>
     </form>
 
-    <!-- end of modal search -->
+    <!-- book accepter -->
+   
+    <!-- end of book accepter -->
+
+   
+
 
     <!--start of alert pop ups notifications -->
 
@@ -324,29 +332,17 @@
       <div class="alert alert-success d-none" role="alert"></div>
       <div class="alert alert-danger d-none" role="alert"></div>
     </div>
-    <br />
-    <br />
 
-    <!-- end of alert pop ups -->
-
-    <!-- start of contents -->
-
+    <br/>
+    <br/>
+    <br><br><br><br>
     <div class="container">
-      <div id="indexContainer"></div>
+      <div id="index"></div>
     </div>
-
-    <!--  end of contents -->
-
-    <!-- modal for answer -->
 
     <br />
     <br /><br />
 
-    <!-- start here body -->
-
-    <!-- end of body -->
-
-    <!-- intro modal for set -->
     <div
       class="modal fade"
       id="form_modal"
@@ -375,16 +371,16 @@
               <!-- Item Name Field -->
               <div class="row mb-3">
                 <div class="col-sm-12">
-                  <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-center hiddenAnimate3">
                     <img
-                      src="./assets/imgs/kitty-cat.gif"
+                      src="./assets/imgs/create.jpg"
                       alt="image"
                       width="200px"
                       height="200px"
                     />
                   </div>
                   <div>
-                    <h1 class="text-center">Set Information</h1>
+                    <h1 class="text-center hiddenAnimate">Set Information</h1>
                     <div class="mb-3 row">
                       <div class="col-sm-10">
                         <div>
@@ -401,16 +397,32 @@
                             required
                           />
                         </div>
+                        <div>
+                          <label for="title" class="col-sm-2 col-form-label"
+                            >Details</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control mb-4"
+                            name="details"
+                            id="details"
+                            placeholder="Tell us about your set?"
+                            required
+                          />
+                         
+                        </div>
+                        <span>Select Category?</span>
                         <select
                           class="form-select form-select my-3"
                           aria-label=".form-select-sm example"
                           id="category"
                           name="category"
                         >
-                          <option selected>CED</option>
-                          <option value="CEIT">CEIT</option>
-                          <option value="CAS">CAS</option>
-                          <option value="CASNR">CASNR</option>
+                          <option selected>Math</option>
+                          <option value="Programming">Programming</option>
+                          <option value="Sciece">Science</option>
+                          <option value="English">English</option>
+                          <option value="Others">Others</option>
                         </select>
                       </div>
                     </div>
@@ -585,6 +597,7 @@
       </div>
     </div>
     <!-- create a set end -->
+    
 
     <!-- modalCelebration After making question -->
     <div
@@ -600,6 +613,7 @@
       <div class="modal-content">
         <div id="b" class="modal-header">
           <button
+            id="closer"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"

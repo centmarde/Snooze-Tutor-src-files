@@ -13,6 +13,12 @@
   font-style: normal;
 }
 
+.just-another hand-regular {
+  font-family: "Just Another Hand", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 #h6{
   font-family: "Style Script", cursive;
   font-size: 50px;
@@ -154,6 +160,17 @@
   background-repeat: no-repeat;
  /* background-color: rgb(240, 240, 240); */
   background-image: url("../assets/imgs/wallpaper2.jpg");
+}
+
+#paper{
+  width: 100%;
+ height: 100%;
+ background-size: cover;
+ /* background-attachment: fixed; */
+ /* background-position: center; */
+ background-repeat: no-repeat;
+/* background-color: rgb(240, 240, 240); */
+ background-image: url("../assets/imgs/yellow\ paper.jpg");
 }
 
 /* start of parralax */
@@ -303,6 +320,33 @@ section::before
   .hiddenAnimate3 {
     transition: none;
   }
+}
+#set_title{
+  font-size: 50px;
+  font-family:"Style Script", cursive;
+}
+
+#profileName{
+  font-family:"Style Script", cursive;
+}
+
+#problem_body{
+  font-family: "Just Another Hand", cursive;
+  font-size: 45px;
+  line-height: 0.9;
+}
+#problem_choices{
+  font-family: "Just Another Hand", cursive;
+  font-size: 36px;
+}
+#result{
+  font-family: "Just Another Hand", cursive;
+  font-size: 70px;
+  margin-top: 20px;
+}
+#rankQuestion{
+  font-family: "Just Another Hand", cursive;
+  font-size: 40px;
 }
 
 

@@ -178,7 +178,7 @@ async function getDatas() {
     profiles.forEach((user_info) => {
      
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
-      container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  profile</h4>`;
+      container += `<h4 id="profileName" class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
       UniversalContainer += `<div class="row p-2">
             <div id="t1" class="col-6 col-lg-6 col-md-6 col-sm-6">
@@ -330,6 +330,7 @@ async function getDatas() {
         deleteQuestion(event);
       }
     });
+   
 
     /* edit funtion calling */
     document.body.addEventListener("click", function (event) {

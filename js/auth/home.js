@@ -13,7 +13,11 @@ const userId = localStorage.getItem("user_id");
 const form_item = document.getElementById("form_item");
 const btn_logout = document.getElementById("btn_logout");
 const form_search = document.getElementById('form_search');
-
+btn_logout.onclick = doLogout;
+document.querySelector("#btn_logout button").disabled = true;
+document.querySelector(
+    "#btn_logout button" //logout button script
+).innerHTML = `<span>Loading...</span>`;
 
 
 btn_logout.onclick = doLogout;
@@ -113,6 +117,7 @@ async function updateProgressBar() {
   const percentage = (userQuestionCount / totalCount) * 100;
   const progressBar = document.querySelector(".progress-bar");
 
+  
   progressBar.style.width = percentage + "%";
   progressBar.style.backgroundColor = "#2b1055";
   progressBar.textContent = percentage.toFixed(2) + "%"; // Set the progress text
@@ -208,8 +213,10 @@ async function getQuestions(keyword = "") {
     //CHILLI SPICY COM-SCI LORDS BABY!
   
   let questionContainer = "";
-  
+  console.log(questionContainer);
+
   questions.forEach((data, index) => {
+    
     const imagepath = data.profiles.image_path;
     const username = data.profiles.username;
     const likes = data.profiles.likes;
@@ -460,7 +467,12 @@ async function updateRankBar() {
     progressBar.style.width = percentage + "%";
     progressBar.style.backgroundColor = "#2b1055";
     progressBar.style.color = "white";
-    progressBar.textContent = percentage.toFixed(2) + "%"; // Set the progress text
+    progressBar.textContent = percentage.toFixed(2) + "%";
+    progressBar.style.textAlign = "center";
+   
+
+
+     // Set the progress text
 
     // Check if the percentage is 100% or more
     if (percentage >= 100) {
@@ -523,5 +535,10 @@ async function updateRank(rank_name) {
 }
 // end of rank
 
+//logout button loading
+document.querySelector("#btn_logout button[type='button']").disabled = false;
+document.querySelector(
+    "#btn_logout button[type='button']"
+).innerHTML = `Log-Out`;
 
 

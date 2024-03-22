@@ -53,14 +53,15 @@ form_register.onsubmit = async (e) => {
                 console.log(error);
             }
             else {
-                 errorNotification(`Error: ${error.message}`, 10);
-                alert("error");
-                console.log(error);
+                 alert(`Error: ${error.message}`, 10);
             }
             form_register.reset();
             //button loading after succes registration
             document.querySelector("#form_register button").disabled = false;
             document.querySelector("#form_register button").innerHTML = "Register";
+        }
+        else{
+            alert(`Error: ${error.message}`, 10);
         }
     }
     else {
