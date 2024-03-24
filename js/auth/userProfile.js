@@ -178,11 +178,11 @@ async function getDatas() {
       container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
       UniversalContainer += `<div class="row p-2">
-            <div id="t1" class="col-6 col-lg-6 col-md-6 col-sm-6">
+            <div id="t1" class="col-6 col-lg-6 col-md-12 col-sm-12">
               <div class="d-flex justify-content-center" >
                 <!-- connector to javaS image -->
                 <div
-                  class="col-12 col-md-6 cold-sm-4 col-lg-4"
+                  class="col-12 col-md-4 cold-sm-12 col-lg-4"
                   id="imageContainer" 
                 ><div data-id="${
                   user_info.image_path
@@ -347,8 +347,8 @@ async function getDatas() {
     document.getElementById("indexContainer").innerHTML = questionContainer;
     document.getElementById("rank").innerHTML = rankContainer;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    // Handle error, show error notification, etc.
+    alert("Error fetching data:", error);
+    window.location.reload();
   }
 }
 
@@ -404,7 +404,8 @@ const deleteQuestion = async (e) => {
     window.location.reload();
   } catch (error) {
     errorNotification("Something wrong happened. Cannot delete item.", 15);
-    console.error(error);
+    alert(error);
+    window.location.reload();
   }
 };
 
@@ -603,7 +604,8 @@ document.body.addEventListener("click", function (event) {
         window.location.reload();
       } catch (error) {
         alert("Error Somethings Wrong!");
-        console.error(error);
+      alert(error);
+      window.location.reload();
       }
     };
 
@@ -625,6 +627,7 @@ document.body.addEventListener("click", function (event) {
     });
   } catch {
     alert("Failed to fetch Sets");
+    window.location.reload();
   }
 }
 
@@ -662,7 +665,10 @@ async function getPages(setId) {
             </div>
           </div>
         </div>
-      </div>`;
+      </div>
+ 
+      `;
+
     });
 
     // Set inner HTML of the container to the generated HTML
@@ -674,20 +680,27 @@ async function getPages(setId) {
       button.addEventListener("click", function () {
         const setId = this.getAttribute("data-id");
         editSets(setId);
- // Call editSets function when edit button is clicked
       });
     });
 
-
+    const editButton = document.querySelector("#final_edit");
+    editButton.addEventListener("click", function () {
+      const setId = this.getAttribute("data-id"); 
+      console.log(setId);
+      innerQuestion(setId);
+    });
 
   } catch (error) {
     console.error("Failed to fetch pages:", error);
     alert("Failed to fetch pages");
+    /* window.location.reload(); */
   }
 }
 
 // Function to handle editing sets
 const editSets = async (setId) => {
+  console.log(setId);
+     
   try {
     // Fetch set pages data from Supabase by set ID
     let { data: setPages, error } = await supabase
@@ -712,10 +725,41 @@ const editSets = async (setId) => {
   } catch (error) {
     console.error("Error editing set:", error);
     alert("Something went wrong. Unable to edit set.");
+    window.location.reload();
   }
 };
 
 
+
+const innerQuestion = async (setId) => {
+  console.log(setId);
+  
+
+  const formData = new FormData(edit_set_question);
+
+  /* update */
+  if (update_questions == "") {
+    const { data, error } = await supabase
+      .from("set_pages")
+      .insert([
+        {
+          question: formData.get("question"),
+          choiceA: formData.get("choiceA"),
+          choiceB: formData.get("choiceB"),
+          choiceC: formData.get("choiceC"),
+          choiceD: formData.get("choiceD"),
+          answer: formData.get("answer"),
+        },
+      ])
+      .select();
+    if (error) {
+     alert("Something wrong happened. Cannot add Question", 15);
+      console.log(error);
+    } else {
+      alert("Question Successfully Edited!", 15);
+    }
+}
+}
 
 // document.body.addEventListener("click", function (event) {
 //   if (event.target.id === "delete_page") {
