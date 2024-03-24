@@ -113,16 +113,16 @@ async function getSet() {
       dataset2.forEach((data) => {
         let image;
         if (data.category === "Math") {
-          image = `<img src="./assets/imgs/Math.jpg" width="334px" height="340px">`;
+          image = `<img src="https://i.ibb.co/QprStd4/Math.jpg" width="334px" height="340px">`;
         } else if (data.category === "Programming") {
-          image = `<img src="./assets/imgs/different_school_subjects_vector_illustrations_set.jpg"width="334px" height="340px" >`;
+          image = `<img src="https://i.ibb.co/fnQtrXz/different-school-subjects-vector-illustrations-set.jpg"width="334px" height="340px" >`;
         } else if (data.category === "Science") {
-          image = ` <img src="./assets/imgs/Science.jpg"width="334px" height="340px" >`;
+          image = ` <img src="https://i.ibb.co/0Qy30rz/Science.jpg" height="340px" >`;
         } else if (data.category === "English") {
-          image = `<img src="./assets/imgs/English.jpg"width="334px" height="340px" >`;
+          image = `<img src="https://i.ibb.co/jZFP0B0/English.jpg" height="340px" >`;
         } else {
           // Default image or action if category is not matched
-          image = `<img src="./assets/imgs/Other.jpg"width="334px" height="340px" >`;
+          image = `<img src="https://i.ibb.co/3R6nVY0/Other.jpg" height="340px" >`;
         }
         document.getElementById(`imageCont_${data.id}`).innerHTML = image;
         
@@ -299,3 +299,16 @@ document.querySelector("#btn_logout button[type='button']").disabled = false;
 document.querySelector(
     "#btn_logout button[type='button']"
 ).innerHTML = `Log-Out`;
+
+
+document.getElementById('finnishButton').addEventListener('click', function () {
+  // Get the current value of the counter
+  let counter = document.getElementById('counter');
+  let currentValue = parseInt(counter.textContent);
+
+  // Increment the counter
+  currentValue++;
+
+  // Update the counter text
+  counter.textContent = currentValue;
+});

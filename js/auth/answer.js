@@ -179,25 +179,128 @@ import {
         let rank = "";
 
         if (percentage >= 10 && percentage < 20) {
-            rank = "Worm 🐛";
+          const randomNum = Math.random();
+          if (randomNum < 0.33) {
+              rank = "Worm 🐛";
+          } else if (randomNum < 0.66) {
+              rank = "Bee 🐝";
+          } else {
+              rank = "Ant 🐜";
+          }
         } else if (percentage >= 20 && percentage < 30) {
-            rank = "Rabbit 🐰";
+          const randomNum = Math.random();
+          if (randomNum < 0.33) {
+              rank = "Rabbit 🐰";
+          } else if (randomNum < 0.66) {
+              rank = "Bird 🐦";
+          } else {
+              rank = "Mice 🐁";
+          }
         } else if (percentage >= 30 && percentage < 40) {
-            rank = "Chicken 🐔";
+          const randomNum = Math.random();
+          if (randomNum < 0.33) {
+              rank = "Chicken 🐔";
+          } else if (randomNum < 0.66) {
+              rank = "Peacock 🦚";
+          } else {
+              rank = "Flamingo 🦩";
+          }
         } else if (percentage >= 40 && percentage < 50) {
-            rank = "Cat 😺";
+          const randomNum = Math.random();
+          if (randomNum < 0.33) {
+              rank = "Cat 🐱";
+          } else if (randomNum < 0.66) {
+              rank = "Lama 🦙";
+          } else {
+              rank = "cow 🐃";
+          }
         } else if (percentage >= 50 && percentage < 60) {
-            rank = "Snake 🐍";
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "Horse 🐴";
+        } else if (randomNum < 0.4) {
+            rank = "Unicorn 🦄";
+        } else if (randomNum < 0.6) {
+            rank = "Gorilla 🦍";
+        } else if (randomNum < 0.8) {
+            rank = "Camel 🐪";
+        } else {
+            rank = "Sloth 🦥";
+        }
         } else if (percentage >= 60 && percentage < 70) {
-            rank = "Dog 🐶";
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "dog 🐶";
+        } else if (randomNum < 0.4) {
+            rank = "Penguin 🐧";
+        } else if (randomNum < 0.6) {
+            rank = "Chimp 🦧";
+        } else if (randomNum < 0.8) {
+            rank = "Scorpion 🦂";
+        } else {
+            rank = "giraffe 🦒";
+        }
         } else if (percentage >= 70 && percentage < 80) {
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "Fox 🦊";
+        } else if (randomNum < 0.4) {
+            rank = "Jaguar 🐆";
+        } else if (randomNum < 0.6) {
             rank = "Wolf 🐺";
+        } else if (randomNum < 0.8) {
+            rank = "Parrot 🦜";
+        } else {
+            rank = "Crocodile 🐊";
+        }
         } else if (percentage >= 80 && percentage < 90) {
-            rank = "Tiger 🐯";
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "Tiger 🦊";
+        } else if (randomNum < 0.4) {
+            rank = "Octupos 🐆";
+        } else if (randomNum < 0.6) {
+            rank = "Elepant 🐺";
+        } else if (randomNum < 0.8) {
+            rank = "Typical Women 🙆🏼‍♀️";
+        } else {
+            rank = "Programmer 👨🏼‍💻";
+        }
         } else if (percentage >= 90 && percentage <= 100) {
-            rank = "Lion 🦁";
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "Eagle 🦊";
+        } else if (randomNum < 0.4) {
+            rank = "Lion 🐆";
+        } else if (randomNum < 0.6) {
+            rank = "Shark 🐺";
+        } else if (randomNum < 0.8) {
+            rank = "Detective 🕵️";
+        } else {
+            rank = "Emperor 👑";
+        }
         } else if (percentage === 100) {
-            rank = "Dragon 🐲";
+          const randomNum = Math.random();
+          if (randomNum < 0.33) {
+              rank = "Dragon 🐲";
+          } else if (randomNum < 0.66) {
+              rank = "Dracula 🧛‍♀️";
+          } else {
+              rank = "Ai 🤖";
+          }
+        } else {
+          const randomNum = Math.random();
+          if (randomNum < 0.2) {
+            rank = "Banana 🍌";
+        } else if (randomNum < 0.4) {
+            rank = "Eggplant 🍆";
+        } else if (randomNum < 0.6) {
+            rank = "T-rex 🦖";
+        } else if (randomNum < 0.8) {
+            rank = "Snowman ⛄️";
+        } else {
+            rank = "Rose 🥀";
+        }
         }
 
         document.getElementById("result").innerText = `Total Score: ${totalScore} out of ${set_pages.length}`;
@@ -208,3 +311,12 @@ import {
     }
 }
 
+// delay button for not showing
+const delayButton = document.getElementById('delay');
+function showButtonWithFade() {
+  delayButton.style.display = 'block'; 
+}
+delayButton.style.display = 'none';
+const delayInMilliseconds = 3000; // 1 minute delay
+setTimeout(showButtonWithFade, delayInMilliseconds);
+//end delay button for not showing

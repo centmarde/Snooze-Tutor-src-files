@@ -90,6 +90,14 @@ function lockInAnswer(dataset) {
     if (currentIndex < dataset.length - 1) {
       currentIndex++;
       const nextData = dataset[currentIndex];
+
+      // Clear radio button selections
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.checked = false;
+      });
+
+      // Update card content
       document.getElementById(
         "problem_body"
       ).innerHTML = `<p data-id="${nextData.id}">${nextData.question}</p>`;
@@ -109,7 +117,6 @@ function lockInAnswer(dataset) {
       } else {
         document.getElementById("choiceD").innerHTML = "";
       }
-      document.getElementById("final").disabled = true;
     } else {
       alert("End of dataset reached.");
       localStorage.setItem('userSelections', JSON.stringify(userSelections)); // Convert to JSON string before storing
@@ -120,28 +127,17 @@ function lockInAnswer(dataset) {
     alert("Process aborted.");
   }
 
-  const radios = document.querySelectorAll('input[type="radio"]');
-  radios.forEach((radio) => {
-    radio.addEventListener("change", function () {
-      const checkedRadio = document.querySelector(
-        'input[type="radio"]:checked'
-      );
-      if (checkedRadio) {
-        document.getElementById("final").disabled = false;
-        const selectedChoice = checkedRadio.value; // Get the value attribute of the selected radio button
-        const questionId = dataset[currentIndex].id; // Get the question ID from the current dataset
-        userSelections[currentIndex] = { questionId, selectedChoice }; // Store user selection
-      }
-    });
-  });
-
-  document.body.addEventListener("click", function (event) {
-    if (event.target.id === "show") {
-      window.location.href = '/answer.html';
-    }
-  });
-
   console.log(userSelections);
 }
 
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "showBtn") {
+    window.location.href = '/answer.html';
+  }
+});
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "exitBtn") {
+    window.location.href = '/home.html';
+  }
+});
 

@@ -5,6 +5,7 @@ import {
   errorNotification,
 } from "../main";
 
+
 const itemsImageUrl =
   "https://plsyfklzwmasyypcuwei.supabase.co/storage/v1/object/public/profilePic/";
 // Assign Logout Functionality

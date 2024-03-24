@@ -118,8 +118,6 @@ form_item.onsubmit = async (e) => {
   ).innerHTML = `Submit`;
 };
 
-
-
 form_modal_about.onsubmit = async (e) => {
   e.preventDefault();
   document.querySelector("#form_modal_about button").disabled = true;
@@ -158,7 +156,7 @@ async function getDatas() {
       .select("*")
       .eq("id", userId);
 
-      let { data: rank, error: rankError } = await supabase
+    let { data: rank, error: rankError } = await supabase
       .from("rank")
       .select("*")
       .eq("user_id", userId);
@@ -176,9 +174,8 @@ async function getDatas() {
     let rankContainer = "";
 
     profiles.forEach((user_info) => {
-     
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
-      container += `<h4 id="profileName" class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
+      container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
       UniversalContainer += `<div class="row p-2">
             <div id="t1" class="col-6 col-lg-6 col-md-6 col-sm-6">
@@ -239,7 +236,8 @@ async function getDatas() {
             </li>
             <li class="nav-item">
               <a class="nav-link" style="color: #2b1055; background-color: rgb(230, 230, 230);
-            }" href="#">Sets</a>
+            }" data-bs-toggle="modal"
+            data-bs-target="#modal_sets">Sets</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" style="color: #2b1055; background-color: rgb(220, 220, 220);
@@ -330,7 +328,6 @@ async function getDatas() {
         deleteQuestion(event);
       }
     });
-   
 
     /* edit funtion calling */
     document.body.addEventListener("click", function (event) {
@@ -338,7 +335,7 @@ async function getDatas() {
         editAction_question(event);
       }
     });
-    
+
     document.getElementById("userContainer").innerHTML = container;
     document.getElementById("alldata").innerHTML = UniversalContainer;
     document.getElementById("lastsignInContainer").innerHTML =
@@ -353,7 +350,6 @@ async function getDatas() {
     console.error("Error fetching data:", error);
     // Handle error, show error notification, etc.
   }
-  
 }
 
 // Storage of Id of chosen data to update
@@ -362,7 +358,7 @@ let for_update_id = "";
 // Edit Functionality; but show first for about info edit
 const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
- 
+
   // Supabase show by id
   let { data: profiles, error } = await supabase
     .from("profiles")
@@ -419,7 +415,6 @@ const editAction_question = async (e) => {
   console.log(id);
   console.log("Event target:", e.target);
   console.log("Event object:", e);
-
 
   // Set loading state to true
   setLoading(true);
@@ -536,16 +531,128 @@ form_modal_questions_edit.onsubmit = async (e) => {
 //end of edit questions
 
 // JavaScript code
-document.getElementById('form_item').addEventListener('submit', function(event) {
-  // Get the value of the file input
-  const fileInput = document.getElementById('imageUpload');
-  const file = fileInput.files[0];
-  
-  // Check if no file is selected or file is null
-  if (!file || file.size === 0) {
-    alert("Please select a non-empty image file.");
-    event.preventDefault();
+document
+  .getElementById("form_item")
+  .addEventListener("submit", function (event) {
+    // Get the value of the file input
+    const fileInput = document.getElementById("imageUpload");
+    const file = fileInput.files[0];
+
+    // Check if no file is selected or file is null
+    if (!file || file.size === 0) {
+      alert("Please select a non-empty image file.");
+      event.preventDefault();
+    }
+  });
+getSets();
+async function getSets() {
+  try {
+    let { data: setIndex, error } = await supabase
+      .from("set")
+      .select("*,profiles(*)")
+      .eq("user_id",userId)
+
+    let Sets = "";
+
+    setIndex.forEach((data, index) => {
+      Sets += `<div class="container">
+  <div class="row">
+    <div class="col"><div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+      <div class="card-header" data-id="${data.id}">${data.category}</div>
+      <div class="card-body">
+        <h5 class="card-title">${data.title}</h5>
+        <p class="card-text">${data.details}</p>
+        <p class="card-text mt-3">${data.created_at}</p>
+        <div class="d-flex justify-content-end gap-2 d-md-block">
+          <button class="btn me-2" data-bs-toggle="modal"
+          data-bs-target="#editSets_modal" type="button"style="background-color: #2b1055; color: white;">Edit Set</button>
+             <button class="btn btn-danger" id="delete_set" data-id="${data.id}" type="button">Delete</button>
+           </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+   `;
+    });
+
+    document.getElementById("sets_index").innerHTML = Sets;
+  } catch {
+    alert("Failed to fetch Sets");
+  }
+}
+
+getPages();
+async function getPages() {
+
+  try { 
+   
+    let { data: setIndex, error } = await supabase
+      .from("set_pages")
+      .select("*,set(*)")
+      
+    
+    let Sets = "";
+
+    setIndex.forEach((data2, index) => {
+      const category = data2.set.category
+      Sets += `<div class="container">
+  <div class="row">
+    <div class="col"><div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+      <div class="card-header" data-id="${data2.id}">${category}</div>
+      <div class="card-body">
+        <h5 class="card-title">${data2.question}</h5>
+        <p class="card-text">A. ${data2.choiceA}</p>
+        <p class="card-text mt-1">B. ${data2.choiceB}</p>
+        <p class="card-text mt-1">C. ${data2.choiceC}</p>
+        <p class="card-text mt-1">D. ${data2.choiceD}</p>
+        <b class="card-text mt-2">Answer. ${data2.answer}</b>
+        <div class="d-flex justify-content-end gap-2 d-md-block">
+          <button class="btn me-2" data-bs-toggle="modal"
+          data-bs-target="#editSets_modal2" type="button"style="background-color: #2b1055; color: white;">Edit Set</button>
+             <button class="btn btn-danger" id="delete_page" type="button">Delete</button>
+           </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+   `;
+    });
+
+    document.getElementById("sets_index2").innerHTML = Sets;
+  } catch {
+    alert("Failed to fetch pages");
+  }
+}
+
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "delete_set") {
+    deleteSet(event);
   }
 });
 
 
+const deleteSet = async (e) => {
+  const id = e.target.getAttribute("data-id");
+  console.log(id);
+
+  const isConfirmed = window.confirm(
+    "Are you sure you want to delete question?"
+  );
+  
+
+  // Check if the user has confirmed the deletion
+  if (!isConfirmed) {
+    return; // Abort the operation if the user cancels
+  }
+
+  try {
+    const { error } = await supabase.from("set").delete().eq("id", id);
+    alert("Item Successfully Deleted!");
+    /* window.location.reload(); */
+  } catch (error) {
+    alert("Error Somethings Wrong!");
+    console.error(error);
+  }
+};

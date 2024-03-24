@@ -188,7 +188,7 @@
         >
           <div id="rowbot" class="row">
             
-            <div class="col">
+            <div class="col ms-4">
               <a
                 id="ico-bt2"
                 class="fa fa-book fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
@@ -197,20 +197,19 @@
               ></a>
               <p>Sets</p>
             </div>
-            <div class="col">
+            <div class="col mx-5">
               <a
               data-bs-toggle="modal"
-              data-bs-target="#form_celebration"
+              data-bs-target="#form_exit"
                 id="ico-bt3"
                 style="color: #2b1055"    
-                class="fa fa-check-circle fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
+                class="fa fa-window-close-o fa-3x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
               ></a>
-              <p id="ico-bt3">Finnish</p>
+              <p class="text-center" id="ico-bt3">Exit</p>
             </div>
-            <div class="col">
+            <div class="col me-4">
               <a
-                data-bs-toggle="modal"
-                data-bs-target="#form_modal_search"
+               
                 id="ico-bt4"
                 class="fa fa-user fa-2x link-offset-2 link-underline link-underline-opacity-0 d-flex justify-content-center"
                 href="./userProfile.html"
@@ -334,7 +333,7 @@
                   <h1 id="h6">Congratulations</h1>
                   <span>you Finnish the Set.</span>
                 </div>
-                <button id="show" type="button" class="btn mt-5"  style="background-color: #2b1055; color: white;">Show Result</button>
+                <button id="showBtn" type="button" class="btn mt-5"  style="background-color: #2b1055; color: white;">Show Result</button>
               </div>
             </div>
             <br><br><br><br><br><br><br><br>
@@ -343,6 +342,45 @@
           </div>
         </div>
       </div>
+
+      <div
+      class="modal fade"
+      id="form_exit"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >  
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div id="b" class="modal-header">
+            
+          </div>
+          <div class="container">
+            <br><br><br><br><br>
+          <div class="row d-flex justify-content-center">
+            <img
+              src="./assets/imgs/2304.i402.009.P.m004.c33.Event planning flat icons set.jpg"
+              alt="image"
+              width="200px"
+              height="200px"
+              class="hiddenAnimate"
+            />
+            <div class="row">
+              <div class="col text-center">
+                <h1 id="h6">Giving Up?</h1>
+                <span>Aljames ka muna.</span>
+              </div>
+              <button id="exitBtn" type="button" class="btn mt-5"  style="background-color: #2b1055; color: white;">Return to Home</button>
+            </div>
+          </div>
+          <br><br><br><br><br><br><br><br>
+        </div>
+          <!-- End Slides Form -->
+        </div>
+      </div>
+    </div>
         <br><br><br><br><br><br>
         <script>
             var loader = document.getElementById("preloader");
