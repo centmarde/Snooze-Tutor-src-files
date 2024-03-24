@@ -550,109 +550,205 @@ async function getSets() {
     let { data: setIndex, error } = await supabase
       .from("set")
       .select("*,profiles(*)")
-      .eq("user_id",userId)
+      .eq("user_id", userId);
 
     let Sets = "";
 
     setIndex.forEach((data, index) => {
       Sets += `<div class="container">
-  <div class="row">
-    <div class="col"><div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
-      <div class="card-header" data-id="${data.id}">${data.category}</div>
-      <div class="card-body">
-        <h5 class="card-title">${data.title}</h5>
-        <p class="card-text">${data.details}</p>
-        <p class="card-text mt-3">${data.created_at}</p>
-        <div class="d-flex justify-content-end gap-2 d-md-block">
-          <button class="btn me-2" data-bs-toggle="modal"
-          data-bs-target="#editSets_modal" type="button"style="background-color: #2b1055; color: white;">Edit Set</button>
-             <button class="btn btn-danger" id="delete_set" data-id="${data.id}" type="button">Delete</button>
-           </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
-   `;
+                <div class="row">
+                  <div class="col">
+                    <div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+                      <div class="card-header" data-id="${data.id}">${data.category}</div>
+                      <div class="card-body">
+                        <h5 class="card-title">${data.title}</h5>
+                        <p class="card-text">${data.details}</p>
+                        <p class="card-text mt-3">${data.created_at}</p>
+                        <div class="d-flex justify-content-end gap-2 d-md-block">
+                          <button class="btn me-2 edit-set-btn" data-bs-toggle="modal"
+                          data-bs-target="#editSets_modal" data-id="${data.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
+                          <button id="final_delete" class="btn btn-danger delete-set-btn" data-id="${data.id}" type="button">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
     });
 
-    document.getElementById("sets_index").innerHTML = Sets;
-  } catch {
-    alert("Failed to fetch Sets");
-  }
-}
-
-getPages();
-async function getPages() {
-
-  try { 
-   
-    let { data: setIndex, error } = await supabase
-      .from("set_pages")
-      .select("*,set(*)")
-      
-    
-    let Sets = "";
-
-    setIndex.forEach((data2, index) => {
-      const category = data2.set.category
-      Sets += `<div class="container">
-  <div class="row">
-    <div class="col"><div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
-      <div class="card-header" data-id="${data2.id}">${category}</div>
-      <div class="card-body">
-        <h5 class="card-title">${data2.question}</h5>
-        <p class="card-text">A. ${data2.choiceA}</p>
-        <p class="card-text mt-1">B. ${data2.choiceB}</p>
-        <p class="card-text mt-1">C. ${data2.choiceC}</p>
-        <p class="card-text mt-1">D. ${data2.choiceD}</p>
-        <b class="card-text mt-2">Answer. ${data2.answer}</b>
-        <div class="d-flex justify-content-end gap-2 d-md-block">
-          <button class="btn me-2" data-bs-toggle="modal"
-          data-bs-target="#editSets_modal2" type="button"style="background-color: #2b1055; color: white;">Edit Set</button>
-             <button class="btn btn-danger" id="delete_page" type="button">Delete</button>
-           </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
-   `;
-    });
-
-    document.getElementById("sets_index2").innerHTML = Sets;
-  } catch {
-    alert("Failed to fetch pages");
-  }
-}
-
+// Event listener to handle delete set button click
 document.body.addEventListener("click", function (event) {
-  if (event.target.id === "delete_set") {
+  if (event.target.id === "final_delete") {
     deleteSet(event);
   }
 });
 
 
-const deleteSet = async (e) => {
-  const id = e.target.getAttribute("data-id");
-  console.log(id);
+    const deleteSet = async (e) => {
+      const id = e.target.getAttribute("data-id");
+      console.log(id);
+    
+      const isConfirmed = window.confirm(
+        "Are you sure you want to delete question?"
+      );
+    
+      // Check if the user has confirmed the deletion
+      if (!isConfirmed) {
+        return; // Abort the operation if the user cancels
+      }
+    
+      try {
+        const { error } = await supabase.from("set").delete().eq("id", id);
+        alert("Item Successfully Deleted!");
+        window.location.reload();
+      } catch (error) {
+        alert("Error Somethings Wrong!");
+        console.error(error);
+      }
+    };
 
-  const isConfirmed = window.confirm(
-    "Are you sure you want to delete question?"
-  );
-  
 
-  // Check if the user has confirmed the deletion
-  if (!isConfirmed) {
-    return; // Abort the operation if the user cancels
+
+
+    document.getElementById("sets_index").innerHTML = Sets;
+
+    // Attach event listener to edit buttons
+    const editButtons = document.querySelectorAll(".edit-set-btn");
+    editButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const setId = this.getAttribute("data-id");
+        // Now you can use setId wherever you need it
+        console.log(setId);
+        // Call getPages and pass setId as an argument
+        getPages(setId);
+      });
+    });
+  } catch {
+    alert("Failed to fetch Sets");
   }
+}
 
+// Function to fetch pages for a given set ID
+async function getPages(setId) {
   try {
-    const { error } = await supabase.from("set").delete().eq("id", id);
-    alert("Item Successfully Deleted!");
-    /* window.location.reload(); */
+    // Fetch set pages data from Supabase
+    let { data: setIndex, error } = await supabase
+      .from("set_pages")
+      .select("*, set(*)")
+      .eq("set_id", setId);
+
+    let SetsHTML = "";
+
+    // Iterate through each set page data and create HTML
+    setIndex.forEach((data2, index) => {
+      const category = data2.set.category;
+      SetsHTML += `<div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+              <div class="card-header" data-id="${data2.id}">${category}</div>
+              <div class="card-body">
+                <h5 class="card-title">${data2.question}</h5>
+                <p class="card-text">A. ${data2.choiceA}</p>
+                <p class="card-text mt-1">B. ${data2.choiceB}</p>
+                <p class="card-text mt-1">C. ${data2.choiceC}</p>
+                <p class="card-text mt-1">D. ${data2.choiceD}</p>
+                <b class="card-text mt-2">Answer. ${data2.answer}</b>
+                <div class="d-flex justify-content-end gap-2 d-md-block">
+                  <button class="btn me-2 edit-set-btn" data-bs-toggle="modal" data-bs-target="#editSets_modal2" data-id="${data2.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
+                  <button class="btn btn-danger" data-id="${data2.id}" type="button">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    });
+
+    // Set inner HTML of the container to the generated HTML
+    document.getElementById("sets_index2").innerHTML = SetsHTML;
+
+    // Attach event listeners to edit buttons
+    const editButtons = document.querySelectorAll(".edit-set-btn");
+    editButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const setId = this.getAttribute("data-id");
+        editSets(setId);
+ // Call editSets function when edit button is clicked
+      });
+    });
+
+
+
   } catch (error) {
-    alert("Error Somethings Wrong!");
-    console.error(error);
+    console.error("Failed to fetch pages:", error);
+    alert("Failed to fetch pages");
+  }
+}
+
+// Function to handle editing sets
+const editSets = async (setId) => {
+  try {
+    // Fetch set pages data from Supabase by set ID
+    let { data: setPages, error } = await supabase
+      .from("set_pages")
+      .select("*")
+      .eq("id", setId);
+
+    if (error) {
+      throw error; // Throw error if there's an issue fetching data
+    }
+
+    // Populate form fields with fetched data
+    document.getElementById("question").value = setPages[0].question;
+    document.getElementById("choiceA").value = setPages[0].choiceA;
+    document.getElementById("choiceB").value = setPages[0].choiceB;
+    document.getElementById("choiceC").value = setPages[0].choiceC;
+    document.getElementById("choiceD").value = setPages[0].choiceD;
+    document.getElementById("answer").value = setPages[0].answer;
+
+    // Get references to the modal elements outside the event listener
+
+  } catch (error) {
+    console.error("Error editing set:", error);
+    alert("Something went wrong. Unable to edit set.");
   }
 };
+
+
+
+// document.body.addEventListener("click", function (event) {
+//   if (event.target.id === "delete_page") {
+//     deleteSet2(event);
+//   }
+// });
+
+
+
+
+// const deleteSet2 = async (e) => {
+//   const id = e.target.getAttribute("data-id");
+//   console.log(id);
+
+//   const isConfirmed = window.confirm(
+//     "Are you sure you want to delete question?"
+//   );
+
+//   // Check if the user has confirmed the deletion
+//   if (!isConfirmed) {
+//     return; // Abort the operation if the user cancels
+//   }
+
+//   try {
+//     const { error } = await supabase.from("set_pages").delete().eq("set_id", id);
+//     alert("Item Successfully Deleted!");
+//     /* window.location.reload(); */
+//   } catch (error) {
+//     alert("Error Somethings Wrong!");
+//     console.error(error);
+//   }
+// };
+
+
+
+

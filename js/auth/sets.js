@@ -153,7 +153,7 @@ document.body.addEventListener("click", function (event) {
 
 document.body.addEventListener("click", function (event) {
   if (event.target.id === "closer") {
-   getSet();
+   window.location.reload();
   }
 });
 
