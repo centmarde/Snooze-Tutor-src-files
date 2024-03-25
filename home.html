@@ -50,21 +50,14 @@
     </div>
 
     <!-- nav heading -->
-    <nav class="navbar bg-body-tertiary fixed-top shadow">
+    <nav id="home_navbar" class="navbar bg-body-tertiary fixed-top shadow">
       <div class="container-fluid">
         <a class="navbar-brand col" href="#">
           <h5 class="fw-bold mt-2" style="color: #2b1055;" >SNOOZE Tutor</h5>
         </a>
 
         <!-- logo -->
-        <div>
-          <a
-            id="peace_logo"
-            class="fa fa-hand-peace-o fa-2x mx-3 link-offset-2 link-underline link-underline-opacity-0"
-            target="blank"
-            href="https://web.facebook.com/eisancarlos12"
-          ></a>
-        </div>
+        
 
         <!-- button side -->
         <button
@@ -75,7 +68,14 @@
           aria-controls="offcanvasNavbar"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span ><div>
+            <a
+              id="peace_logo"
+              class="fa fa-hand-peace-o fa-2x mx-1 link-offset-2 link-underline link-underline-opacity-0"
+              target="blank"
+             
+            ></a>
+          </div></span>
         </button>
         <div
           class="offcanvas offcanvas-end"
@@ -188,7 +188,7 @@
         <!-- end off canvas body -->
         <!-- nav bottom -->
 
-        <nav class="navbar fixed-bottom bg-body-tertiary">
+        <nav id="home_nav_bot" class="navbar fixed-bottom bg-body-tertiary">
           <div id="separate" class="opacity-50"></div>
           <div
             id="cont-bot"
@@ -384,7 +384,7 @@
                     <div class="card-body text-center">
                       <i class="fa fa-tasks fa-5x mb-3" aria-hidden="true"></i>
                       <p>Great for Review</p>
-                      <a href="./sets.html" class="btn d-flex justify-content-center" style="background-color: #2b1055; color: white;">Create A Set</a>
+                      <a id="createS" class="btn d-flex justify-content-center" style="background-color: #2b1055; color: white;">Create A Set</a>
                     </div>
                   </div>
                 </div>
@@ -509,6 +509,6 @@
       src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
     ></script>
     <script type="module" src="./js/auth/mover.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
   </body>
 </html>

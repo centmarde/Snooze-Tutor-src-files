@@ -51,20 +51,13 @@
     </div>
 
     <!-- navbar -->
-    <nav class="navbar bg-body-tertiary fixed-top shadow">
+    <nav id="home_navbar" class="navbar bg-body-tertiary fixed-top shadow">
       <div class="container-fluid">
         <a class="navbar-brand col" href="#">
           <h5 class="fw-bold mt-2" style="color: #2b1055">SNOOZE Tutor</h5>
         </a>
 
-        <!-- logo -->
-        <div>
-          <a
-            id="peace_logo"
-            class="fa fa-hand-peace-o fa-2x mx-3 link-offset-2 link-underline link-underline-opacity-0"
-            href="https://www.linkedin.com/login"
-          ></a>
-        </div>
+       
 
         <!-- button side -->
         <button
@@ -75,7 +68,12 @@
           aria-controls="offcanvasNavbar"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span> <a
+            id="peace_logo"
+            class="fa fa-hand-peace-o fa-2x mx-1 link-offset-2 link-underline link-underline-opacity-0"
+            target="blank"
+           
+          ></a></span>
         </button>
         <div
           class="offcanvas offcanvas-end"
@@ -157,7 +155,7 @@
                 <button
                 type="button"
                   class="btn w-100"
-                  style="background-color: #1c0522; color: aliceblue"
+                  style="background-color: #2b1055; color: aliceblue"
                 >
                   Logout
                 </button>
@@ -199,7 +197,7 @@
         <!-- end off canvas body -->
         <!-- nav bottom -->
 
-        <nav class="navbar fixed-bottom bg-body-tertiary">
+        <nav id="home_nav_bot" class="navbar fixed-bottom bg-body-tertiary">
           <div id="separate" class="opacity-50"></div>
           <div
             id="cont-bot"
@@ -343,6 +341,18 @@
     <br />
     <br /><br />
 
+  
+      <!-- spinner -->
+      <div class="row pb-5" id="spin">
+        <div class="col-sm-12 d-flex justify-content-center align-items-center">
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <b class="ms-2 text-light">Loading Data...</b>
+        </div>
+      </div>
+    
+
     <div
       class="modal fade"
       id="form_modal"
@@ -363,6 +373,7 @@
               aria-label="Close"
             ></button>
           </div>
+
 
           <!-- Item Form -->
           <form id="form_set_creation" class="text-dark">
@@ -657,6 +668,7 @@
         loader.style.display = "none";
       });
     </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script type="module" src="./js/auth/mover.js"></script>
   </body>

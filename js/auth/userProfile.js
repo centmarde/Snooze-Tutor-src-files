@@ -177,7 +177,7 @@ async function getDatas() {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
       container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
-      UniversalContainer += `<div class="row p-2">
+      UniversalContainer += `<div id="box"class="d-flex justify-content-center p-2">
             <div id="t1" class="col-6 col-lg-6 col-md-12 col-sm-12">
               <div class="d-flex justify-content-center" >
                 <!-- connector to javaS image -->
@@ -186,7 +186,7 @@ async function getDatas() {
                   id="imageContainer" 
                 ><div data-id="${
                   user_info.image_path
-                }"><img class="block my-2 border border-dark border-2 rounded-circle" src="${
+                }"><img class="block my-2 border border-light border-2 rounded-circle" src="${
         itemsImageUrl + user_info.image_path
       }" width="100%" height="130px"></div></div>
               </div>
@@ -208,7 +208,7 @@ async function getDatas() {
     
               <!--   container body -->
             </div>
-            <div class="col-6 col-lg-6 col-md-6">
+            <div class="col-6 col-lg-6 col-md-6 ms-2">
               <div>
                 <div><p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -257,7 +257,7 @@ async function getDatas() {
           </div>
         `;
 
-      sideContainer += `<div data-id="${user_info.image_path}">
+      sideContainer += `<div  data-id="${user_info.image_path}">
       <img class="block my-2 border border-dark border-2" src="${
         itemsImageUrl + user_info.image_path
       }" width="100%" height="100%"></div>
@@ -311,7 +311,7 @@ async function getDatas() {
             data-bs-target="#form_modal_questions" id="btn_edit_questions" style=" background-color: #2b1055; color: white;" data-id="${data.id}">Edit</button>
             </div>
             <div class = "col-6 d-grid gap-2">
-            <button type="button"   class="btn btn-danger" id="btn_deleteQuestions" data-id="${data.id}">delete</button>
+            <button type="button"   class="btn" style="background-color: #a679eb; color: white; id="btn_deleteQuestions" data-id="${data.id}">delete</button>
             </div>
             </div>
             </div>
@@ -568,7 +568,7 @@ async function getSets() {
                         <div class="d-flex justify-content-end gap-2 d-md-block">
                           <button class="btn me-2 edit-set-btn" data-bs-toggle="modal"
                           data-bs-target="#editSets_modal" data-id="${data.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
-                          <button id="final_delete" class="btn btn-danger delete-set-btn" data-id="${data.id}" type="button">Delete</button>
+                          <button id="final_delete" class="btn" delete-set-btn" style="background-color: #a679eb; color: white; data-id="${data.id}" type="button">Delete</button>
                         </div>
                       </div>
                     </div>
@@ -659,7 +659,7 @@ async function getPages(setId) {
                 <b class="card-text mt-2">Answer. ${data2.answer}</b>
                 <div class="d-flex justify-content-end gap-2 d-md-block">
                   <button class="btn me-2 edit-set-btn" data-bs-toggle="modal" data-bs-target="#editSets_modal2" data-id="${data2.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
-                  <button class="btn btn-danger" data-id="${data2.id}" type="button">Delete</button>
+                  <button class="btn" style="background-color: #a679eb; color: white; data-id="${data2.id}" type="button">Delete</button>
                 </div>
               </div>
             </div>

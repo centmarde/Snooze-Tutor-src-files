@@ -102,3 +102,16 @@ forgot_pass.onsubmit = async (e) => {
     document.querySelector("#forgot_pass button[type='submit']").disabled = false;
     document.querySelector("#forgot_pass button[type='submit']").innerHTML = `Loading..`;
 };
+function randomize(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    var lavender = document.getElementById('lavender');
+  
+    setInterval(function () {
+      lavender.style.transform = 'rotate(' + randomize(-5, 5) + 'deg)';
+      lavender.style.left = randomize(-5, 5) + 'px';
+    }, 3000); // Adjust the interval time as needed
+  });
+  

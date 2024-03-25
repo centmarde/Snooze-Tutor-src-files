@@ -2,8 +2,19 @@ import { supabase, successNotification, errorNotification,  doLogout, } from "..
 
 //start of sets navigation
 $(document).ready(function () {
-  // Show the modal when the document is ready
-   $("#form_modal").modal("show");
+  // Function to get URL parameters
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
+
+  // Check if the parameter 'showModal' is set to true in the URL
+  if (getUrlParameter('showModal') === 'true') {
+    // Show the modal when the document is ready and parameter is true
+    $("#form_modal").modal("show");
+  }
 });
 
 //end of sets navigation
@@ -26,30 +37,38 @@ async function getSet() {
     let { data: dataset, error } = await supabase
       .from("set")
       .select("*,profiles(*)");
-
-    // Shuffle the dataset (optional)
-    dataset.sort(() => Math.random() - 0.5);
-
+  
     let box = "";
-
+  
     // Iterate through the dataset
-    dataset.forEach((data, index) => {
+    for (const data of dataset) {
       const username = data.profiles.username;
       const modalId = `id_${data.id}`; // Generate unique modal ID
-      box += `<div class="card bg-dark text-dark mb-5"data-bs-toggle="modal"
+      
+      // Query set_pages to count the number of pages associated with the current set
+      let { data: pageCounter, error: pageError } = await supabase
+        .from("set_pages")
+        .select("count", { count: 'exact' })
+        .eq("set_id", data.id); // Filter by the current set's id
+  
+      // Extract the count of pages
+      const pageCount = pageCounter ? pageCounter[0].count : 0;
+  
+      // Construct the card HTML
+      box += `<div class="card bg-dark text-dark mb-5" data-bs-toggle="modal"
               data-bs-target="#${modalId}" data-id="${modalId}">
-              <div class ="card">
-              <div id="imageCont_${data.id}" >
+              <div class="card">
+              <div id="imageCont_${data.id}">
               </div>
-              <div  class="card-img-overlay ">
+              <div class="card-img-overlay">
                 <h5 id="set_title" class="card-title">${data.title}</h5>
-                <i>by: ${username}</i>
+                <i>by: ${username}</i> <br> <i class="card-text mt-4">Pages in Total: ${pageCount}</i>
                 <br>
                 <h5 class="card-text mt-4">${data.details}</h5>
                 <p class="card-text mt-3">Created: ${data.created_at}</p>
               </div>
             </div>
-    
+  
             <div
             class="modal fade"
             id="${modalId}"
@@ -86,20 +105,17 @@ async function getSet() {
             </div>
           </div>
         </div>`;
-      
-      // Break the loop after the first iteration
-      if (index === 0) {
-        return;
-      }
-    ;
-    });
-   
-    
+    }
+  
+    // Update index with all cards
     document.getElementById("index").innerHTML = box; 
     console.log("DOM updated successfully.");
   } catch (error) {
     console.error("Error:", error.message);
   }
+  
+  
+  
 
 
   
@@ -311,4 +327,17 @@ document.getElementById('finnishButton').addEventListener('click', function () {
 
   // Update the counter text
   counter.textContent = currentValue;
+});
+function hideSpinner() {
+  var container = document.getElementById('spin');
+  container.style.display = 'none';
+}
+
+window.addEventListener('load', function() {
+  // Simulating dynamic content loading completion
+  // You should replace this with your actual code where dynamic content is loaded
+  setTimeout(function() {
+    // Call hideSpinner when dynamic content is loaded
+    hideSpinner();
+  }, 2000); // Adjust the time delay as needed
 });

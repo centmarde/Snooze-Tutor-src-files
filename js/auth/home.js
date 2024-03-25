@@ -542,4 +542,17 @@ document.querySelector(
     "#btn_logout button[type='button']"
 ).innerHTML = `Log-Out`;
 
+$(document).ready(function () {
+  // Attach click event listener to the button
+  $("#createS").click(function () {
+    // Redirect to sets.html with a parameter to indicate modal should be shown
+    window.location.href = "./sets.html?showModal=true";
+  });
+});
+const icon = document.getElementById('icon');
+
+icon.addEventListener('click', function() {
+    icon.classList.toggle('clicked');
+});
+
 
