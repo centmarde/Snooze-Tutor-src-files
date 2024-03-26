@@ -416,7 +416,7 @@ const editAction_question = async (e) => {
   console.log(id);
   console.log("Event target:", e.target);
   console.log("Event object:", e);
-
+ 
   // Set loading state to true
   setLoading(true);
 
@@ -437,7 +437,7 @@ const editAction_question = async (e) => {
     document.getElementById("tittle").value = questions[0].tittle;
     document.getElementById("question_text").value = questions[0].question_text;
     document.getElementById("answer_text").value = questions[0].answer_text;
-
+    
     // Change Button Text using textContent; either innerHTML or textContent is fine here
   } else {
     errorNotification("Something wrong happened. Cannot show item.", 15);
@@ -504,7 +504,7 @@ form_modal_questions_edit.onsubmit = async (e) => {
       .select();
     if (error == null) {
       successNotification("Item Successfully Added!", 15);
-
+      
       // Reset storage id
       update_questions = "";
       /* reload datas */
@@ -679,31 +679,32 @@ async function getPages(setId) {
     editButtons.forEach((button) => {
       button.addEventListener("click", function () {
         const setId = this.getAttribute("data-id");
+        localStorage.setItem("page_id", setId); 
+        console.log(setId);
         editSets(setId);
       });
     });
-
     const editButton = document.querySelector("#final_edit");
     editButton.addEventListener("click", function () {
       const setId = this.getAttribute("data-id"); 
-      console.log(setId);
-      innerQuestion(setId);
+      innerQuestion();
     });
+
 
   } catch (error) {
     console.error("Failed to fetch pages:", error);
     alert("Failed to fetch pages");
-    /* window.location.reload(); */
+    window.location.reload();
   }
 }
 
-// Function to handle editing sets
+// show the contents of the set_pages ready for update
 const editSets = async (setId) => {
   console.log(setId);
-     
+
   try {
     // Fetch set pages data from Supabase by set ID
-    let { data: setPages, error } = await supabase
+    const { data: setPages, error } = await supabase
       .from("set_pages")
       .select("*")
       .eq("id", setId);
@@ -713,14 +714,13 @@ const editSets = async (setId) => {
     }
 
     // Populate form fields with fetched data
-    document.getElementById("question").value = setPages[0].question;
-    document.getElementById("choiceA").value = setPages[0].choiceA;
-    document.getElementById("choiceB").value = setPages[0].choiceB;
-    document.getElementById("choiceC").value = setPages[0].choiceC;
-    document.getElementById("choiceD").value = setPages[0].choiceD;
-    document.getElementById("answer").value = setPages[0].answer;
-
-    // Get references to the modal elements outside the event listener
+    const formData = setPages[0]; // Destructure directly if it's just one object
+    document.getElementById("question").value = formData.question;
+    document.getElementById("choiceA").value = formData.choiceA;
+    document.getElementById("choiceB").value = formData.choiceB;
+    document.getElementById("choiceC").value = formData.choiceC;
+    document.getElementById("choiceD").value = formData.choiceD;
+    document.getElementById("answer").value = formData.answer;
 
   } catch (error) {
     console.error("Error editing set:", error);
@@ -729,37 +729,56 @@ const editSets = async (setId) => {
   }
 };
 
+const innerQuestion = async () => {
+  // Retrieve page_id from localStorage
+  const setId = localStorage.getItem("page_id");
 
-
-const innerQuestion = async (setId) => {
   console.log(setId);
-  
 
   const formData = new FormData(edit_set_question);
-
-  /* update */
-  if (update_questions == "") {
-    const { data, error } = await supabase
+  
+  try {
+    const { error: updateError } = await supabase
       .from("set_pages")
-      .insert([
-        {
-          question: formData.get("question"),
-          choiceA: formData.get("choiceA"),
-          choiceB: formData.get("choiceB"),
-          choiceC: formData.get("choiceC"),
-          choiceD: formData.get("choiceD"),
-          answer: formData.get("answer"),
-        },
-      ])
-      .select();
-    if (error) {
-     alert("Something wrong happened. Cannot add Question", 15);
-      console.log(error);
+      .update({
+        question: formData.get("question"),
+        choiceA: formData.get("choiceA"),
+        choiceB: formData.get("choiceB"),
+        choiceC: formData.get("choiceC"),
+        choiceD: formData.get("choiceD"),
+        answer: formData.get("answer"),
+      })
+      .eq("id", setId); // Ensure you're updating the correct set by specifying the id
+      
+    if (!updateError) {
+      alert("Set Successfully Updated!");
+ 
     } else {
-      alert("Question Successfully Edited!", 15);
+      alert("Something wrong happened. Cannot update Set.");
+      console.log(updateError);
     }
-}
-}
+  } catch (error) {
+    console.error("Error updating set:", error);
+    alert("Something went wrong. Unable to update set.");
+  }
+  edit_set_question.reset();
+  window.location.reload();
+
+};
+
+
+
+
+
+
+
+
+//update set pages start
+// Ensure update_questions_setpages is correctly set elsewhere in your code
+
+
+//end update of edit set pages
+
 
 // document.body.addEventListener("click", function (event) {
 //   if (event.target.id === "delete_page") {
