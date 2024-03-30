@@ -1,23 +1,31 @@
-import { supabase, successNotification, errorNotification,  doLogout, } from "../main";
+import {
+  supabase,
+  successNotification,
+  errorNotification,
+  doLogout,
+} from "../main";
 
 //start of sets navigation
 $(document).ready(function () {
   // Function to get URL parameters
   function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
     var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-  };
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
 
   // Check if the parameter 'showModal' is set to true in the URL
-  if (getUrlParameter('showModal') === 'true') {
+  if (getUrlParameter("showModal") === "true") {
     // Show the modal when the document is ready and parameter is true
     $("#form_modal").modal("show");
   }
 });
 
 //end of sets navigation
+const form_search = document.getElementById("form_search");
 const btn_logout = document.getElementById("btn_logout");
 const itemsImageUrl =
   "https://plsyfklzwmasyypcuwei.supabase.co/storage/v1/object/public/profilePic/";
@@ -28,32 +36,52 @@ getSet();
 btn_logout.onclick = doLogout;
 document.querySelector("#btn_logout button").disabled = true;
 document.querySelector(
-    "#btn_logout button" //logout button script
+  "#btn_logout button" //logout button script
 ).innerHTML = `<span>Loading...</span>`;
 
-async function getSet() {
+// start of search functionality
+form_search.onsubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form_search);
+  getSet(formData.get("keyword"));
+  document.getElementById("modal_close_search").click();
+  form_search.reset();
+};
+// End of Search Functionality
+
+async function getSet(keyword = "") {
   try {
     // Ensure Supabase is properly configured and accessible
     let { data: dataset, error } = await supabase
       .from("set")
-      .select("*,profiles(*)");
-  
+      .select("*,profiles(*)")
+      .or(
+        "category.ilike.%" +
+          keyword +
+          "%, details.ilike.%" +
+          keyword +
+          "%, title.ilike.%" +
+          keyword +
+          "%"
+      );
+
     let box = "";
-  
+
     // Iterate through the dataset
     for (const data of dataset) {
       const username = data.profiles.username;
       const modalId = `id_${data.id}`; // Generate unique modal ID
-      
+
       // Query set_pages to count the number of pages associated with the current set
       let { data: pageCounter, error: pageError } = await supabase
         .from("set_pages")
-        .select("count", { count: 'exact' })
+        .select("count", { count: "exact" })
         .eq("set_id", data.id); // Filter by the current set's id
-  
+
       // Extract the count of pages
       const pageCount = pageCounter ? pageCounter[0].count : 0;
-  
+
       // Construct the card HTML
       box += `<div class="card bg-dark text-dark mb-5" data-bs-toggle="modal"
               data-bs-target="#${modalId}" data-id="${modalId}">
@@ -106,19 +134,13 @@ async function getSet() {
           </div>
         </div>`;
     }
-  
+
     // Update index with all cards
-    document.getElementById("index").innerHTML = box; 
+    document.getElementById("index").innerHTML = box;
     console.log("DOM updated successfully.");
   } catch (error) {
     console.error("Error:", error.message);
   }
-  
-  
-  
-
-
-  
 
   // Moved this part inside try block to ensure proper execution
   try {
@@ -126,54 +148,60 @@ async function getSet() {
       .from("set")
       .select("*,profiles(*)");
 
-      dataset2.forEach((data) => {
+    // Inside the second try block
+    dataset2.forEach((data) => {
+      const imageContainer = document.getElementById(`imageCont_${data.id}`);
+      if (imageContainer) {
         let image;
-        if (data.category === "Math") {
-          image = `<img src="https://i.ibb.co/QprStd4/Math.jpg" width="334px" height="340px">`;
-        } else if (data.category === "Programming") {
-          image = `<img src="https://i.ibb.co/fnQtrXz/different-school-subjects-vector-illustrations-set.jpg"width="334px" height="340px" >`;
-        } else if (data.category === "Science") {
-          image = ` <img src="https://i.ibb.co/0Qy30rz/Science.jpg" height="340px" >`;
-        } else if (data.category === "English") {
-          image = `<img src="https://i.ibb.co/jZFP0B0/English.jpg" height="340px" >`;
-        } else {
-          // Default image or action if category is not matched
-          image = `<img src="https://i.ibb.co/3R6nVY0/Other.jpg" height="340px" >`;
+        switch (data.category) {
+          case "Math":
+            image = `<img src="https://i.ibb.co/QprStd4/Math.jpg" width="334px" height="340px">`;
+            break;
+          case "Programming":
+            image = `<img src="https://i.ibb.co/fnQtrXz/different-school-subjects-vector-illustrations-set.jpg" width="334px" height="340px">`;
+            break;
+          case "Science":
+            image = `<img src="https://i.ibb.co/0Qy30rz/Science.jpg" height="340px">`;
+            break;
+          case "English":
+            image = `<img src="https://i.ibb.co/jZFP0B0/English.jpg" height="340px">`;
+            break;
+          default:
+            image = `<img src="https://i.ibb.co/3R6nVY0/Other.jpg" height="340px">`;
+            break;
         }
-        document.getElementById(`imageCont_${data.id}`).innerHTML = image;
-        
-      });
+        imageContainer.innerHTML = image;
+      } else {
+        console.error(`Image container not found for ID: imageCont_${data.id}`);
+      }
+    });
   } catch (error) {
     console.error("Error:", error.message);
   }
-  
 }
 
 document.body.addEventListener("click", function (event) {
   if (event.target.id === "set_accept") {
-    const parentId = parseInt(event.target.closest('.card').getAttribute('data-id').split('_')[1], 10);
+    const parentId = parseInt(
+      event.target.closest(".card").getAttribute("data-id").split("_")[1],
+      10
+    );
 
     if (!isNaN(parentId)) {
       console.log(parentId);
-      localStorage.setItem('parentId', parentId);
-      window.location.href = '/accept.html';
+      localStorage.setItem("parentId", parentId);
+      window.location.href = "/accept.html";
     } else {
       console.log("parentId could not be converted to an integer.");
     }
   }
 });
 
-
-
-
-
 document.body.addEventListener("click", function (event) {
   if (event.target.id === "closer") {
-   window.location.reload();
+    window.location.reload();
   }
 });
-
-
 
 // modal creations set 1st start
 let setIdPromise = new Promise((resolve, reject) => {
@@ -195,7 +223,6 @@ let setIdPromise = new Promise((resolve, reject) => {
             category,
             details,
             user_id: userId,
-
           },
         ])
         .select();
@@ -219,7 +246,7 @@ let setIdPromise = new Promise((resolve, reject) => {
       }
     } catch (error) {
       console.error("Error:", error);
-     /*  window.location.reload(); */
+      /*  window.location.reload(); */
       reject(error); // Reject the promise if an error occurs
     }
   };
@@ -282,17 +309,14 @@ const handleSubmit = async (e) => {
   }
   /* document.getElementById("btn_close2").click();
   window.location.reload(); */
-
 };
 user();
 async function user() {
-
-  
   let { data: profiles, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId);
-   /*  alert("Start Scrolling"); */
+  /*  alert("Start Scrolling"); */
   let container = "";
   profiles.forEach((user_info) => {
     container += `<h4 class="mt-2" data-id="${user_info.username}">Good Day! ${user_info.username}</h4>`;
@@ -300,7 +324,7 @@ async function user() {
 
   // Assuming you have a container in your HTML with an id, for example, "userContainer"
   document.getElementById("userContainer").innerHTML = container;
-} 
+}
 
 // Event listener for form submission
 form_set_making.onsubmit = handleSubmit;
@@ -313,13 +337,12 @@ newPage.addEventListener("click", () => {
 
 document.querySelector("#btn_logout button[type='button']").disabled = false;
 document.querySelector(
-    "#btn_logout button[type='button']"
+  "#btn_logout button[type='button']"
 ).innerHTML = `Log-Out`;
 
-
-document.getElementById('finnishButton').addEventListener('click', function () {
+document.getElementById("finnishButton").addEventListener("click", function () {
   // Get the current value of the counter
-  let counter = document.getElementById('counter');
+  let counter = document.getElementById("counter");
   let currentValue = parseInt(counter.textContent);
 
   // Increment the counter
@@ -329,14 +352,14 @@ document.getElementById('finnishButton').addEventListener('click', function () {
   counter.textContent = currentValue;
 });
 function hideSpinner() {
-  var container = document.getElementById('spin');
-  container.style.display = 'none';
+  var container = document.getElementById("spin");
+  container.style.display = "none";
 }
 
-window.addEventListener('load', function() {
+window.addEventListener("load", function () {
   // Simulating dynamic content loading completion
   // You should replace this with your actual code where dynamic content is loaded
-  setTimeout(function() {
+  setTimeout(function () {
     // Call hideSpinner when dynamic content is loaded
     hideSpinner();
   }, 2000); // Adjust the time delay as needed

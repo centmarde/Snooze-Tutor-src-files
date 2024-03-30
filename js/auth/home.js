@@ -205,9 +205,11 @@ async function getQuestions(keyword = "") {
     .from("questions")
     .select("*,profiles(*)")
     .or(
-      "question_text.ilike.%" + keyword + "%",
-      "tittle.ilike.%" + keyword + "%",
-      /* "username.ilike.%" + keyword + "%" */
+      "question_text.ilike.%" +
+          keyword +
+          "%, tittle.ilike.%" +
+          keyword +
+          "%"
   );
  
     questions.sort(() => Math.random() - 0.5);
@@ -550,9 +552,5 @@ $(document).ready(function () {
   });
 });
 const icon = document.getElementById('icon');
-
-icon.addEventListener('click', function() {
-    icon.classList.toggle('clicked');
-});
 
 

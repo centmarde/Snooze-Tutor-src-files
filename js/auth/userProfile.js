@@ -659,7 +659,7 @@ async function getPages(setId) {
                 <b class="card-text mt-2">Answer. ${data2.answer}</b>
                 <div class="d-flex justify-content-end gap-2 d-md-block">
                   <button class="btn me-2 edit-set-btn" data-bs-toggle="modal" data-bs-target="#editSets_modal2" data-id="${data2.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
-                  <button class="btn" style="background-color: #a679eb; color: white; data-id="${data2.id}" type="button">Delete</button>
+                  <button id="inner_delete" class="btn" style="background-color: #a679eb; color: white;" data-id="${data2.id}" type="button">Delete</button>
                 </div>
               </div>
             </div>
@@ -769,48 +769,38 @@ const innerQuestion = async () => {
 
 
 
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "inner_delete") {
+    alert("ge pislet")
+    deleteSet2(event);
+  }
+});
 
 
 
 
-//update set pages start
-// Ensure update_questions_setpages is correctly set elsewhere in your code
+const deleteSet2 = async (e) => {
+  const id = e.target.getAttribute("data-id");
+  console.log(id);
 
+  const isConfirmed = window.confirm(
+    "Are you sure you want to delete question?"
+  );
 
-//end update of edit set pages
+  // Check if the user has confirmed the deletion
+  if (!isConfirmed) {
+    return; // Abort the operation if the user cancels
+  }
 
-
-// document.body.addEventListener("click", function (event) {
-//   if (event.target.id === "delete_page") {
-//     deleteSet2(event);
-//   }
-// });
-
-
-
-
-// const deleteSet2 = async (e) => {
-//   const id = e.target.getAttribute("data-id");
-//   console.log(id);
-
-//   const isConfirmed = window.confirm(
-//     "Are you sure you want to delete question?"
-//   );
-
-//   // Check if the user has confirmed the deletion
-//   if (!isConfirmed) {
-//     return; // Abort the operation if the user cancels
-//   }
-
-//   try {
-//     const { error } = await supabase.from("set_pages").delete().eq("set_id", id);
-//     alert("Item Successfully Deleted!");
-//     /* window.location.reload(); */
-//   } catch (error) {
-//     alert("Error Somethings Wrong!");
-//     console.error(error);
-//   }
-// };
+  try {
+    const { error } = await supabase.from("set_pages").delete().eq("id", id);
+    alert("Item Successfully Deleted!");
+    window.location.reload();
+  } catch (error) {
+    alert("Error Somethings Wrong!");
+    console.error(error);
+  }
+};
 
 
 
