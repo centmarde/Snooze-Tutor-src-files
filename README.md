@@ -1,4 +1,7 @@
 an app on smartphones with questions and answers. In addition to other features, it provides CRUD functionality. developed using the vanilla CSS, vanilla JS, and HTML bootstrap framework. Please send me a private message or get in touch with me if you have any ideas for improving this app.
+I put a lot of effort into creating this application. from UI, responsiveness, animations. and backend functionality.
+making use of the SUPAbase API.
+
 
 Heres the Quick Preview:
 
