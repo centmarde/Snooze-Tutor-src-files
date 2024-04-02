@@ -1,1 +1,2 @@
 an app on smartphones with questions and answers. In addition to other features, it provides CRUD functionality. developed using the vanilla CSS, vanilla JS, and HTML bootstrap framework. Please send me a private message or get in touch with me if you have any ideas for improving this app.
+![434296424_215493854980019_593550123109397195_n](https://github.com/centmarde/App-Dev/assets/159101935/c9b27b8e-cc7a-4455-bdb7-513b45b60346)
