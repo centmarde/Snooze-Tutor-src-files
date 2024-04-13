@@ -83,17 +83,18 @@ async function getSet(keyword = "") {
       const pageCount = pageCounter ? pageCounter[0].count : 0;
 
       // Construct the card HTML
-      box += `<div class="card bg-dark text-dark mb-5" data-bs-toggle="modal"
+      box += `<div class=" col-lg-6 col-sm-12 px-2">
+      <div class="card  text-dark mb-5" data-bs-toggle="modal"
               data-bs-target="#${modalId}" data-id="${modalId}">
               <div class="card">
-              <div id="imageCont_${data.id}">
+              <div class="d-flex justify-content-center" id="imageCont_${data.id}">
               </div>
-              <div class="card-img-overlay">
-                <h5 id="set_title" class="card-title">${data.title}</h5>
-                <i>by: ${username}</i> <br> <i class="card-text mt-4">Pages in Total: ${pageCount}</i>
+              <div class="card-img-overlay row">
+                <h5 id="set_title" class="card-title text-center">${data.title}</h5>
+                <i class="text-center">by: ${username}</i> <br> <i class="card-text text-center mt-4">Pages in Total: ${pageCount}</i>
                 <br>
-                <h5 class="card-text mt-4">${data.details}</h5>
-                <p class="card-text mt-3">Created: ${data.created_at}</p>
+                <h5 class="card-text mt-4 text-center">${data.details}</h5>
+                <p class="card-text mt-3 text-center">Created: ${data.created_at}</p>
               </div>
             </div>
   
@@ -132,7 +133,7 @@ async function getSet(keyword = "") {
               </div>
             </div>
           </div>
-        </div>`;
+        </div></div>`;
     }
 
     // Update index with all cards
@@ -155,19 +156,19 @@ async function getSet(keyword = "") {
         let image;
         switch (data.category) {
           case "Math":
-            image = `<img src="https://i.ibb.co/QprStd4/Math.jpg" width="334px" height="340px">`;
+            image = `<img src="https://i.ibb.co/QprStd4/Math.jpg" width="100%" height="340vh">`;
             break;
           case "Programming":
-            image = `<img src="https://i.ibb.co/fnQtrXz/different-school-subjects-vector-illustrations-set.jpg" width="334px" height="340px">`;
+            image = `<img src="https://i.ibb.co/fnQtrXz/different-school-subjects-vector-illustrations-set.jpg" width="100%" height="340vh">`;
             break;
           case "Science":
-            image = `<img src="https://i.ibb.co/0Qy30rz/Science.jpg" height="340px">`;
+            image = `<img src="https://i.ibb.co/0Qy30rz/Science.jpg" width="100%" height="340vh">`;
             break;
           case "English":
-            image = `<img src="https://i.ibb.co/jZFP0B0/English.jpg" height="340px">`;
+            image = `<img src="https://i.ibb.co/jZFP0B0/English.jpg" width="100%" height="340vh">`;
             break;
           default:
-            image = `<img src="https://i.ibb.co/3R6nVY0/Other.jpg" height="340px">`;
+            image = `<img src="https://i.ibb.co/3R6nVY0/Other.jpg" width="100%" height="340vh">`;
             break;
         }
         imageContainer.innerHTML = image;

@@ -177,18 +177,18 @@ async function getDatas() {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
       container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
-      UniversalContainer += `<div id="box"class="d-flex justify-content-center p-2">
-            <div id="t1" class="col-6 col-lg-6 col-md-12 col-sm-12">
+      UniversalContainer += `<div id="box"class="row d-flex justify-content-center p-2">
+            <div id="t1" class="col-lg-6 col-md-6 col-sm-12">
               <div class="d-flex justify-content-center" >
                 <!-- connector to javaS image -->
                 <div
-                  class="col-12 col-md-4 cold-sm-12 col-lg-4"
+                  class=" col-md-4 cold-sm-12 col-lg-4"
                   id="imageContainer" 
                 ><div data-id="${
                   user_info.image_path
                 }"><img class="block my-2 border border-light border-2 rounded-circle" src="${
         itemsImageUrl + user_info.image_path
-      }" width="100%" height="130px"></div></div>
+      }" width="100%" height="130vh"></div></div>
               </div>
               <div>
                 <!-- Button trigger modal Profile Picture-->
@@ -208,7 +208,7 @@ async function getDatas() {
     
               <!--   container body -->
             </div>
-            <div class="col-6 col-lg-6 col-md-6 ms-2">
+            <div class="col-lg-6 col-md-6 col-sm-12 ms-2">
               <div>
                 <div><p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path  d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -250,7 +250,7 @@ async function getDatas() {
           <div id="t3" class="row">
             <div class="col">
             <div class="container"  >
-             <div id="indexContainer" >
+             <div class="row justify-content-center "  id="indexContainer" >
              </div>
             </div>
             </div>
@@ -293,7 +293,7 @@ async function getDatas() {
     });
 
     questions.forEach((data, index) => {
-      questionContainer += ` <div class="col d-flex justify-content-center mb-3 mt-5">
+      questionContainer += ` <div class="col-sm-12 col-lg-6 d-flex justify-content-center mb-3 mt-5">
       <div class="card justify-content-center" style="width: 18rem" data-id="${data.id}" >
         <div class="card" style="width: 18rem">
           <div class="card-body">
@@ -306,12 +306,12 @@ async function getDatas() {
             </div>
             
             <div class = "row mt-4">
-            <div class = "col-6 d-grid gap-2 ">
+            <div class = "col-lg-6 d-grid gap-2 mb-2">
             <button type="button"  class="btn btn-dark" data-bs-toggle="modal"
             data-bs-target="#form_modal_questions" id="btn_edit_questions" style=" background-color: #2b1055; color: white;" data-id="${data.id}">Edit</button>
-            </div>
-            <div class = "col-6 d-grid gap-2">
-            <button type="button"   class="btn" style="background-color: #a679eb; color: white; id="btn_deleteQuestions" data-id="${data.id}">delete</button>
+            </div> 
+            <div class = "col-lg-6 d-grid gap-2 mb-2">
+            <button type="button"   class="btn " id="btn_deleteQuestions" data-id="${data.id}" style="background-color: #a679eb; color: white;">delete</button>
             </div>
             </div>
             </div>
@@ -388,7 +388,7 @@ const editAction = async (e) => {
 const deleteQuestion = async (e) => {
   const id = e.target.getAttribute("data-id");
   console.log(id);
-
+  
   const isConfirmed = window.confirm(
     "Are you sure you want to delete question?"
   );
@@ -405,7 +405,7 @@ const deleteQuestion = async (e) => {
   } catch (error) {
     errorNotification("Something wrong happened. Cannot delete item.", 15);
     alert(error);
-    window.location.reload();
+    /* window.location.reload(); */
   }
 };
 
@@ -556,10 +556,10 @@ async function getSets() {
     let Sets = "";
 
     setIndex.forEach((data, index) => {
-      Sets += `<div class="container">
-                <div class="row">
-                  <div class="col">
-                    <div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+      Sets += `<div class="row d-flex justify-content-center">
+                <div class="col-lg-6">
+                  <div class="text-center">
+                    <div class="card text-bg-light shadow mb-3" style="max-width: 18vr;">
                       <div class="card-header" data-id="${data.id}">${data.category}</div>
                       <div class="card-body">
                         <h5 class="card-title">${data.title}</h5>
@@ -568,7 +568,7 @@ async function getSets() {
                         <div class="d-flex justify-content-end gap-2 d-md-block">
                           <button class="btn me-2 edit-set-btn" data-bs-toggle="modal"
                           data-bs-target="#editSets_modal" data-id="${data.id}" type="button" style="background-color: #2b1055; color: white;">Edit Set</button>
-                          <button id="final_delete" class="btn" delete-set-btn" style="background-color: #a679eb; color: white; data-id="${data.id}" type="button">Delete</button>
+                          <button id="final_delete" data-id="${data.id}" class="btn" delete-set-btn" style="background-color: #a679eb; color: white; data-id="${data.id}" type="button">Delete</button>
                         </div>
                       </div>
                     </div>
@@ -645,10 +645,10 @@ async function getPages(setId) {
     // Iterate through each set page data and create HTML
     setIndex.forEach((data2, index) => {
       const category = data2.set.category;
-      SetsHTML += `<div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="card text-bg-light shadow mb-3" style="max-width: 18rem;">
+      SetsHTML += `
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6">
+            <div class="card text-bg-light shadow mb-3" style="max-width: 18vr;">
               <div class="card-header" data-id="${data2.id}">${category}</div>
               <div class="card-body">
                 <h5 class="card-title">${data2.question}</h5>
@@ -665,7 +665,7 @@ async function getPages(setId) {
             </div>
           </div>
         </div>
-      </div>
+      
  
       `;
 
@@ -771,7 +771,6 @@ const innerQuestion = async () => {
 
 document.body.addEventListener("click", function (event) {
   if (event.target.id === "inner_delete") {
-    alert("ge pislet")
     deleteSet2(event);
   }
 });

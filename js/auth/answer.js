@@ -65,7 +65,7 @@ import {
         } else {
           cardClass = "border border-danger border-4"; // Apply red border if user's answer is wrong
         }
-        answerCont += `<div  class="card ${cardClass}" style="width: 20rem">
+        answerCont += `<div  class="card ${cardClass}" style="width: 100vh">
           <div id="paper" class="card-body" data-id ="${data.id}">
             <form>
               <fieldset disabled>
@@ -266,10 +266,10 @@ import {
         } else {
             rank = "Programmer 👨🏼‍💻";
         }
-        } else if (percentage >= 90 && percentage <= 100) {
+        } else if (percentage >= 90 && percentage <= 99) {
           const randomNum = Math.random();
           if (randomNum < 0.2) {
-            rank = "Eagle 🦊";
+            rank = "Eagle 🦅";
         } else if (randomNum < 0.4) {
             rank = "Lion 🐆";
         } else if (randomNum < 0.6) {

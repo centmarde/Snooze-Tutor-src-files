@@ -14,7 +14,7 @@ const userId = localStorage.getItem("user_id");
 const form_item = document.getElementById("form_item");
 const btn_logout = document.getElementById("btn_logout");
 const form_search = document.getElementById('form_search');
-btn_logout.onclick = doLogout;
+
 document.querySelector("#btn_logout button").disabled = true;
 document.querySelector(
     "#btn_logout button" //logout button script
@@ -224,7 +224,7 @@ async function getQuestions(keyword = "") {
     const username = data.profiles.username;
     const likes = data.profiles.likes;
 
-    questionContainer += `<div class="col-lg-12 col-md-12 col-sm-12 justify-content-center mb-3">
+    questionContainer += `<div class="col-lg-6 col-md-12 col-sm-12 justify-content-center mb-3">
     <div class="card  hiddenAnimate2" ">
       <div class="card"  background-color:#e3deeb;">
         <div class="card-body">

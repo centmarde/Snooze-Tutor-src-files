@@ -202,10 +202,13 @@ section img
     width: 100%;
     object-fit: cover;
     pointer-events: none;
+  
 }
 section img#moon
-{
+{ 
     mix-blend-mode: screen;
+    z-index: 1;
+
 }
 section img#mountains_behind
 {
@@ -213,7 +216,7 @@ section img#mountains_behind
 }
 section img#last
 {
-  z-index: 1;
+  z-index: 2;
 }
 section img#mountains_front
 {
@@ -233,11 +236,12 @@ section::before
     height: 100px;
     background: linear-gradient(to top, #1c0522, transparent);
     z-index: 1000;
+    
 }
 
 #texth2{
   position: absolute;
-  right: 50px;
+  justify-content: center;
   color: #fff;
   white-space: nowrap;
   font-size: 50px;
@@ -249,6 +253,7 @@ section::before
     padding: 20px;
     background: #1c0522;
     color: white;
+    
 }
 #welcome{
   font-family: "Style Script", cursive;
@@ -352,12 +357,9 @@ section::before
   font-size: 40px;
 }
 #box {
-  width: 100%;
-  height: 100%;
+  width: 100vr;
+  height: 100vr;
   background-image: url("../assets/imgs/layered-waves-haikei.svg");
-  padding: 2rem;
-  left: 5rem;
-  margin-bottom: 1rem;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
