@@ -65,7 +65,7 @@ import {
         } else {
           cardClass = "border border-danger border-4"; // Apply red border if user's answer is wrong
         }
-        answerCont += `<div  class="card ${cardClass}" style="width: 100vh">
+        answerCont += `<div  class="card ${cardClass}">
           <div id="paper" class="card-body" data-id ="${data.id}">
             <form>
               <fieldset disabled>
