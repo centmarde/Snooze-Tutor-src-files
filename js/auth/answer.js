@@ -260,7 +260,7 @@ import {
         } else if (randomNum < 0.4) {
             rank = "Octupos 🐆";
         } else if (randomNum < 0.6) {
-            rank = "Elepant 🐺";
+            rank = "Elepant 🐘";
         } else if (randomNum < 0.8) {
             rank = "Typical Women 🙆🏼‍♀️";
         } else {
@@ -271,9 +271,9 @@ import {
           if (randomNum < 0.2) {
             rank = "Eagle 🦅";
         } else if (randomNum < 0.4) {
-            rank = "Lion 🐆";
+            rank = "Lion, King of the Jungle 🐆";
         } else if (randomNum < 0.6) {
-            rank = "Shark 🐺";
+            rank = "Apex Predator🦈";
         } else if (randomNum < 0.8) {
             rank = "Detective 🕵️";
         } else {
@@ -284,7 +284,7 @@ import {
           if (randomNum < 0.33) {
               rank = "Dragon 🐲";
           } else if (randomNum < 0.66) {
-              rank = "Dracula 🧛‍♀️";
+              rank = "Einstein 🧠⚛";
           } else {
               rank = "Ai 🤖";
           }
