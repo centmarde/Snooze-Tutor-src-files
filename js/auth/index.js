@@ -28,7 +28,7 @@ form_register.onclick = async (e) => {
       let value = window.scrollY;
       last.style.top = value * 0.4 + 'px';
       stars.style.left = value * 0.25 + 'px';
-      moon.style.top = value * 1.25 + 'px';
+      moon.style.top = value * 2.25 + 'px';
       mountains_behind.style.top = value * 0.25 + 'px';
       mountains_front.style.top = value * 0 + 'px';
       firstLayer.style.left = value * 0.1 + 'px';

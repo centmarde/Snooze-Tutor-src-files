@@ -166,7 +166,7 @@
                           name="mobile_no"
                           id="mobile_no"
                           placeholder="Mobile Number"
-                         
+                          rows="1"
                         />
                       </div>
                     </div>
@@ -182,7 +182,7 @@
                           name="about"
                           id="about"
                           placeholder="Tell us about your self"
-                         
+                          rows="1"
                           
                         ></textarea>
                       </div>
@@ -196,7 +196,7 @@
                           name="dislikes"
                           id="dislikes"
                           placeholder="Dislikes"
-                         
+                          rows="1"
                         ></textarea>
                       </div>
                     </div>
@@ -209,7 +209,7 @@
                           name="likes"
                           id="likes"
                           placeholder="Interest/Likes"
-                         
+                          rows="1"
                         
                         ></textarea>
                       </div>
@@ -225,6 +225,7 @@
                           name="image_path"
                           accept="image/*"
                           id="imageUpload" 
+                          rows="1"
                         />
                         <span class="ms-1 text-secondary" >Change Profile</span>
                       </div>
@@ -241,8 +242,9 @@
                       Close
                     </button>
                     <button
-                      class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                      class="btn w-25 d-flex align-items-center justify-content-center"
                       type="submit"
+                      style="background-color: #2b1055; color: white"
                     >
                       <!--  onclick="window.location.href='./items.html'" -->
                       Submit
@@ -475,7 +477,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">
-               Questions Edit
+               Question Edit
               </h1>
               <button
                 type="button"
@@ -488,7 +490,7 @@
             <form id="form_modal_questions_edit">
               <!-- Modal Body -->
               <div class="modal-body">
-                <span>must fill up all form</span>
+                <span>Must fill out all entry fields.</span>
                
                 <div class="row mb-3">
                   <div class="col-sm-12">
@@ -527,7 +529,7 @@
                       name="answer_text"
                       id="answer_text"
                       placeholder="put your answer here"
-                      rows="10"
+                      rows="5"
                      
                     ></textarea>
                   </div>
@@ -545,7 +547,8 @@
                   Close
                 </button>
                 <button
-                  class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                  class="btn  w-25 d-flex align-items-center justify-content-center"
+                  style="background-color: #2b1055; color: white"
                   type="submit"
                
                 >
@@ -565,7 +568,7 @@
    <!--  modal for set_questions  editing-->
  <div class="container">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-lg-12">
       <!-- Modal Btn and Form -->
       <!-- Modal -->
       <div
@@ -581,7 +584,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">
-               Questions Edit
+               Question Edit
               </h1>
               <button
                 type="button"
@@ -594,8 +597,8 @@
             <form id="edit_set_question">
               <!-- Modal Body -->
               <div class="modal-body">
-                <div class="mb-3 row">
-                  <div class="col-sm-10">
+                <div class="mb-3 row ">
+                  <div class="col-sm-12  col-lg-12">
                     <div>
                       <div class="mb-3">
                         <label
