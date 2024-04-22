@@ -38,8 +38,8 @@ form_register.onsubmit = async (e) => {
                 .from('profiles')
                 .insert([
                     {
-                        password: formData.get("password"), username: formData.get("username"),
-                        id:user_id, email: formData.get("email")
+                        username: formData.get("username"),
+                        user_id:user_id
                     }
                 ])
                 .select()
