@@ -29,14 +29,18 @@ form_login.onsubmit = async (e) => {
         localStorage.setItem("access_token", session.access_token);
         localStorage.setItem("refresh_token", session.refresh_token);
 
-        // Save user id in local storage
-        localStorage.setItem("user_id", user.id);
+       
+      
 
         // For role-based authentication; uncomment if you want to implement example: admin log-in
         let { data: profiles, error } = await supabase
             .from("profiles")
             .select("*")
-        /* console.log(user.id); */
+    
+         // Save user id in local storage
+        localStorage.setItem("user_id", profiles[0].id);
+        console.log(profiles[0].id);
+
 
         if (session != null) {
             const userRole = profiles[0].Role;

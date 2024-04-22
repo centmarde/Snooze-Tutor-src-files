@@ -15,6 +15,8 @@ const form_item = document.getElementById("form_item");
 const btn_logout = document.getElementById("btn_logout");
 const form_search = document.getElementById('form_search');
 
+console.log("User ID:", userId);
+
 document.querySelector("#btn_logout button").disabled = true;
 document.querySelector(
     "#btn_logout button" //logout button script
@@ -52,7 +54,7 @@ async function getterAllquestions() {
   let { data: questions, error } = await supabase
     .from("questions")
     .select("count", { count: 'exact' })
- /*    .eq("user_id", userId); */
+    /* .eq("user_id", userId);  */
   
  const count = questions[0].count;
 
@@ -163,6 +165,7 @@ form_item.onsubmit = async (e) => {
           tittle: formData.get("tittle"),
           question_text: formData.get("question"),
           answer_text: formData.get("answer"),
+          user_id: userId,
         },
       ])
       .select();
@@ -524,7 +527,7 @@ async function updateRank(rank_name) {
     const { data, error } = await supabase
       .from("rank")
       .update({ rank: rank_name })
-      .eq("user_id", userId);
+      .eq("id", userId);
 
     if (error) {
       throw new Error("Error updating rank: " + error.message);
