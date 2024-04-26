@@ -1,19 +1,18 @@
 import { supabase, successNotification, errorNotification } from "../main";
 
-
 const form_login = document.getElementById("form_login");
 const forgot_pass = document.getElementById("forgot_pass");
 
 form_login.onsubmit = async (e) => {
     e.preventDefault();
 
+    // Disable login button and show loading spinner
     document.querySelector("#form_login button").disabled = true;
     document.querySelector("#form_login button").innerHTML = `<div class="spinner-border me-2" role="status"></div><span>Loading...</span>`;
 
     const formData = new FormData(form_login);
 
-    //supabase sign-in
-    
+    // Supabase sign-in
     let { data, error } = await supabase.auth.signInWithPassword({
         email: formData.get("email"),
         password: formData.get("password"),
@@ -21,7 +20,7 @@ form_login.onsubmit = async (e) => {
 
     let session = data.session;
     let user = data.user;
-    
+
     console.log(user);
 
     if (session != null) {
@@ -29,54 +28,37 @@ form_login.onsubmit = async (e) => {
         localStorage.setItem("access_token", session.access_token);
         localStorage.setItem("refresh_token", session.refresh_token);
 
-       
-      
+        // Save user id in local storage
+        localStorage.setItem("auth_id", user?.id);
 
-        // For role-based authentication; uncomment if you want to implement example: admin log-in
+        // Fetch user profiles
         let { data: profiles, error } = await supabase
             .from("profiles")
             .select("*")
-    
-         // Save user id in local storage
+            .eq("user_id", localStorage.getItem("auth_id"));
+
         localStorage.setItem("user_id", profiles[0].id);
         console.log(profiles[0].id);
 
+        // Redirect to home page after successful login
+        window.location.pathname = '/home.html';
 
-        if (session != null) {
-            const userRole = profiles[0].Role;
-            const userId = user.id;
-            window.location.pathname = '/home.html';
-    
-
-           /*  if (userRole === "Admin") {
-                window.location.pathname = '/dashboard.html';
-            } else if (userRole === "owner") {
-                // Redirect to owner dashboard
-                window.location.href= '/items.html';
-            } else if (userRole === "user") {
-                // Redirect to user dashboard or handle accordingly
-                window.location.pathname = '/home.html';
-            } else {
-                errorNotification("Sorry, wrong password.", 10);
-                console.log(error);
-            } */
-
-            successNotification("Login Successfully", 10);
-        }
+        successNotification("Login Successfully", 10);
     } else {
         errorNotification("Error Please Try again or check your password", 10);
         console.log(error);
     }
 
-    // Resetting form
+    // Reset form and enable login button
     form_login.reset();
-
     document.querySelector("#form_login button").disabled = false;
     document.querySelector("#form_login button").innerHTML = "Log-in";
 };
 
 forgot_pass.onsubmit = async (e) => {
     e.preventDefault();
+
+    // Disable submit button and show loading text
     document.querySelector("#forgot_pass button:nth-child(2)").disabled = true;
     document.querySelector("#forgot_pass button:nth-child(2)").innerHTML = `<span>Loading...</span>`;
 
@@ -96,26 +78,23 @@ forgot_pass.onsubmit = async (e) => {
         console.error("An unexpected error occurred:", error);
     }
 
-    // Modal Close
+    // Close modal, reset form, and enable submit button
     document.getElementById("modal_close").click();
-
-    // Reset Form
     forgot_pass.reset();
-
-    // Enable Submit Button
     document.querySelector("#forgot_pass button[type='submit']").disabled = false;
     document.querySelector("#forgot_pass button[type='submit']").innerHTML = `Loading..`;
 };
+
 function randomize(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  
-  document.addEventListener('DOMContentLoaded', function () {
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     var lavender = document.getElementById('lavender');
-  
+
+    // Rotate and move the lavender element randomly
     setInterval(function () {
-      lavender.style.transform = 'rotate(' + randomize(-5, 5) + 'deg)';
-      lavender.style.left = randomize(-5, 5) + 'px';
+        lavender.style.transform = 'rotate(' + randomize(-5, 5) + 'deg)';
+        lavender.style.left = randomize(-5, 5) + 'px';
     }, 3000); // Adjust the interval time as needed
-  });
-  
+});
