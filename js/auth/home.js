@@ -762,4 +762,3 @@ $(document).ready(function () {
 });
 const icon = document.getElementById('icon');
 
-
