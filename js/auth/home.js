@@ -303,6 +303,7 @@ async function getQuestions(keyword = "") {
               <div class="row">
                 <div class="col mt-3">
                   <h5>Show Profile...</h5>
+
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
                   <button class="btn d-flex mt-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#modal_heart">
@@ -329,6 +330,7 @@ async function getQuestions(keyword = "") {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -368,8 +370,10 @@ async function getQuestions(keyword = "") {
            </div>
            <div class="modal-body">
            <div class="mb-3">
+
            <label for="input_comment" class="form-label">Input:</label>
            <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
+
          </div>
            </div>
            <div class="modal-footer">
@@ -384,6 +388,7 @@ async function getQuestions(keyword = "") {
       <!-- end modal for Comments -->
       `;
   });
+
 
 
 
@@ -439,6 +444,7 @@ const insertComment = async (e, form) => {
 
   document.getElementById("indexContainer").innerHTML = questionContainer;
 
+
   for (let i = 0; i < questions.length; i++) {
     var showButton = document.getElementById(`showButton${i}`);
     showButton.onclick = function () {
@@ -447,8 +453,8 @@ const insertComment = async (e, form) => {
     };
 }
 
-// Shuffle function
-// Shuffle function
+
+
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -458,14 +464,17 @@ function shuffle(array) {
 }
 
 // Iterate over the shuffled questions
+
 questions.forEach((data, index) => {
   let commentWrapper = "";
   let showMoreLink = "";
   if (questionComments[data.id]) {
+
     // Shuffle comments for each question
     const shuffledComments = shuffle(questionComments[data.id]);
     const firstComment = shuffledComments[0];
     const remainingComments = shuffledComments.slice(1);
+
     const imagepath = firstComment.profiles.image_path;
     const username = firstComment.profiles.username;
     commentWrapper += `
@@ -655,8 +664,10 @@ const submit_heart = async (e) => {
 
 window.onload = function() {
   setTimeout(function() {
+
     window.scrollTo(0, 260);
   },1900); 
+
 }
 
 // rankbar
