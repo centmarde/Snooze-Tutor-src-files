@@ -303,7 +303,6 @@ async function getQuestions(keyword = "") {
               <div class="row">
                 <div class="col mt-3">
                   <h5>Show Profile...</h5>
-
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
                   <button class="btn d-flex mt-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#modal_heart">
@@ -330,7 +329,6 @@ async function getQuestions(keyword = "") {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -370,10 +368,8 @@ async function getQuestions(keyword = "") {
            </div>
            <div class="modal-body">
            <div class="mb-3">
-
            <label for="input_comment" class="form-label">Input:</label>
            <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
-
          </div>
            </div>
            <div class="modal-footer">
@@ -386,9 +382,31 @@ async function getQuestions(keyword = "") {
      </div>
     
       <!-- end modal for Comments -->
+
+      <!-- modal for delete comment-->
+    
+      <div class="modal fade" id="modal_comment_delete" tabindex="-1">
+       <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title text-center">Delete Question</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+           </div>
+           <div class="modal-body">
+             <p>Are you sure you want to delete this comment?
+             </p>
+           </div>
+           <div class="modal-footer">
+             <button type="button" id="modal_close_comment" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">No</button>
+             <button  type="button"  id="btn_delete_comment" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
+           </div>
+         </div>
+       </div>
+     </div>
+    
+      <!-- end modal for delete comment -->
       `;
   });
-
 
 
 
@@ -405,6 +423,8 @@ document.body.addEventListener("click", function(event) {
       insertComment(event, document.getElementById("form_comment"));
   }
 });
+
+
 
 
 const insertComment = async (e, form) => {
@@ -444,7 +464,6 @@ const insertComment = async (e, form) => {
 
   document.getElementById("indexContainer").innerHTML = questionContainer;
 
-
   for (let i = 0; i < questions.length; i++) {
     var showButton = document.getElementById(`showButton${i}`);
     showButton.onclick = function () {
@@ -453,8 +472,8 @@ const insertComment = async (e, form) => {
     };
 }
 
-
-
+// Shuffle function
+// Shuffle function
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -464,23 +483,25 @@ function shuffle(array) {
 }
 
 // Iterate over the shuffled questions
-
 questions.forEach((data, index) => {
   let commentWrapper = "";
   let showMoreLink = "";
+  
   if (questionComments[data.id]) {
-
-    // Shuffle comments for each question
     const shuffledComments = shuffle(questionComments[data.id]);
     const firstComment = shuffledComments[0];
     const remainingComments = shuffledComments.slice(1);
+    const { image_path, username, id: comment_id } = firstComment.profiles;
+    
+    localStorage.setItem("commentId", comment_id);
+   
 
-    const imagepath = firstComment.profiles.image_path;
-    const username = firstComment.profiles.username;
+    const deleteButton = (comment_id == userId) ? `<i class="d-flex justify-content-end me-2 fa fa-trash" aria-hidden="true"data-bs-toggle="modal" data-bs-target="#modal_comment_delete"><p>delete</p></i>` : '';
+
     commentWrapper += `
       <div class="col-2 my-1">
         <img
-          src="${itemsImageUrl + imagepath}"
+          src="${itemsImageUrl + image_path}"
           class="block my-2 border border-dark border-2 rounded-circle d-flex align-items-center"
           width="40px"
           height="40px"
@@ -488,38 +509,37 @@ questions.forEach((data, index) => {
       </div>
       <div class="col-10 my-1">
         <div class="card">
-          <div class="card-body p-0 ms-2">
+          <div class="col card-body p-0 ms-2">
             <b>${username}</b>
             <p>${firstComment.comment_text}</p>
+            ${deleteButton} 
           </div>
         </div>
       </div>`;
 
     if (remainingComments.length > 0) {
       showMoreLink = `<div class="col-12 my-1">
-        <a href="#" class="show-comments" data-index="${index}" style = "color: #2b1055;">Show more comments</a>
+        <a href="#" class="show-comments" data-index="${index}" style="color: #2b1055;">Show more comments</a>
       </div>`;
     }
   }
   document.getElementById(`commentWrapper${index}`).innerHTML = commentWrapper + showMoreLink;
 });
 
-
-
-// Add event listener to handle showing remaining comments
 document.querySelectorAll('.show-comments').forEach(anchor => {
   anchor.addEventListener('click', function(event) {
     event.preventDefault();
+    const comment_id = localStorage.getItem("commentId");
     const dataIndex = this.getAttribute('data-index');
     const remainingCommentWrapper = questionComments[questions[dataIndex].id]
       .slice(1)
       .map(comment => {
-        const imagePath = comment.profiles.image_path;
-        const userName = comment.profiles.username;
+        const { image_path, username, comment_text, id: comment_id } = comment.profiles;
+        const deleteButton = (comment_id == userId) ? `<i class="d-flex justify-content-end me-2  fa fa-trash" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modal_comment_delete"><p>delete</p></i>` : '';
         return `
           <div class="col-2 my-1">
             <img
-              src="${itemsImageUrl + imagePath}"
+              src="${itemsImageUrl + image_path}"
               class="block my-2 border border-dark border-2 rounded-circle d-flex align-items-center"
               width="40px"
               height="40px"
@@ -528,22 +548,44 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
           <div class="col-10 my-1">
             <div class="card">
               <div class="card-body p-0 ms-2">
-                <b>${userName}</b>
+                <b>${username}</b>
                 <p>${comment.comment_text}</p>
+                ${deleteButton} 
               </div>
             </div>
           </div>`;
       }).join('');
-    // Append the remaining comments
     document.getElementById(`commentWrapper${dataIndex}`).insertAdjacentHTML('beforeend', remainingCommentWrapper);
-    // Remove the anchor link
     this.parentElement.removeChild(this);
   });
 });
 
+
   
 }
+document.body.addEventListener("click", function(event) {
+  if (event.target.id === "btn_delete_comment") {
+    const data_index = event.target.getAttribute("data-index");
+    console.log(data_index);
+    /* deleteComment(data_index); */
+  }
+});
 
+
+
+
+//delete commment
+async function deleteComment(commentId) {
+  try {
+    const { error } = await supabase.from("comments").delete().eq("id", commentId);
+    successNotification("Comment Successfully Deleted!", 15);
+   /*  window.location.reload(); */
+  } catch (error) {
+    errorNotification("Something wrong happened. Cannot delete comment.", 15);
+    alert(error);
+    /* window.location.reload(); */
+  }
+}
 
 
 
@@ -664,10 +706,8 @@ const submit_heart = async (e) => {
 
 window.onload = function() {
   setTimeout(function() {
-
     window.scrollTo(0, 260);
   },1900); 
-
 }
 
 // rankbar
