@@ -420,28 +420,32 @@ async function getQuestions(keyword = "") {
     
       <!-- end modal for Comments -->
 
-      <!-- modal for delete comment-->
+     
+
+      <!-- modal for edit comment-->
     
-      <div class="modal fade" id="modal_comment_delete" tabindex="-1">
+      <div class="modal fade" id="modal_comment_edit" tabindex="-1">
        <div class="modal-dialog modal-dialog-centered">
          <div class="modal-content">
            <div class="modal-header">
-             <h5 class="modal-title text-center">Delete Question</h5>
+             <h5 class="modal-title text-center">Edit Question</h5>
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
            </div>
            <div class="modal-body">
-             <p>Are you sure you want to delete this comment?
-             </p>
+           <div class="mb-3">
+           <label for="input_comment" class="form-label">Input:</label>
+           <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
+         </div>
            </div>
            <div class="modal-footer">
              <button type="button" id="modal_close_comment" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">No</button>
-             <button  type="button" id="btn_delete_comment" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
+             <button  type="button" id="btn_edit_comment" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
            </div>
          </div>
        </div>
      </div>
     
-      <!-- end modal for delete comment -->
+      <!-- end modal for edit comment -->
       `;
       
   });
@@ -536,8 +540,12 @@ questions.forEach((data, index) => {
     localStorage.setItem("commentId", comment_id);
 
     const deleteButton = (comment_id == userId) ?
-      `<button type="button" class="btn btn-outline-danger btn-sm delete-comment" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_delete">
-        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+      `
+      <button type="button" class="me-2 btn btn-outline-dark btn-sm edit-comment" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_edit">
+        <i class="fa fa-trash" aria-hidden="true"></i>Edit
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-sm delete-comment" data-id="${id}">
+        <i class="me-2 fa fa-trash" aria-hidden="true"></i> Delete
       </button>` : '';
 
     commentWrapper += `
@@ -592,11 +600,15 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
 
         const deleteButton = (comment_id == userId) ? `
         <div class="d-flex justify-content-end me-1 mb-1">
-          <button type="button" class="btn btn-outline-danger btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_delete">
-            <i class="fa fa-trash" aria-hidden="true"></i>
+        <button type="button" class="btn btn-outline-dark btn-sm edit-comment me-2" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_edit">
+        <i class="fa fa-trash" aria-hidden="true"></i>Edit
+      </button>
+          <button type="button" class="btn btn-outline-danger btn-sm" data-id="${id}">
+            <i class="me-2 fa fa-trash" aria-hidden="true"></i>
             Delete
           </button>
-        </div>` : '';
+        </div>
+        ` : '';
         return `
           <div class="col-2 my-1">
             <img
@@ -635,17 +647,27 @@ document.body.addEventListener("click", function(event) {
   }
 });
 
+
 async function deleteComment(commentId) {
   try {
-    const { error } = await supabase.from("comments").delete().eq("id", commentId);
-    alert("Comment Successfully Deleted!");
-    window.location.reload();
+    const confirmed = confirm("Are you sure you want to delete this comment?");
+    if (confirmed) {
+      const { error } = await supabase.from("comments").delete().eq("id", commentId);
+      if (error) {
+        throw error;
+      }
+      alert("Comment Successfully Deleted!");
+      window.location.reload();
+    } else {
+      alert("Delete operation cancelled.");
+    }
   } catch (error) {
-   alert("Something wrong happened. Cannot delete comment.");
-    alert(error);
+    alert("Something wrong happened. Cannot delete comment.");
+    alert(error.message); // Display error message
     window.location.reload();
   }
 }
+
 
 
 
