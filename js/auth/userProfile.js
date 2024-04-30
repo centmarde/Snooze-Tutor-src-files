@@ -299,7 +299,7 @@ async function getDatas() {
       <div class="card justify-content-center" style="width: 100%" data-id="${data.id}" >
         <div class="card" style="width: 100%">
           <div class="card-body">
-            <h4 class="card-title">${data.tittle}</h4>
+            <h4 class="card-title">${data.title}</h4>
             <p class="card-text">
             ${data.question_text}
             </p>

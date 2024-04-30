@@ -20,6 +20,7 @@ function setRouter() {
     case "/help.html":
     case "/accept.html":
     case "/sets.html":
+    case "/home.html":
       // Allow access to items.html only if the user has the "Owner" or "Admin" role
       if (!isLoggedIn/*  || (userRole !== "user" && userRole !== "Admin") */) {
         window.location.pathname = "/index.html"; // redirect to home page if not logged in or not an owner/admin

@@ -263,6 +263,42 @@ async function getQuestions(keyword = "") {
       });
     }
 
+//randomizer only must change for future development
+    function getRandomNumber(min, max, option) {
+      if (option === 2) {
+        
+        const probabilities = [8, 7, 6, 5, 4, 3, 2, 1]; 
+        const totalProbability = probabilities.reduce((acc, val) => acc + val, 0);
+        const randomValue = Math.random() * totalProbability;
+        let cumulative = 0;
+        for (let i = 0; i < probabilities.length; ++i) {
+          cumulative += probabilities[i];
+          if (randomValue < cumulative) {
+            return i + min; 
+          }
+        }
+      } else {
+        return Math.floor(Math.random() * (max - min + 1)) + min; 
+      }
+    }
+    
+    
+    const options = ["9", "10", "11", "12", "13", "14",
+    "15", "16", "17", "18", "19", "20", "21",
+     "22", "23", "24", "25", "26", "27", "28",
+    "29", "30", "31", "32", "33", "34", "35",
+    ];
+    
+    
+    const randomIndex1 = Math.floor(Math.random() * options.length);
+    const randomIndex2 = getRandomNumber(1, 8, 2); 
+    
+   
+    const randomOption1 = options[randomIndex1];
+    const randomOption2 = randomIndex2.toString(); 
+//End of randomizer only must change for future development
+    
+    
     questionContainer += `
       <div class="col-lg-6 col-md-12 col-sm-12 justify-content-center mb-3">
         <div class="card hiddenAnimate2" data-id="${data.id}">
@@ -301,8 +337,9 @@ async function getQuestions(keyword = "") {
           <button type="button" id="showButton${index}" class="btn btn-dark"  style=" background-color:#2b1055;">Show Answer</button>
           </div>
               <div class="row">
-                <div class="col mt-3">
-                  <h5>Show Profile...</h5>
+                <div class="col d-flex mt-3">
+                <i id="happy" class="mt-1 fa fa-smile-o fa-2x" aria-hidden="true"></i><p class="ms-2 mt-2">${randomOption1}</p>
+                <i id="sad" class="mt-1 ms-4 fa fa-frown-o fa-2x" aria-hidden="true"></i><p class="ms-2 mt-2">${randomOption2}</p>
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
                   <button class="btn d-flex mt-3 justify-content-center" data-bs-toggle="modal" data-bs-target="#modal_heart">
@@ -398,7 +435,7 @@ async function getQuestions(keyword = "") {
            </div>
            <div class="modal-footer">
              <button type="button" id="modal_close_comment" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">No</button>
-             <button  type="button"  id="btn_delete_comment" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
+             <button  type="button" id="btn_delete_comment" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
            </div>
          </div>
        </div>
@@ -406,6 +443,7 @@ async function getQuestions(keyword = "") {
     
       <!-- end modal for delete comment -->
       `;
+      
   });
 
 
@@ -486,17 +524,21 @@ function shuffle(array) {
 questions.forEach((data, index) => {
   let commentWrapper = "";
   let showMoreLink = "";
-  
+
   if (questionComments[data.id]) {
     const shuffledComments = shuffle(questionComments[data.id]);
     const firstComment = shuffledComments[0];
     const remainingComments = shuffledComments.slice(1);
     const { image_path, username, id: comment_id } = firstComment.profiles;
-    
-    localStorage.setItem("commentId", comment_id);
-   
+    const { id } = firstComment;
 
-    const deleteButton = (comment_id == userId) ? `<i class="d-flex justify-content-end me-2 fa fa-trash" aria-hidden="true"data-bs-toggle="modal" data-bs-target="#modal_comment_delete"><p>delete</p></i>` : '';
+
+    localStorage.setItem("commentId", comment_id);
+
+    const deleteButton = (comment_id == userId) ?
+      `<button type="button" class="btn btn-outline-danger btn-sm delete-comment" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_delete">
+        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+      </button>` : '';
 
     commentWrapper += `
       <div class="col-2 my-1">
@@ -508,14 +550,15 @@ questions.forEach((data, index) => {
         />
       </div>
       <div class="col-10 my-1">
-        <div class="card">
-          <div class="col card-body p-0 ms-2">
-            <b>${username}</b>
-            <p>${firstComment.comment_text}</p>
-            ${deleteButton} 
-          </div>
-        </div>
-      </div>`;
+            <div class="card">
+              <div class="card-body p-0 ms-2">
+                <b>${username}</b>
+                <p>${firstComment.comment_text}</p>
+                <div class="d-flex justify-content-end mb-1 me-1"> ${deleteButton} </div>
+               
+              </div>
+            </div>
+          </div>`;
 
     if (remainingComments.length > 0) {
       showMoreLink = `<div class="col-12 my-1">
@@ -526,6 +569,16 @@ questions.forEach((data, index) => {
   document.getElementById(`commentWrapper${index}`).innerHTML = commentWrapper + showMoreLink;
 });
 
+// Add event listener for delete comment buttons
+document.body.addEventListener("click", function(event) {
+  if (event.target.classList.contains("delete-comment")) {
+    const comment_id = event.target.getAttribute("data-id");
+    console.log(comment_id);
+    /* deleteComment(comment_id); */
+  }
+});
+
+
 document.querySelectorAll('.show-comments').forEach(anchor => {
   anchor.addEventListener('click', function(event) {
     event.preventDefault();
@@ -534,11 +587,20 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
     const remainingCommentWrapper = questionComments[questions[dataIndex].id]
       .slice(1)
       .map(comment => {
-        const { image_path, username, comment_text, id: comment_id } = comment.profiles;
-        const deleteButton = (comment_id == userId) ? `<i class="d-flex justify-content-end me-2  fa fa-trash" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modal_comment_delete"><p>delete</p></i>` : '';
+        const { image_path, username, id: comment_id} = comment.profiles;
+        const { id,comment_text } = comment;
+
+        const deleteButton = (comment_id == userId) ? `
+        <div class="d-flex justify-content-end me-1 mb-1">
+          <button type="button" class="btn btn-outline-danger btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal_comment_delete">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            Delete
+          </button>
+        </div>` : '';
         return `
           <div class="col-2 my-1">
             <img
+              data-id="${id}"
               src="${itemsImageUrl + image_path}"
               class="block my-2 border border-dark border-2 rounded-circle d-flex align-items-center"
               width="40px"
@@ -549,7 +611,7 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
             <div class="card">
               <div class="card-body p-0 ms-2">
                 <b>${username}</b>
-                <p>${comment.comment_text}</p>
+                <p>${comment_text}</p>
                 ${deleteButton} 
               </div>
             </div>
@@ -563,29 +625,28 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
 
   
 }
+
+
 document.body.addEventListener("click", function(event) {
-  if (event.target.id === "btn_delete_comment") {
-    const data_index = event.target.getAttribute("data-index");
-    console.log(data_index);
-    /* deleteComment(data_index); */
+  if (event.target.classList.contains("btn-outline-danger")) {
+    const data_id = event.target.getAttribute("data-id");
+    console.log(data_id);
+    deleteComment(data_id);
   }
 });
 
-
-
-
-//delete commment
 async function deleteComment(commentId) {
   try {
     const { error } = await supabase.from("comments").delete().eq("id", commentId);
-    successNotification("Comment Successfully Deleted!", 15);
-   /*  window.location.reload(); */
+    alert("Comment Successfully Deleted!");
+    window.location.reload();
   } catch (error) {
-    errorNotification("Something wrong happened. Cannot delete comment.", 15);
+   alert("Something wrong happened. Cannot delete comment.");
     alert(error);
-    /* window.location.reload(); */
+    window.location.reload();
   }
 }
+
 
 
 
@@ -812,4 +873,5 @@ $(document).ready(function () {
   });
 });
 const icon = document.getElementById('icon');
+
 
