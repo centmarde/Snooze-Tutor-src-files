@@ -20,12 +20,12 @@ form_item.onsubmit = async (e) => {
   /* update */
   if (for_update_id == "") {
     const { data, error } = await supabase
-      .from("user_information")
+      .from("profiles")
       .insert([
         {
           firstname: formData.get("firstname"),
-          password: formData.get("password"),
-          Role: formData.get("Role"),
+          /* password: formData.get("password"),
+          Role: formData.get("Role"), */
         },
       ])
       .select();
@@ -78,7 +78,7 @@ document.querySelector("#form_item button[type='submit']").innerHTML = `Submit`;
 async function getDatas(keyword = "") {
   // Get all rows
   let { data: user_information, error } = await supabase
-    .from("user_information")
+    .from("profiles")
     .select("*")
     .or("firstname.ilike.%" + keyword + "%, lastname.ilike.%" + keyword + "%");
 
@@ -89,31 +89,33 @@ async function getDatas(keyword = "") {
         <thead>
           <tr>
             <th scope="col">id</th>
+            <th scope="col">username</th>
             <th scope="col">firstname</th>
-            <th scope="col">password</th>
-            <th scope="col">role</th>
+            <th scope="col">Role</th>
           </tr>
         </thead>
         <tbody>
           <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
           <tr class = "text-start" >
-            <th scope="row">${user_info.username}</th>
+            <th scope="row">${user_info.id}</th>
+            <td>${user_info.username}</td>
             <td>${user_info.firstname}</td>
-            <td>${user_info.password}</td>
-            <td>${user_info.Role}
-            </div>
-                       <div class="dropdown float-end">
-                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item shadow pb-3 text-start" href="#" id="btn_edit" data-id="${user_info.id}">Edit</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item pb-3 text-start" id="btn_delete" data-id="${user_info.id}">Delete</a>
-                                </li>
-                            </ul>
-                        </div>
+            <td class="text-start">${user_info.likes} <div class="dropdown float-end">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item shadow pb-3 text-start" href="#" id="btn_edit" data-id="${user_info.id}">Edit</a>
+                </li>
+                <li>
+                    <a class="dropdown-item pb-3 text-start" id="btn_delete" data-id="${user_info.id}">Delete</a>
+                </li>
+            </ul>
+        </div>
+</div></td>
+           
+                       
                 </td>
+                
           </tr>
         </tbody>
       </table>
@@ -133,6 +135,7 @@ async function getDatas(keyword = "") {
 
 const deleteAction = async (e) => {
   const id = e.target.getAttribute("data-id");
+  console.log(id);
 
   // Display a confirmation dialog
   const isConfirmed = window.confirm(
@@ -141,7 +144,7 @@ const deleteAction = async (e) => {
 
   if (isConfirmed) {
     const { error } = await supabase
-      .from("user_information")
+      .from("profiles")
       .delete()
       .eq("id", id);
 
@@ -162,21 +165,22 @@ let for_update_id = "";
 
 const editAction = async (e) => {
   const id = e.target.getAttribute("data-id");
+  console.log(id);
 
   // Supabase show by id
-  let { data: profiles, error } = await supabase
+  let { data: profiledata, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", id);
 
   if (error == null) {
     // Store id to a variable; id will be utilized for update
-    for_update_id = profiles[0].id;
+    for_update_id = profiledata[0].id;
 
     // Assign values to the form
-    document.getElementById("firstname").value = profiles[0].firstname;
-    document.getElementById("password").value = profiles[0].password;
-    document.getElementById("Role").value = profiles[0].Role;
+    document.getElementById("firstname").value = profiledata[0].firstname;
+    document.getElementById("codename").value = profiledata[0].username;
+    /* document.getElementById("Role").value = profiles[0].Role; */
 
     // Change Button Text using textContent; either innerHTML or textContent is fine here
     document.querySelector("#form_item button[type='submit']").textContent =

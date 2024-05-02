@@ -436,7 +436,7 @@ const editAction_question = async (e) => {
     update_questions = questions[0].id;
 
     // Assign values to the form
-    document.getElementById("tittle").value = questions[0].tittle;
+    document.getElementById("tittle").value = questions[0].title;
     document.getElementById("question_text").value = questions[0].question_text;
     document.getElementById("answer_text").value = questions[0].answer_text;
     
@@ -477,7 +477,7 @@ form_modal_questions_edit.onsubmit = async (e) => {
       .from("questions")
       .insert([
         {
-          tittle: formData.get("tittle"),
+          title: formData.get("tittle"),
           question_text: formData.get("question_text"),
           answer_text: formData.get("answer_text"),
         },

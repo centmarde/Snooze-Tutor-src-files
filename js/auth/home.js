@@ -405,9 +405,9 @@ async function getQuestions(keyword = "") {
            </div>
            <div class="modal-body">
            <div class="mb-3">
-           <label for="input_comment" class="form-label">Input:</label>
-           <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
-         </div>
+          <label for="input_comment" class="form-label">Input:</label>
+          <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
+        </div>
            </div>
            <div class="modal-footer">
              <button type="button" id="modal_close_heart" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">Cancel</button>
@@ -434,7 +434,7 @@ async function getQuestions(keyword = "") {
            <div class="modal-body">
            <div class="mb-3">
            <label for="input_comment" class="form-label">Input:</label>
-           <textarea class="form-control" name="input_comment" id="input_comment" rows="3"></textarea>
+           <textarea class="form-control" name="input_comment" id="input_comment_text" rows="3"></textarea>
          </div>
            </div>
            <div class="modal-footer">
@@ -577,14 +577,7 @@ questions.forEach((data, index) => {
   document.getElementById(`commentWrapper${index}`).innerHTML = commentWrapper + showMoreLink;
 });
 
-// Add event listener for delete comment buttons
-document.body.addEventListener("click", function(event) {
-  if (event.target.classList.contains("delete-comment")) {
-    const comment_id = event.target.getAttribute("data-id");
-    console.log(comment_id);
-    /* deleteComment(comment_id); */
-  }
-});
+
 
 
 document.querySelectorAll('.show-comments').forEach(anchor => {
@@ -638,6 +631,22 @@ document.querySelectorAll('.show-comments').forEach(anchor => {
   
 }
 
+// Add event listener for delete comment buttons
+// document.body.addEventListener("click", function(event) {
+//   if (event.target.classList.contains("delete-comment")) {
+//     const comment_id = event.target.getAttribute("data-id");
+//     console.log(comment_id);
+//     deleteComment(comment_id);
+//   }
+// });
+
+document.body.addEventListener("click", function(event) {
+  if (event.target.classList.contains("edit-comment")) {
+    const edit_id = event.target.getAttribute("data-id");
+    console.log(edit_id);
+    editComment(edit_id);
+  }
+});
 
 document.body.addEventListener("click", function(event) {
   if (event.target.classList.contains("btn-outline-danger")) {
@@ -667,6 +676,27 @@ async function deleteComment(commentId) {
     window.location.reload();
   }
 }
+
+let for_edit = "";
+const editComment = async (edit_id) => {
+ 
+
+  let { data: comments, error } = await supabase
+    .from("comments")
+    .select("*")
+    .eq("id", edit_id);
+
+  if (error == null) {
+   
+    for_edit = comments[0].id;
+
+    document.getElementById("input_comment_text").value = comments[0].comment_text;
+ 
+  } else {
+    errorNotification("Something wrong happened. Cannot show item.", 15);
+    console.log(error);
+  }
+};
 
 
 
