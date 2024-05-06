@@ -498,7 +498,7 @@ form_modal_questions_edit.onsubmit = async (e) => {
     const { data, error } = await supabase
       .from("questions")
       .update({
-        tittle: formData.get("tittle"),
+        title: formData.get("title"),
         question_text: formData.get("question_text"),
         answer_text: formData.get("answer_text"),
       })

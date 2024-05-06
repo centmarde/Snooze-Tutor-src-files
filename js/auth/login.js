@@ -7,9 +7,8 @@ form_login.onsubmit = async (e) => {
     e.preventDefault();
 
     // Disable login button and show loading spinner
-    document.querySelector("#form_login button").disabled = true;
-    document.querySelector("#form_login button").innerHTML = `<div class="spinner-border me-2" role="status"></div><span>Loading...</span>`;
-
+    document.querySelector("#login_button").disabled = true;
+    document.querySelector("#login_button").innerHTML = `<div class="spinner-border spinner-border-sm me-2" role="status"></div><span>Loading...</span>`;
     const formData = new FormData(form_login);
 
     // Supabase sign-in

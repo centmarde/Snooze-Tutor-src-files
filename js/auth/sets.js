@@ -5,6 +5,29 @@ import {
   doLogout,
 } from "../main";
 
+
+document.body.addEventListener("click", function (event) {
+  if (event.target.id === "btn_logout") { 
+      // Disable the button and show loading spinner
+      document.querySelector("#btn_logout").disabled = true;
+      document.querySelector("#btn_logout").innerHTML = `<div class="spinner-border spinner-border-sm me-2" role="status"></div><span>Loading...</span>`;
+      
+     
+      doLogout().then(() => {
+          // Re-enable ang button then change sa text
+          document.querySelector("#btn_logout").disabled = false;
+          document.querySelector("#btn_logout").innerHTML = "Log-in";
+      }).catch((error) => {
+         
+          console.error("Logout failed:", error);
+          // in case of error
+          document.querySelector("#btn_logout").disabled = false;
+        
+          document.querySelector("#btn_logout").innerHTML = "Log-in";
+      });
+  }
+});
+
 //start of sets navigation
 $(document).ready(function () {
   // Function to get URL parameters
@@ -26,18 +49,14 @@ $(document).ready(function () {
 
 //end of sets navigation
 const form_search = document.getElementById("form_search");
-const btn_logout = document.getElementById("btn_logout");
+
 const itemsImageUrl =
   "https://plsyfklzwmasyypcuwei.supabase.co/storage/v1/object/public/profilePic/";
 const userId = localStorage.getItem("user_id");
 const form_set_creation = document.getElementById("form_set_creation");
 const form_set_making = document.getElementById("form_set_making");
 getSet();
-btn_logout.onclick = doLogout;
-document.querySelector("#btn_logout button").disabled = true;
-document.querySelector(
-  "#btn_logout button" //logout button script
-).innerHTML = `<span>Loading...</span>`;
+
 
 // start of search functionality
 form_search.onsubmit = async (e) => {
@@ -336,10 +355,7 @@ newPage.addEventListener("click", () => {
   document.getElementById("btn_close2").click();
 });
 
-document.querySelector("#btn_logout button[type='button']").disabled = false;
-document.querySelector(
-  "#btn_logout button[type='button']"
-).innerHTML = `Log-Out`;
+
 
 document.getElementById("finnishButton").addEventListener("click", function () {
   // Get the current value of the counter
