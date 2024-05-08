@@ -40,9 +40,10 @@ form_login.onsubmit = async (e) => {
         console.log(profiles[0].id);
 
         // Redirect to home page after successful login
+        successNotification("Login Successfully", 10);
         window.location.pathname = '/home.html';
 
-        successNotification("Login Successfully", 10);
+       
     } else {
         errorNotification("Error Please Try again or check your password", 10);
         console.log(error);
@@ -96,4 +97,19 @@ document.addEventListener('DOMContentLoaded', function () {
         lavender.style.transform = 'rotate(' + randomize(-5, 5) + 'deg)';
         lavender.style.left = randomize(-5, 5) + 'px';
     }, 3000); // Adjust the interval time as needed
+});
+
+document.getElementById('togglePassword').addEventListener('click', function () {
+    var passField = document.getElementById('floatingPass');
+    var icon = document.getElementById('togglePassword');
+    
+    if (passField.type === 'password') {
+        passField.type = 'text';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    } else {
+        passField.type = 'password';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    }
 });

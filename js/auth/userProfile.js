@@ -423,7 +423,10 @@ const deleteQuestion = async (e) => {
       className: "centered-toast",
       onClick: function(){} // Callback after click
     }).showToast();
-   /*  window.location.reload(); */
+    setTimeout(function() {
+      window.location.reload();
+    }, 1500);
+    
   } catch (error) {
     errorNotification("Something wrong happened. Cannot delete item.", 15);
     Toastify({
@@ -437,7 +440,10 @@ const deleteQuestion = async (e) => {
       className: "centered-toast",
       onClick: function(){} // Callback after click
     }).showToast();
-    /* window.location.reload(); */
+    setTimeout(function() {
+      window.location.reload();
+    }, 1500);
+   
   }
 };
 

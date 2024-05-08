@@ -424,3 +424,18 @@ section::before
   font-family: "Style Script", cursive;
   font-size: 20px; /* Change the font size to make it bigger */
 }
+#togglePassword{
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+#togglePassword1{
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+#togglePassword2{
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}

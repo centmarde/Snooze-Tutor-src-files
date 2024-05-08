@@ -16,14 +16,14 @@ document.body.addEventListener("click", function (event) {
       doLogout().then(() => {
           // Re-enable ang button then change sa text
           document.querySelector("#btn_logout").disabled = false;
-          document.querySelector("#btn_logout").innerHTML = "Log-in";
+          document.querySelector("#btn_logout").innerHTML = "Log-Out";
       }).catch((error) => {
          
           console.error("Logout failed:", error);
           // in case of error
           document.querySelector("#btn_logout").disabled = false;
         
-          document.querySelector("#btn_logout").innerHTML = "Log-in";
+          document.querySelector("#btn_logout").innerHTML = "Log-Out";
       });
   }
 });
