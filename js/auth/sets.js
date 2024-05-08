@@ -250,7 +250,17 @@ let setIdPromise = new Promise((resolve, reject) => {
       if (error) {
         throw error.message; // Throw error message if there's an error
       } else {
-        alert("Set Successfully Added!");
+        Toastify({
+          text: `set ${title} created successfully!`,
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "center", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          className: "centered-toast",
+          onClick: function(){} // Callback after click
+        }).showToast();
 
         // Get the ID of the newly inserted set
         const setId = data[0].id;

@@ -503,10 +503,30 @@ const insertComment = async (e, form) => {
 
       if (commentError) {
           
-          alert("Error occurred while adding comment. Please try again.");
+        Toastify({
+          text: "error occurred while deleting comment. Please try again.",
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "center", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          className: "centered-toast",
+          onClick: function(){} // Callback after click
+        }).showToast();
       } else {
           
-          alert("Comment added successfully!");
+        Toastify({
+          text: "comment added successfully.",
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "center", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          className: "centered-toast",
+          onClick: function(){} // Callback after click
+        }).showToast();
 
           
           location.reload();
@@ -514,7 +534,17 @@ const insertComment = async (e, form) => {
   } catch (error) {
       
       console.error("Error:", error);
-      alert("An unexpected error occurred. Please try again later.");
+      Toastify({
+        text: "unexpected error occurred. Please try again.",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        className: "centered-toast",
+        onClick: function(){} // Callback after click
+      }).showToast();
   }
 };
 
@@ -680,14 +710,44 @@ async function deleteComment(commentId) {
       if (error) {
         throw error;
       }
-      alert("Comment Successfully Deleted!");
+      Toastify({
+        text: "Comment deleted successfully.",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        className: "centered-toast",
+        onClick: function(){} // Callback after click
+      }).showToast();
       window.location.reload();
     } else {
-      alert("Delete operation cancelled.");
+      Toastify({
+        text: "deletion aborted.",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        className: "centered-toast",
+        onClick: function(){} // Callback after click
+      }).showToast();
     }
   } catch (error) {
-    alert("Something wrong happened. Cannot delete comment.");
-    alert(error.message); // Display error message
+    Toastify({
+      text: "something wrong happened. Cannot delete comment.",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      className: "centered-toast",
+      onClick: function(){} // Callback after click
+    }).showToast();
+   
     window.location.reload();
   }
 }

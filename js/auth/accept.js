@@ -81,7 +81,17 @@ async function getPages() {
 function lockInAnswer(dataset) {
   const selectedChoice = document.querySelector('input[type="radio"]:checked');
   if (!selectedChoice) {
-    alert("Please select a choice before proceeding.");
+    Toastify({
+      text: "please select a choice before proceeding.",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      className: "centered-toast",
+      onClick: function(){} // Callback after click
+    }).showToast();
     return;
   }
 
@@ -118,13 +128,34 @@ function lockInAnswer(dataset) {
         document.getElementById("choiceD").innerHTML = "";
       }
     } else {
-      alert("End of dataset reached.");
+      Toastify({
+        text: "end of dataset reached",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "center", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        className: "centered-toast",
+        onClick: function(){} // Callback after click
+      }).showToast();
       localStorage.setItem('userSelections', JSON.stringify(userSelections)); // Convert to JSON string before storing
       $("#form_celebration").modal("show");
       // Optionally, reset currentIndex or handle the end of the dataset
     }
   } else {
-    alert("Process aborted.");
+    Toastify({
+      text: "Question not locked in",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "center", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      className: "centered-toast",
+      onClick: function(){} // Callback after click
+    }).showToast();
+    
   }
 
   console.log(userSelections);

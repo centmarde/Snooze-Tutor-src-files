@@ -53,7 +53,17 @@ form_register.onsubmit = async (e) => {
                 console.log(error);
             }
             else {
-                 alert(`Error: ${error.message}`, 10);
+                Toastify({
+                    text: `Error: ${error.message}`,
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    className: "centered-toast",
+                    onClick: function(){} // Callback after click
+                  }).showToast();
             }
             form_register.reset();
             //button loading after succes registration
@@ -61,7 +71,17 @@ form_register.onsubmit = async (e) => {
             document.querySelector("#form_register button").innerHTML = "Register";
         }
         else{
-            alert(`Error: ${error.message}`, 10);
+            Toastify({
+                text: `Error: ${error.message}`,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "center", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                className: "centered-toast",
+                onClick: function(){} // Callback after click
+              }).showToast();
         }
     }
     else {
