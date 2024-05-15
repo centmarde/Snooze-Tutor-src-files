@@ -95,7 +95,7 @@ function lockInAnswer(dataset) {
     return;
   }
 
-  const confirmation = confirm("Lock in answer?");
+  const confirmation = confirm("Are you sure?");
   if (confirmation) {
     if (currentIndex < dataset.length - 1) {
       currentIndex++;

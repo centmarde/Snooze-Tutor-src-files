@@ -176,7 +176,7 @@ async function getDatas() {
 
     profiles.forEach((user_info) => {
       //Dynamic Navbar para mag baylo2 base sa ga log-in na user
-      container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">profile</h4>`;
+      container += `<h4 class="mt-2" data-id="${user_info.username}">${user_info.username}'s  </h4><h4 class="mt-2 ms-2">Profile</h4>`;
       //Dyanimc data sa User tanan makita nimo sa userprofile na info naa direa
       UniversalContainer += `<div id="box"class="row d-flex justify-content-center p-2">
             <div id="t1" class="col-lg-6 col-md-6 col-sm-12">
@@ -202,7 +202,7 @@ async function getDatas() {
                   data-bs-target="#form_modal"
                   style=" background-color: #2b1055; color: white;"
                 >
-                  Edit Info
+                  Edit info
                 </button>
                 <!-- End Button trigger modal  -->
               </div>
@@ -266,8 +266,8 @@ async function getDatas() {
       <div class="row">
       <div class="col">
       <div class="mt-2">Username: ${user_info.username}</div>
-     <div class="mt-2">FirstName: ${user_info.firstname}</div>
-     <div class="mt-2">LastName: ${user_info.lastname}</div>
+     <div class="mt-2">First Name: ${user_info.firstname}</div>
+     <div class="mt-2">Last Name: ${user_info.lastname}</div>
      <div class="mt-2">Mobile Number: ${user_info.mobile_no}</div>
      <div class="mt-2">About: ${user_info.about}</div>
      </div>
@@ -285,7 +285,7 @@ async function getDatas() {
       lastsignInContainer += `<p class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
       <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
       <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-    </svg> Last Sign In:<br> ${sign_in.last_sign_in_at
+    </svg> Last sign in:<br> ${sign_in.last_sign_in_at
       .replace(/T/g, " ")
       .replace(/\..+/g, "")}</p>`;
     });
@@ -638,7 +638,7 @@ document.body.addEventListener("click", function (event) {
       console.log(id);
     
       const isConfirmed = window.confirm(
-        "Are you sure you want to delete question?"
+        "Are you sure you want to delete this set?"
       );
     
       // Check if the user has confirmed the deletion

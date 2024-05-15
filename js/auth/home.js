@@ -78,7 +78,7 @@ async function getterAllquestions() {
     container += `<p class="mt-2 text-center" data-id="${data_s.id}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond me-2" viewBox="0 0 16 16">
     <path d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.48 1.48 0 0 1 0-2.098zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
     <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
-  </svg>Total Questions: ${count}</p>`;
+  </svg>Total Question/s: ${count}</p>`;
   });
   
   // Assuming you have a container in your HTML with an id, for example, "userContainer"
@@ -99,7 +99,7 @@ async function getterUserQuestions() {
   questions.forEach((data_s) => {
     container += `<p class="mt-2" data-id="${data_s.id}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill me-2" viewBox="0 0 16 16">
     <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM5.495 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927"/>
-  </svg>Your Questions: ${count}</p>`;
+  </svg>Your Question/s: ${count}</p>`;
   });
   
   // Assuming you have a container in your HTML with an id, for example, "userContainer"
@@ -396,12 +396,12 @@ async function getQuestions(keyword = "") {
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
        </div>
        <div class="modal-body">
-         <p>Submiting a heart helps 🥰🥰🥰🥰
+         <p>Submit a heart! ❤
          </p>
        </div>
        <div class="modal-footer">
          <button type="button" id="modal_close_heart" class="btn" data-bs-dismiss="modal" style="background-color: #e00909; color: white;">No</button>
-         <button type="submit" data-id ="${data.id}" id="btn_heart" class="btn" style="background-color: #2b1055; color: white;" >Submit 1Heart</button>
+         <button type="submit" data-id ="${data.id}" id="btn_heart" class="btn" style="background-color: #2b1055; color: white;" >Yes</button>
        </div>
      </div>
    </div>
@@ -888,8 +888,12 @@ const submit_heart = async (e) => {
   }
 
   successNotification("Heart Successfully Added!", 15);
-  document.getElementById("modal_close_heart").click();
+document.getElementById("modal_close_heart").click();
+
+
+setTimeout(() => {
   window.location.reload();
+}, 1300);
 };
 
 window.onload = function() {
@@ -929,7 +933,7 @@ async function updateRankBar() {
     if (percentage >= 100) {
       // Define the ranks progression
       const rankProgression = {
-        "newbie": "junior",
+        "Newbie": "junior",
         "junior": "Senior",
         "Senior": "juniorOfficer",
         "juniorOfficer": "SeniorOfficer",

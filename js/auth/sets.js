@@ -136,7 +136,7 @@ async function getSet(keyword = "") {
                   ></button>
                 </div>
                 <div class="container">
-                  <h2 class="text-center">Accept Questioner Set?</h2>
+                  <h2 class="text-center">Accept a Questionnaire Set?</h2>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                   <button

@@ -42,7 +42,7 @@ form_register.onsubmit = async (e) => {
       //if succes registration condition
       if (error == null) {
         successNotification(
-          "Register Successfully please verify your email.<a href = './login.html'>Click Here to Log-in!</a>",
+          "Register Successfully please verify your email. <a href = './login.html'>Click Here!</a>",
           10
         );
         console.log(data);
